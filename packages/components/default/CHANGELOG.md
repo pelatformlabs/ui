@@ -1,5 +1,11 @@
 # @pelatform/ui.default
 
+## 0.1.10
+
+### Patch Changes
+
+- [`d058c6d`](https://github.com/pelatformlabs/ui/commit/d058c6d3b9fc16d97eff995b7377d9349d482c8b) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update react-resizable-panels to v4.1.1
+
 ## 0.1.9
 
 ### Patch Changes

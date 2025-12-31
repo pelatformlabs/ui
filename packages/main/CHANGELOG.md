@@ -1,5 +1,14 @@
 # pelatform-ui
 
+## 1.1.12
+
+### Patch Changes
+
+- [`d058c6d`](https://github.com/pelatformlabs/ui/commit/d058c6d3b9fc16d97eff995b7377d9349d482c8b) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update server utils imports to use server subpath
+
+- Updated dependencies [[`d058c6d`](https://github.com/pelatformlabs/ui/commit/d058c6d3b9fc16d97eff995b7377d9349d482c8b)]:
+  - @pelatform/ui.default@0.1.10
+
 ## 1.1.11
 
 ### Patch Changes
