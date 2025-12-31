@@ -81,10 +81,14 @@ ui/
 **@pelatform/mcp.ui** (`packages/mcp/`)
 
 - Model Context Protocol (MCP) server for Pelatform UI documentation and code assistance
-- Private package, not published to npm
+- Private package (not published to npm)
 - Binary: `pelatform-mcp-ui`
+- Built with TypeScript, no bundler (direct tsc compilation)
+- Dependencies: @modelcontextprotocol/sdk, glob, zod
 
-Shared TypeScript configurations provided via external `@pelatform/tsconfig`.
+**External Dependencies**
+
+Shared TypeScript configurations provided via external `@pelatform/tsconfig` (not in this monorepo).
 
 **@pelatform/ui.animation** (`packages/components/animation/`)
 
@@ -154,6 +158,49 @@ Shared TypeScript configurations provided via external `@pelatform/tsconfig`.
 - **"use client" Banner**: Component packages (animation, aria, base, default) add `"use client";` via tsup banner for Next.js compatibility
 - **Multi-Entry Builds**: Main package uses multiple tsup entry points to produce separate exports (animation, aria, base, default, hooks, components, server)
 
+**Build Configurations**
+
+Core packages (`@pelatform/ui.general`, `@pelatform/ui.hook`):
+
+```typescript
+// Standard tsup config - single entry point
+entry: ["./src/index.ts"];
+external: ["react"];
+```
+
+Component packages (`@pelatform/ui.animation`, `@pelatform/ui.aria`, `@pelatform/ui.base`, `@pelatform/ui.default`):
+
+```typescript
+// Adds "use client" banner for Next.js compatibility
+banner: {
+  js: '"use client";';
+}
+entry: ["./src/index.ts"];
+external: ["react"];
+```
+
+Main package (`pelatform-ui`):
+
+```typescript
+// Multi-entry build for organized exports
+entry: [
+  "./src/index.ts", // Main entry
+  "./src/animation.ts", // Animation re-exports
+  "./src/aria.ts", // ARIA re-exports
+  "./src/base.ts", // Base re-exports
+  "./src/default.ts", // Default re-exports
+  "./src/hooks.ts", // Hooks re-exports
+  "./src/components.ts", // Components re-exports
+  "./src/server.ts", // Server utilities
+];
+```
+
+MCP package (`@pelatform/mcp.ui`):
+
+- Uses direct TypeScript compilation (`tsc`) instead of tsup
+- No external dependencies bundling
+- Produces binary executable for MCP server
+
 ### Code Style (Biome)
 
 Configuration: `biome.jsonc` - Extends `@pelatform/biome-config/base`
@@ -193,6 +240,12 @@ Examples:
 
 Configuration: `.commitlintrc.cjs` - Extends `@commitlint/config-conventional` with custom types
 
+**Commitlint Configuration**:
+
+- Allows both "feat" and "feature" as type aliases
+- Enforces header max length rules
+- Plugins: commitlint-plugin-function-rules for custom validation
+
 ## Package Development
 
 ### Adding a New Package
@@ -214,6 +267,23 @@ Configuration: `.commitlintrc.cjs` - Extends `@commitlint/config-conventional` w
    - Add `banner: { js: '"use client";' }` to tsup.config.ts
    - This is required for animation, aria, base, and default component packages
 6. Configure peer dependencies for shared libraries to avoid bundling duplication
+7. Add package scripts to `package.json`:
+   ```json
+   "scripts": {
+     "clean": "rimraf dist",
+     "clean:all": "rimraf .turbo dist node_modules",
+     "dev": "tsup --watch",
+     "build": "tsup",
+     "types:check": "tsc --noEmit"
+   }
+   ```
+
+**Package Categories**
+
+- **Core packages** (`packages/core/`): Utilities, hooks, foundational code (use tsup, single entry)
+- **Component packages** (`packages/components/`): UI components (use tsup with "use client" banner)
+- **Main package** (`packages/main/`): Aggregate entry point (use tsup with multi-entry)
+- **MCP/special packages** (`packages/mcp/`): Special-purpose packages (may use tsc directly)
 
 ### Working on Individual Packages
 
@@ -270,14 +340,42 @@ This monorepo uses workspace protocol for internal dependencies. In package.json
 
 Configuration: `.changeset/config.json` - Uses main branch, public access, patches internal dependencies
 
+**Publishing Process** (`scripts/publish.sh`):
+
+- Finds all `package.json` files in `packages/` directory
+- Skips private packages (those with `"private": true`)
+- Runs `bun publish` for each public package
+- Creates Git tags using `changeset tag`
+- Non-blocking: continues even if individual package publish fails
+
+**Version Management**:
+
+- Run `bun run version` to update package versions based on changesets
+- This runs `changeset version` and updates workspace dependencies with `bun update`
+
 ## Important Notes
 
 - **Package Manager**: Must use Bun 1.3.5+ (defined in packageManager field as `bun@1.3.5`)
 - **Node Version**: Requires Node.js 22+ (defined in engines.field)
 - **Biome**: Used exclusively for linting and formatting (no ESLint/Prettier); extends `@pelatform/biome-config/base`
-- **Turbo**: Caches builds, runs tasks in dependency order
+- **Turbo**: Caches builds, runs tasks in dependency order, configured in `turbo.json`
 - **React Version**: Uses React 19.2.0; peer dependencies support React >=18.0.0 || >=19.0.0-rc.0
 - **TypeScript**: Version 5.9.3, strict mode enforced; extends external `@pelatform/tsconfig`
 - **Git Hooks**: Husky is configured (`bun prepare` installs hooks automatically)
 - **Lint-Staged**: Configured at both root and package level for pre-commit checks
 - **Commitlint**: Enforces conventional commit format via `.commitlintrc.cjs`
+- **Testing**: This project does not currently have automated tests; type-checking (`bun types:check`) serves as the primary validation
+
+**Turbo Task Configuration** (`turbo.json`):
+
+- `build`: Depends on `^build`, outputs to `dist/` directories
+- `dev`: No caching, persistent mode for watch processes
+- `types:check`: Depends on `^build`, no outputs
+- `lint`: Runs in all packages
+- `clean`/`clean:all`: No caching, non-persistent
+
+**Workspace Dependencies**:
+
+- Use `workspace:*` protocol for internal package references
+- Changesets updates internal dependencies with patch versions
+- Run `bun update` after versioning to sync workspace references
