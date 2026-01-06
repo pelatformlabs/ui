@@ -58,7 +58,7 @@
     "@pelatform/tsconfig": "^0.1.4",
     "@pelatform/ui.general": "workspace:*",
     "@pelatform/ui.hook": "workspace:*",
-    "@pelatform/utils": "^1.0.7",
+    "@pelatform/utils": "^1.0.8",
     "@radix-ui/react-dialog": "^1.1.15",
     "@types/react": "^19.2.7",
     "lucide-react": "^0.562.0",
