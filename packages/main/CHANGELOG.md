@@ -1,5 +1,11 @@
 # pelatform-ui
 
+## 1.1.14
+
+### Patch Changes
+
+- [`40396b5`](https://github.com/pelatformlabs/ui/commit/40396b56ce7f977abe0ac0d614b98e1010249df2) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update @pelatform/utils to v1.0.9
+
 ## 1.1.13
 
 ### Patch Changes
