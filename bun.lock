@@ -172,7 +172,7 @@
     },
     "packages/main": {
       "name": "pelatform-ui",
-      "version": "1.1.12",
+      "version": "1.1.13",
       "dependencies": {
         "@pelatform/ui.animation": "workspace:*",
         "@pelatform/ui.aria": "workspace:*",
