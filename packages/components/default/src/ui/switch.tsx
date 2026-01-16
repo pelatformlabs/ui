@@ -22,8 +22,8 @@ const useSwitchContext = () => {
 // Define classes for variants
 const switchVariants = cva(
   `
-    relative peer inline-flex shrink-0 cursor-pointer items-center rounded-full transition-colors 
-    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background 
+    relative peer inline-flex shrink-0 cursor-pointer items-center rounded-full transition-colors
+    focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background
     disabled:cursor-not-allowed disabled:opacity-50 data-[state=unchecked]:bg-input
     aria-invalid:border aria-invalid:border-destructive/60 aria-invalid:ring-destructive/10 dark:aria-invalid:border-destructive dark:aria-invalid:ring-destructive/20
     in-data-[invalid=true]:border in-data-[invalid=true]:border-destructive/60 in-data-[invalid=true]:ring-destructive/10  dark:in-data-[invalid=true]:border-destructive dark:in-data-[invalid=true]:ring-destructive/20

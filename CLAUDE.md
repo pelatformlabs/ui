@@ -108,18 +108,23 @@ Shared TypeScript configurations provided via external `@pelatform/tsconfig` (no
 
 **@pelatform/ui.base** (`packages/components/base/`)
 
-- 40+ headless base components with full accessibility:
+- 40+ headless base components with full accessibility
+- **Use cases**: When you need complete control over styling or want to build custom design systems
+- Built on Base UI components with React Hook Form integration
+- **Component categories**:
   - Forms: Input, Textarea, Select, Checkbox, Radio, Switch, Slider
   - Selection: Combobox, Listbox, MultiSelect
   - Layout: Accordion, Tabs, Dialog, Popover, Tooltip
   - Data: Table, Pagination, Avatar, Badge
   - Buttons, Toasts, and more
-- Built on Base UI components with React Hook Form integration
 - Exports CSS via `./css` entry point
 
 **@pelatform/ui.default** (`packages/components/default/`)
 
-- 71 styled default components across 8 categories:
+- 71 styled default components across 8 categories
+- **Use cases**: When you need pre-built components with consistent styling out of the box
+- Full Radix UI + TanStack + motion integration
+- **Component categories**:
   - Layout & Structure (10): Accordion, Card, Tabs, Sidebar, etc.
   - Navigation (7): Breadcrumb, Command, DropdownMenu, etc.
   - Forms (11): Input, Select, Checkbox, Form with validation, etc.
@@ -128,7 +133,6 @@ Shared TypeScript configurations provided via external `@pelatform/tsconfig` (no
   - Dialogs (7): Dialog, Sheet, Drawer, AlertDialog, etc.
   - Advanced (8): Carousel, Kanban, Stepper, Tree, etc.
   - Utilities (7): Button, ButtonGroup, Sonner toasts, etc.
-- Full Radix UI + TanStack + motion integration
 - Exports CSS via `./css` entry point
 
 **pelatform-ui** (`packages/main/`)
@@ -143,9 +147,11 @@ Shared TypeScript configurations provided via external `@pelatform/tsconfig` (no
   - `pelatform-ui/default` - Styled components
   - `pelatform-ui/components` - Custom components (layouts, navigation, etc.)
   - `pelatform-ui/server` - Server-side utilities
-  - `pelatform-ui/css` - Complete stylesheet
+  - `pelatform-ui/css` - Complete theme stylesheet
+  - `pelatform-ui/css/*` - Individual component CSS (e.g., `pelatform-ui/css/button.css`)
 - Includes `llms.txt` for AI assistant integration
 - Multi-entry tsup build produces separate dist files for each export path
+- CSS files located at `css/theme.css` with components in `css/components/`
 
 ### Build System
 
@@ -294,6 +300,22 @@ bun build            # Build package
 bun types:check      # Type-check only
 ```
 
+### Choosing Between Base and Default Components
+
+- **Use `@pelatform/ui.base`** when:
+  - Building a custom design system with specific styling requirements
+  - Need complete control over component appearance
+  - Want to minimize bundle size by only importing necessary styles
+  - Creating components that must match existing brand guidelines
+
+- **Use `@pelatform/ui.default`** when:
+  - Need pre-styled components that work out of the box
+  - Building prototypes or MVPs quickly
+  - Want consistent styling across the application
+  - Don't have strict design requirements
+
+- **Use both together** - You can import from both packages in the same application
+
 ### Export Patterns
 
 Each package's `src/index.ts` should clearly organize exports:
@@ -330,6 +352,20 @@ This monorepo uses workspace protocol for internal dependencies. In package.json
 }
 ```
 
+**Workspace Dependency Management**:
+
+- Internal packages use `workspace:*` protocol (e.g., `@pelatform/ui.general: workspace:*`)
+- Changesets automatically updates workspace dependencies with patch versions during release
+- Run `bun update` after `bun run version` to sync workspace references
+- Never manually version workspace dependencies - let Changesets handle it
+
+**Peer Dependencies Best Practices**:
+
+- Component packages use peerDependencies for shared libraries (React, Radix UI, motion, etc.)
+- This prevents bundling duplicate copies of common libraries
+- Consumers must install peer dependencies themselves
+- Use version ranges like `>=18.0.0 || >=19.0.0-rc.0` for React compatibility
+
 ## Publishing Workflow (Changesets)
 
 1. Make changes to packages
@@ -355,7 +391,7 @@ Configuration: `.changeset/config.json` - Uses main branch, public access, patch
 
 ## Important Notes
 
-- **Package Manager**: Must use Bun 1.3.5+ (defined in packageManager field as `bun@1.3.5`)
+- **Package Manager**: Must use Bun 1.3.6+ (defined in packageManager field as `bun@1.3.6`)
 - **Node Version**: Requires Node.js 22+ (defined in engines.field)
 - **Biome**: Used exclusively for linting and formatting (no ESLint/Prettier); extends `@pelatform/biome-config/base`
 - **Turbo**: Caches builds, runs tasks in dependency order, configured in `turbo.json`
@@ -363,6 +399,9 @@ Configuration: `.changeset/config.json` - Uses main branch, public access, patch
 - **TypeScript**: Version 5.9.3, strict mode enforced; extends external `@pelatform/tsconfig`
 - **Git Hooks**: Husky is configured (`bun prepare` installs hooks automatically)
 - **Lint-Staged**: Configured at both root and package level for pre-commit checks
+  - JS/TS files: `biome check --write --no-errors-on-unmatched`
+  - MD/YML/YAML files: `prettier --write`
+  - JSON/JSONC/HTML files: `biome format --write --no-errors-on-unmatched`
 - **Commitlint**: Enforces conventional commit format via `.commitlintrc.cjs`
 - **Testing**: This project does not currently have automated tests; type-checking (`bun types:check`) serves as the primary validation
 
@@ -373,9 +412,3 @@ Configuration: `.changeset/config.json` - Uses main branch, public access, patch
 - `types:check`: Depends on `^build`, no outputs
 - `lint`: Runs in all packages
 - `clean`/`clean:all`: No caching, non-persistent
-
-**Workspace Dependencies**:
-
-- Use `workspace:*` protocol for internal package references
-- Changesets updates internal dependencies with patch versions
-- Run `bun update` after versioning to sync workspace references
