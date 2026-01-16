@@ -1,5 +1,11 @@
 # @pelatform/ui.base
 
+## 0.1.9
+
+### Patch Changes
+
+- [`fd734d6`](https://github.com/pelatformlabs/ui/commit/fd734d6a060c2160b1b07d6d252e48aeb6e212e2) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update dependencies to latest versions
+
 ## 0.1.8
 
 ### Patch Changes

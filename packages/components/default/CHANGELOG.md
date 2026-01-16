@@ -1,5 +1,14 @@
 # @pelatform/ui.default
 
+## 0.1.12
+
+### Patch Changes
+
+- [`fd734d6`](https://github.com/pelatformlabs/ui/commit/fd734d6a060c2160b1b07d6d252e48aeb6e212e2) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update dependencies to latest versions
+
+- Updated dependencies [[`fd734d6`](https://github.com/pelatformlabs/ui/commit/fd734d6a060c2160b1b07d6d252e48aeb6e212e2)]:
+  - @pelatform/ui.hook@0.1.3
+
 ## 0.1.11
 
 ### Patch Changes
