@@ -1,5 +1,17 @@
 # pelatform-ui
 
+## 1.1.19
+
+### Patch Changes
+
+- [`dc3512d`](https://github.com/pelatformlabs/ui/commit/dc3512d00f2b889dd5535ac4a86816092514bb86) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update dependencies to latest versions
+
+- Updated dependencies [[`dc3512d`](https://github.com/pelatformlabs/ui/commit/dc3512d00f2b889dd5535ac4a86816092514bb86)]:
+  - @pelatform/ui.animation@0.1.7
+  - @pelatform/ui.default@0.1.14
+  - @pelatform/ui.aria@0.1.8
+  - @pelatform/ui.base@0.1.10
+
 ## 1.1.18
 
 ### Patch Changes
