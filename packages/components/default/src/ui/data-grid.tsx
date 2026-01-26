@@ -6,7 +6,6 @@ import type { ColumnFiltersState, RowData, SortingState, Table } from "@tanstack
 import { cn } from "@pelatform/utils";
 
 declare module "@tanstack/react-table" {
-  // biome-ignore lint/correctness/noUnusedVariables: disable
   interface ColumnMeta<TData extends RowData, TValue> {
     headerTitle?: string;
     headerClassName?: string;

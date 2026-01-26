@@ -58,7 +58,10 @@ ui/
 │   ├── main/              # pelatform-ui - Main entry point package
 │   └── mcp/               # @pelatform/mcp.ui - MCP server (private)
 ├── apps/                  # Reserved for example applications
+└── scripts/               # Build and release scripts
 ```
+
+**Workspace Convention**: All packages in `packages/` directory are part of the workspace. Internal dependencies use the `workspace:*` protocol in package.json files.
 
 ### Package System
 
@@ -412,3 +415,5 @@ Configuration: `.changeset/config.json` - Uses main branch, public access, patch
 - `types:check`: Depends on `^build`, no outputs
 - `lint`: Runs in all packages
 - `clean`/`clean:all`: No caching, non-persistent
+
+**CSS Location**: Main package CSS files are located in the source tree at `css/theme.css` with components in `css/components/`. These are included in the published package (not in `dist/`) and exported via the `./css` and `./css/*` export paths.

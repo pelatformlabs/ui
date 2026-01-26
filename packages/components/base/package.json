@@ -41,15 +41,15 @@
   ],
   "dependencies": {
     "@base-ui-components/react": "1.0.0-rc.0",
-    "@tanstack/react-form": "^1.27.7",
+    "@tanstack/react-form": "^1.28.0",
     "react-phone-number-input": "^3.4.14"
   },
   "devDependencies": {
     "@pelatform/tsconfig": "^0.1.4",
     "@pelatform/ui.general": "workspace:*",
-    "@pelatform/utils": "^1.0.10",
+    "@pelatform/utils": "^1.0.11",
     "@types/react": "^19.2.9",
-    "lucide-react": "^0.562.0",
+    "lucide-react": "^0.563.0",
     "react": "^19.2.3",
     "react-hook-form": "^7.71.1",
     "tsup": "^8.5.1",

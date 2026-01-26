@@ -45,7 +45,7 @@
   "devDependencies": {
     "@pelatform/tsconfig": "^0.1.4",
     "@pelatform/ui.general": "workspace:*",
-    "@pelatform/utils": "^1.0.10",
+    "@pelatform/utils": "^1.0.11",
     "@types/react": "^19.2.9",
     "react": "^19.2.3",
     "tsup": "^8.5.1",
