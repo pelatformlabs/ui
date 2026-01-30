@@ -46,8 +46,8 @@
     "@pelatform/tsconfig": "^0.1.4",
     "@pelatform/ui.general": "workspace:*",
     "@pelatform/utils": "^1.0.11",
-    "@types/react": "^19.2.9",
-    "react": "^19.2.3",
+    "@types/react": "^19.2.10",
+    "react": "^19.2.4",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
