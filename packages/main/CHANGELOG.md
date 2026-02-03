@@ -1,5 +1,17 @@
 # pelatform-ui
 
+## 1.1.20
+
+### Patch Changes
+
+- [`ff2561b`](https://github.com/pelatformlabs/ui/commit/ff2561b6ca7a16212899ffd134baef1ec0371505) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update dependencies to latest versions
+
+- Updated dependencies [[`ff2561b`](https://github.com/pelatformlabs/ui/commit/ff2561b6ca7a16212899ffd134baef1ec0371505)]:
+  - @pelatform/ui.animation@0.1.8
+  - @pelatform/ui.default@0.1.15
+  - @pelatform/ui.aria@0.1.9
+  - @pelatform/ui.base@0.1.11
+
 ## 1.1.19
 
 ### Patch Changes
