@@ -1,5 +1,11 @@
 # @pelatform/ui.animation
 
+## 0.1.8
+
+### Patch Changes
+
+- [`ff2561b`](https://github.com/pelatformlabs/ui/commit/ff2561b6ca7a16212899ffd134baef1ec0371505) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update dependencies to latest versions
+
 ## 0.1.7
 
 ### Patch Changes
