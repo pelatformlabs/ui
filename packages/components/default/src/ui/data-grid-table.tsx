@@ -523,24 +523,22 @@ function DataGridTable<TData>() {
           </tr>
         ) : table.getRowModel().rows.length ? (
           // Show actual data when not loading
-          table
-            .getRowModel()
-            .rows.map((row: Row<TData>, index) => {
-              return (
-                <Fragment key={row.id}>
-                  <DataGridTableBodyRow row={row} key={index}>
-                    {row.getVisibleCells().map((cell: Cell<TData, unknown>, colIndex) => {
-                      return (
-                        <DataGridTableBodyRowCell cell={cell} key={colIndex}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </DataGridTableBodyRowCell>
-                      );
-                    })}
-                  </DataGridTableBodyRow>
-                  {row.getIsExpanded() && <DataGridTableBodyRowExpandded row={row} />}
-                </Fragment>
-              );
-            })
+          table.getRowModel().rows.map((row: Row<TData>, index) => {
+            return (
+              <Fragment key={row.id}>
+                <DataGridTableBodyRow row={row} key={index}>
+                  {row.getVisibleCells().map((cell: Cell<TData, unknown>, colIndex) => {
+                    return (
+                      <DataGridTableBodyRowCell cell={cell} key={colIndex}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </DataGridTableBodyRowCell>
+                    );
+                  })}
+                </DataGridTableBodyRow>
+                {row.getIsExpanded() && <DataGridTableBodyRowExpandded row={row} />}
+              </Fragment>
+            );
+          })
         ) : (
           <DataGridTableEmpty />
         )}
