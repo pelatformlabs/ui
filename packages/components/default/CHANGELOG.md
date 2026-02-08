@@ -1,5 +1,11 @@
 # @pelatform/ui.default
 
+## 0.1.16
+
+### Patch Changes
+
+- [`98ae4e1`](https://github.com/pelatformlabs/ui/commit/98ae4e156fd2a084e4a53379ab14181f5e5f936e) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update dependencies to latest versions
+
 ## 0.1.15
 
 ### Patch Changes
