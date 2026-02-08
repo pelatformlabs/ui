@@ -50,8 +50,8 @@
     "cmdk": "^1.1.1",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
-    "react-day-picker": "^9.13.0",
-    "react-resizable-panels": "^4.5.9",
+    "react-day-picker": "^9.13.1",
+    "react-resizable-panels": "^4.6.2",
     "vaul": "^1.1.2"
   },
   "devDependencies": {
@@ -60,7 +60,7 @@
     "@pelatform/ui.hook": "workspace:*",
     "@pelatform/utils": "^1.0.12",
     "@radix-ui/react-dialog": "^1.1.15",
-    "@types/react": "^19.2.10",
+    "@types/react": "^19.2.13",
     "lucide-react": "^0.563.0",
     "next-themes": "^0.4.6",
     "radix-ui": "^1.4.3",
