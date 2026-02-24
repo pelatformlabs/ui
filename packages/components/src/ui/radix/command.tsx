@@ -2,7 +2,7 @@
 
 import type * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
-import { Check, Search } from "lucide-react";
+import { CheckIcon, SearchIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "./dialog";
@@ -63,7 +63,7 @@ function CommandInput({
           {...props}
         />
         <InputGroupAddon>
-          <Search className="cn-command-input-icon" />
+          <SearchIcon className="cn-command-input-icon" />
         </InputGroupAddon>
       </InputGroup>
     </div>
@@ -134,7 +134,7 @@ function CommandItem({
       {...props}
     >
       {children}
-      <Check className="cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
+      <CheckIcon className="cn-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
     </CommandPrimitive.Item>
   );
 }

@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const baseDir = path.resolve(__dirname, "../src/ui/base");
+const animationDir = path.resolve(__dirname, "../src/ui/animation");
 
 async function processFile(filePath) {
   const originalCode = await fs.readFile(filePath, "utf8");
@@ -20,20 +20,6 @@ async function processFile(filePath) {
     code = lines.join("\n");
   }
 
-  // Replace cn import path
-  code = code.replace(
-    /import\s+{([^}]*\bcn\b[^}]*)}\s+from\s+["']@\/registry\/bases\/base\/lib\/utils["'];?/g,
-    'import {$1} from "../../lib/cn"',
-  );
-
-  // Replace component imports from registry alias to relative imports
-  code = code.replace(
-    /from\s+["']@\/registry\/bases\/base\/ui\/([^"']+)["'];?/g,
-    (match, componentPath) => {
-      return `from "./${componentPath}"`;
-    },
-  );
-
   // update import cn
   code = code.replace(/@pelatform\/utils/g, "../../lib/cn");
 
@@ -42,22 +28,22 @@ async function processFile(filePath) {
 
   if (code !== originalCode) {
     await fs.writeFile(filePath, code, "utf8");
-    console.log(`Updated: ${path.relative(baseDir, filePath)}`);
+    console.log(`Updated: ${path.relative(animationDir, filePath)}`);
   } else {
-    console.log(`No changes: ${path.relative(baseDir, filePath)}`);
+    console.log(`No changes: ${path.relative(animationDir, filePath)}`);
   }
 }
 
 async function run() {
   try {
-    const entries = await fs.readdir(baseDir, { withFileTypes: true });
+    const entries = await fs.readdir(animationDir, { withFileTypes: true });
     const tsxFiles = entries
       .filter((entry) => entry.isFile() && entry.name.endsWith(".tsx"))
-      .map((entry) => path.join(baseDir, entry.name));
+      .map((entry) => path.join(animationDir, entry.name));
 
     await Promise.all(tsxFiles.map((file) => processFile(file)));
   } catch (error) {
-    console.error("Error running base script:", error);
+    console.error("Error running animation script:", error);
     process.exitCode = 1;
   }
 }

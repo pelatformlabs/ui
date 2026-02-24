@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { OTPInput, OTPInputContext } from "input-otp";
-import { Minus } from "lucide-react";
+import { MinusIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 
@@ -75,7 +75,7 @@ function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
       role="separator"
       {...props}
     >
-      <Minus />
+      <MinusIcon />
     </div>
   );
 }

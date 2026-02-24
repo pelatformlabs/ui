@@ -1,7 +1,7 @@
 "use client";
 
 import type * as React from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { Accordion as AccordionPrimitive } from "radix-ui";
 
 import { cn } from "../../lib/cn";
@@ -45,11 +45,11 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <ChevronDown
+        <ChevronDownIcon
           data-slot="accordion-trigger-icon"
           className="cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
         />
-        <ChevronUp
+        <ChevronUpIcon
           data-slot="accordion-trigger-icon"
           className="cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
         />

@@ -1,7 +1,7 @@
 "use client";
 
 import type * as React from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 
@@ -25,7 +25,7 @@ function NativeSelect({ className, size = "default", ...props }: NativeSelectPro
         className="cn-native-select outline-none disabled:pointer-events-none disabled:cursor-not-allowed"
         {...props}
       />
-      <ChevronDown
+      <ChevronDownIcon
         className="cn-native-select-icon pointer-events-none absolute select-none"
         aria-hidden="true"
         data-slot="native-select-icon"

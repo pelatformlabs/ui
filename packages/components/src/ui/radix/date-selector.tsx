@@ -11,7 +11,13 @@ import {
   useState,
 } from "react";
 import { addMonths, format, isBefore, isSameMonth, parse, subMonths } from "date-fns";
-import { ChevronLeft, ChevronRight, CornerUpLeft, CornerUpRight, X } from "lucide-react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CornerUpLeftIcon,
+  CornerUpRightIcon,
+  XIcon,
+} from "lucide-react";
 import type { DateRange, DayButton } from "react-day-picker";
 
 import { useIsMobile } from "@pelatform/ui.hook";
@@ -610,7 +616,7 @@ function DateSelectorPeriodTabs({
                 onClick={() => onMonthChange(new Date())}
                 title={i18n.today}
               >
-                {isFuture ? <CornerUpLeft /> : <CornerUpRight />}
+                {isFuture ? <CornerUpLeftIcon /> : <CornerUpRightIcon />}
               </Button>
             );
           })()}
@@ -619,14 +625,14 @@ function DateSelectorPeriodTabs({
             className="size-8.5"
             onClick={() => onMonthChange(subMonths(calendarMonth, 1))}
           >
-            <ChevronLeft className="size-4" />
+            <ChevronLeftIcon className="size-4" />
           </Button>
           <Button
             variant="ghost"
             className="size-8.5"
             onClick={() => onMonthChange(addMonths(calendarMonth, 1))}
           >
-            <ChevronRight className="size-4" />
+            <ChevronRightIcon className="size-4" />
           </Button>
         </div>
       )}
@@ -1124,7 +1130,7 @@ export function DateSelector({
                   "ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
                 )}
               >
-                <X className="size-4" />
+                <XIcon className="size-4" />
               </button>
             )}
           </div>

@@ -12,7 +12,7 @@ import {
   useState,
 } from "react";
 import { cva } from "class-variance-authority";
-import { AlertCircle, Check, Plus, X } from "lucide-react";
+import { AlertCircleIcon, CheckIcon, PlusIcon, XIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
@@ -343,7 +343,7 @@ function FilterInput<T = unknown>({
             <Tooltip>
               <TooltipTrigger asChild>
                 <InputGroupButton size="icon-xs">
-                  <AlertCircle className="size-3.5 text-destructive" />
+                  <AlertCircleIcon className="size-3.5 text-destructive" />
                 </InputGroupButton>
               </TooltipTrigger>
               <TooltipContent>
@@ -367,7 +367,7 @@ interface FilterRemoveButtonProps extends React.ButtonHTMLAttributes<HTMLButtonE
   icon?: React.ReactNode;
 }
 
-function FilterRemoveButton({ className, icon = <X />, ...props }: FilterRemoveButtonProps) {
+function FilterRemoveButton({ className, icon = <XIcon />, ...props }: FilterRemoveButtonProps) {
   const context = useFilterContext();
 
   const _sizeMap = {
@@ -610,7 +610,7 @@ function FilterOperatorDropdown<T = unknown>({
             )}
           >
             <span>{op.label}</span>
-            <Check
+            <CheckIcon
               className={cn(
                 "ms-auto text-primary",
                 op.value === operator ? "opacity-100" : "opacity-0",
@@ -1453,7 +1453,7 @@ export function Filters<T = unknown>({
             <DropdownMenuTrigger asChild>
               {trigger || (
                 <Button variant="outline">
-                  <Plus />
+                  <PlusIcon />
                   {mergedI18n.addFilter}
                 </Button>
               )}

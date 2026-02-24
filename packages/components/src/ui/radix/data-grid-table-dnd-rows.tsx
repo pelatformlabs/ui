@@ -17,7 +17,7 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { type Cell, flexRender, type HeaderGroup, type Row } from "@tanstack/react-table";
-import { GripHorizontal } from "lucide-react";
+import { GripHorizontalIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
@@ -59,7 +59,7 @@ function DataGridTableDndRowHandle({ className }: { className?: string }) {
         )}
         disabled
       >
-        <GripHorizontal />
+        <GripHorizontalIcon />
       </Button>
     );
   }
@@ -75,7 +75,7 @@ function DataGridTableDndRowHandle({ className }: { className?: string }) {
       {...context.attributes}
       {...context.listeners}
     >
-      <GripHorizontal />
+      <GripHorizontalIcon />
     </Button>
   );
 }

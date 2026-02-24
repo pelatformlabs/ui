@@ -10,7 +10,7 @@ import {
   useContext,
 } from "react";
 import type { ItemInstance } from "@headless-tree/core";
-import { ChevronDown, Minus, Plus } from "lucide-react";
+import { ChevronDownIcon, MinusIcon, PlusIcon } from "lucide-react";
 import { Slot } from "radix-ui";
 
 import { cn } from "../../lib/cn";
@@ -171,20 +171,20 @@ function TreeItemLabel<T = any>({
       {item.isFolder() &&
         (toggleIconType === "plus-minus" ? (
           item.isExpanded() ? (
-            <Minus
+            <MinusIcon
               className="size-3.5 text-muted-foreground"
               stroke="currentColor"
               strokeWidth="1"
             />
           ) : (
-            <Plus
+            <PlusIcon
               className="size-3.5 text-muted-foreground"
               stroke="currentColor"
               strokeWidth="1"
             />
           )
         ) : (
-          <ChevronDown className="size-4 in-aria-[expanded=false]:-rotate-90 text-muted-foreground" />
+          <ChevronDownIcon className="size-4 in-aria-[expanded=false]:-rotate-90 text-muted-foreground" />
         ))}
       {children || (typeof item.getItemName === "function" ? item.getItemName() : null)}
     </Comp>

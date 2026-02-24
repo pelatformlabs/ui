@@ -2,7 +2,7 @@
 
 import type React from "react";
 import type { ReactNode } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
@@ -184,7 +184,7 @@ function DataGridPagination(props: DataGridPaginationProps): React.JSX.Element {
                   disabled={!table.getCanPreviousPage()}
                 >
                   <span className="sr-only">{mergedProps.previousPageLabel}</span>
-                  <ChevronLeft className="size-4" />
+                  <ChevronLeftIcon className="size-4" />
                 </Button>
 
                 {renderEllipsisPrevButton()}
@@ -201,7 +201,7 @@ function DataGridPagination(props: DataGridPaginationProps): React.JSX.Element {
                   disabled={!table.getCanNextPage()}
                 >
                   <span className="sr-only">{mergedProps.nextPageLabel}</span>
-                  <ChevronRight className="size-4" />
+                  <ChevronRightIcon className="size-4" />
                 </Button>
               </div>
             )}

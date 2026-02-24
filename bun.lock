@@ -12,7 +12,7 @@
         "@pelatform/biome-config": "^0.1.5",
         "@types/bun": "^1.3.9",
         "@types/node": "^25.3.0",
-        "commitlint-plugin-function-rules": "^4.3.1",
+        "commitlint-plugin-function-rules": "^4.3.2",
         "husky": "^9.1.7",
         "lint-staged": "^16.2.7",
         "prettier": "^3.8.1",
@@ -525,7 +525,7 @@
 
     "commander": ["commander@14.0.3", "", {}, "sha512-H+y0Jo/T1RZ9qPP4Eh1pkcQcLRglraJaSLoyOtHxu6AapkjWVCy2Sit1QQ4x3Dng8qDlSsZEet7g5Pq06MvTgw=="],
 
-    "commitlint-plugin-function-rules": ["commitlint-plugin-function-rules@4.3.1", "", { "peerDependencies": { "@commitlint/lint": ">=19 <21" } }, "sha512-wRvlVUWRgN9qTlfUelB1EqnhTfGLVUKz6xBSnjnBRIwHEn2Ma39WZHJEzmANOqDYa9kpS5hyr3iLD2OliwlDIw=="],
+    "commitlint-plugin-function-rules": ["commitlint-plugin-function-rules@4.3.2", "", { "peerDependencies": { "@commitlint/lint": ">=19 <21" } }, "sha512-UrJfHj7jRislz5qWkBj0mp2EHaFT1LwDdG8uOTofWK/jf84EmNMjmDD+9M6eyrfrgLorTAN3/veRMU0D/vb7CQ=="],
 
     "compare-func": ["compare-func@2.0.0", "", { "dependencies": { "array-ify": "^1.0.0", "dot-prop": "^5.1.0" } }, "sha512-zHig5N+tPWARooBnb0Zx1MFcdfpyJrfTJ3Y5L+IFvUm8rM74hHz66z0gw0x4tijh5CorKkKUCnW82R2vmpeCRA=="],
 

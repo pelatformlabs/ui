@@ -1,7 +1,7 @@
 "use client";
 
 import type * as React from "react";
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, MoreHorizontalIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
@@ -66,7 +66,7 @@ function PaginationPrevious({
       className={cn("cn-pagination-previous", className)}
       {...props}
     >
-      <ChevronLeft data-icon="inline-start" className="cn-rtl-flip" />
+      <ChevronLeftIcon data-icon="inline-start" className="cn-rtl-flip" />
       <span className="cn-pagination-previous-text hidden sm:block">{text}</span>
     </PaginationLink>
   );
@@ -85,7 +85,7 @@ function PaginationNext({
       {...props}
     >
       <span className="cn-pagination-next-text hidden sm:block">{text}</span>
-      <ChevronRight data-icon="inline-end" className="cn-rtl-flip" />
+      <ChevronRightIcon data-icon="inline-end" className="cn-rtl-flip" />
     </PaginationLink>
   );
 }
@@ -98,7 +98,7 @@ function PaginationEllipsis({ className, ...props }: React.ComponentProps<"span"
       className={cn("cn-pagination-ellipsis flex items-center justify-center", className)}
       {...props}
     >
-      <MoreHorizontal />
+      <MoreHorizontalIcon />
       <span className="sr-only">More pages</span>
     </span>
   );

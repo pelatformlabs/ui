@@ -2,7 +2,7 @@
 
 import { Autocomplete as AutocompletePrimitive } from "@base-ui/react/autocomplete";
 import { cva, type VariantProps } from "class-variance-authority";
-import { ChevronsUpDown, X } from "lucide-react";
+import { ChevronsUpDownIcon, XIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { ScrollArea } from "./scroll-area";
@@ -246,7 +246,7 @@ function AutocompleteClear({
       )}
       {...props}
     >
-      <X className="style-lyra:size-4 style-maia:size-4 style-mira:size-3.5 style-nova:size-4 style-vega:size-4" />
+      <XIcon className="style-lyra:size-4 style-maia:size-4 style-mira:size-3.5 style-nova:size-4 style-vega:size-4" />
     </AutocompletePrimitive.Clear>
   );
 }
@@ -264,7 +264,7 @@ function AutocompleteTrigger({
       )}
       {...props}
     >
-      <ChevronsUpDown className="style-lyra:size-4 style-maia:size-4 style-mira:size-3.5 style-nova:size-4 style-vega:size-4 opacity-70" />
+      <ChevronsUpDownIcon className="style-lyra:size-4 style-maia:size-4 style-mira:size-3.5 style-nova:size-4 style-vega:size-4 opacity-70" />
     </AutocompletePrimitive.Trigger>
   );
 }

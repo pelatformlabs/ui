@@ -1,7 +1,7 @@
 "use client";
 
 import type * as React from "react";
-import { Check, ChevronDown, ChevronUp } from "lucide-react";
+import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { Select as SelectPrimitive } from "radix-ui";
 
 import { cn } from "../../lib/cn";
@@ -44,7 +44,7 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDown className="cn-select-trigger-icon pointer-events-none" />
+        <ChevronDownIcon className="cn-select-trigger-icon pointer-events-none" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );
@@ -114,7 +114,7 @@ function SelectItem({
     >
       <span className="cn-select-item-indicator">
         <SelectPrimitive.ItemIndicator>
-          <Check className="cn-select-item-indicator-icon pointer-events-none" />
+          <CheckIcon className="cn-select-item-indicator-icon pointer-events-none" />
         </SelectPrimitive.ItemIndicator>
       </span>
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
@@ -145,7 +145,7 @@ function SelectScrollUpButton({
       className={cn("cn-select-scroll-up-button", className)}
       {...props}
     >
-      <ChevronUp />
+      <ChevronUpIcon />
     </SelectPrimitive.ScrollUpButton>
   );
 }
@@ -160,7 +160,7 @@ function SelectScrollDownButton({
       className={cn("cn-select-scroll-down-button", className)}
       {...props}
     >
-      <ChevronDown />
+      <ChevronDownIcon />
     </SelectPrimitive.ScrollDownButton>
   );
 }
