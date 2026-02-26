@@ -3,7 +3,7 @@
 import type * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
-import { ChevronRight, MoreHorizontal } from "lucide-react";
+import { ChevronRightIcon, MoreHorizontalIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 
@@ -76,7 +76,7 @@ function BreadcrumbSeparator({ children, className, ...props }: React.ComponentP
       className={cn("cn-breadcrumb-separator", className)}
       {...props}
     >
-      {children ?? <ChevronRight className="cn-rtl-flip" />}
+      {children ?? <ChevronRightIcon className="cn-rtl-flip" />}
     </li>
   );
 }
@@ -90,7 +90,7 @@ function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<"span"
       className={cn("cn-breadcrumb-ellipsis flex items-center justify-center", className)}
       {...props}
     >
-      <MoreHorizontal />
+      <MoreHorizontalIcon />
       <span className="sr-only">More</span>
     </span>
   );

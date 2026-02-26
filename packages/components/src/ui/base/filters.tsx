@@ -13,7 +13,7 @@ import {
 } from "react";
 import { useRender } from "@base-ui/react/use-render";
 import { cva } from "class-variance-authority";
-import { AlertCircle, Check, X } from "lucide-react";
+import { AlertCircleIcon, CheckIcon, XIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
@@ -343,7 +343,7 @@ function FilterInput<T = unknown>({
         <InputGroupAddon align="inline-end">
           <Tooltip>
             <TooltipTrigger render={<InputGroupButton size="icon-xs" />}>
-              <AlertCircle className="size-3.5 text-destructive" />
+              <AlertCircleIcon className="size-3.5 text-destructive" />
             </TooltipTrigger>
             <TooltipContent>
               <p className="text-sm">{validationMessage}</p>
@@ -365,7 +365,7 @@ interface FilterRemoveButtonProps extends React.ButtonHTMLAttributes<HTMLButtonE
   icon?: React.ReactNode;
 }
 
-function FilterRemoveButton({ className, icon = <X />, ...props }: FilterRemoveButtonProps) {
+function FilterRemoveButton({ className, icon = <XIcon />, ...props }: FilterRemoveButtonProps) {
   const context = useFilterContext();
 
   const _sizeMap = {
@@ -610,7 +610,7 @@ function FilterOperatorDropdown<T = unknown>({
             )}
           >
             <span>{op.label}</span>
-            <Check
+            <CheckIcon
               className={cn(
                 "ms-auto text-primary",
                 op.value === operator ? "opacity-100" : "opacity-0",

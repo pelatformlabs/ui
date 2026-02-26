@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Star } from "lucide-react";
+import { StarIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 
@@ -112,18 +112,16 @@ function Rating({
       const fillPercentage = partiallyFilled ? (displayRating - (i - 1)) * 100 : 0;
 
       stars.push(
-        <button
-          type="button"
+        // biome-ignore lint/a11y/useKeyWithClickEvents: <>
+        <div
           key={i}
-          className={cn("relative bg-transparent p-0", editable && "cursor-pointer")}
+          className={cn("relative", editable && "cursor-pointer")}
           onClick={() => handleStarClick(i)}
           onMouseEnter={() => handleStarMouseEnter(i)}
           onMouseLeave={handleStarMouseLeave}
-          disabled={!editable}
-          aria-label={`Set rating to ${i}`}
         >
           {/* Background star (empty) */}
-          <Star
+          <StarIcon
             data-slot="rating-star-empty"
             className={cn(starVariants({ size }), "text-muted-foreground/30")}
           />
@@ -135,12 +133,12 @@ function Rating({
               width: filled ? "100%" : `${fillPercentage}%`,
             }}
           >
-            <Star
+            <StarIcon
               data-slot="rating-star-filled"
               className={cn(starVariants({ size }), "fill-yellow-400 text-yellow-400")}
             />
           </div>
-        </button>,
+        </div>,
       );
     }
 

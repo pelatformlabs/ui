@@ -3,16 +3,16 @@
 import { type HTMLAttributes, memo, type ReactNode, useMemo } from "react";
 import type { Column } from "@tanstack/react-table";
 import {
-  ArrowDown,
-  ArrowLeft,
-  ArrowLeftToLine,
-  ArrowRight,
-  ArrowRightToLine,
-  ArrowUp,
-  Check,
-  ChevronsUpDown,
-  PinOff,
-  Settings2,
+  ArrowDownIcon,
+  ArrowLeftIcon,
+  ArrowLeftToLineIcon,
+  ArrowRightIcon,
+  ArrowRightToLineIcon,
+  ArrowUpIcon,
+  CheckIcon,
+  ChevronsUpDownIcon,
+  PinOffIcon,
+  Settings2Icon,
 } from "lucide-react";
 
 import { cn } from "../../lib/cn";
@@ -86,11 +86,11 @@ function DataGridColumnHeaderInner<TData, TValue>({
   const sortIcon =
     canSort &&
     (isSorted === "desc" ? (
-      <ArrowDown className="size-3.25" />
+      <ArrowDownIcon className="size-3.25" />
     ) : isSorted === "asc" ? (
-      <ArrowUp className="size-3.25" />
+      <ArrowUpIcon className="size-3.25" />
     ) : (
-      <ChevronsUpDown className="mt-px size-3.25" />
+      <ChevronsUpDownIcon className="mt-px size-3.25" />
     ));
 
   const hasControls =
@@ -130,9 +130,9 @@ function DataGridColumnHeaderInner<TData, TValue>({
           }}
           disabled={!canSort}
         >
-          <ArrowUp className="size-3.5!" />
+          <ArrowUpIcon className="size-3.5!" />
           <span className="grow">Asc</span>
-          {isSorted === "asc" && <Check className="size-4 text-primary opacity-100!" />}
+          {isSorted === "asc" && <CheckIcon className="size-4 text-primary opacity-100!" />}
         </DropdownMenuItem>,
         <DropdownMenuItem
           key="sort-desc"
@@ -145,9 +145,9 @@ function DataGridColumnHeaderInner<TData, TValue>({
           }}
           disabled={!canSort}
         >
-          <ArrowDown className="size-3.5!" />
+          <ArrowDownIcon className="size-3.5!" />
           <span className="grow">Desc</span>
-          {isSorted === "desc" && <Check className="size-4 text-primary opacity-100!" />}
+          {isSorted === "desc" && <CheckIcon className="size-4 text-primary opacity-100!" />}
         </DropdownMenuItem>,
       );
       hasPreviousSection = true;
@@ -163,17 +163,17 @@ function DataGridColumnHeaderInner<TData, TValue>({
           key="pin-left"
           onClick={() => column.pin(isPinned === "left" ? false : "left")}
         >
-          <ArrowLeftToLine className="size-3.5!" aria-hidden="true" />
+          <ArrowLeftToLineIcon className="size-3.5!" aria-hidden="true" />
           <span className="grow">Pin to left</span>
-          {isPinned === "left" && <Check className="size-4 text-primary opacity-100!" />}
+          {isPinned === "left" && <CheckIcon className="size-4 text-primary opacity-100!" />}
         </DropdownMenuItem>,
         <DropdownMenuItem
           key="pin-right"
           onClick={() => column.pin(isPinned === "right" ? false : "right")}
         >
-          <ArrowRightToLine className="size-3.5!" aria-hidden="true" />
+          <ArrowRightToLineIcon className="size-3.5!" aria-hidden="true" />
           <span className="grow">Pin to right</span>
-          {isPinned === "right" && <Check className="size-4 text-primary opacity-100!" />}
+          {isPinned === "right" && <CheckIcon className="size-4 text-primary opacity-100!" />}
         </DropdownMenuItem>,
       );
       hasPreviousSection = true;
@@ -197,7 +197,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
           }}
           disabled={!canMoveLeft || isPinned !== false}
         >
-          <ArrowLeft className="size-3.5!" aria-hidden="true" />
+          <ArrowLeftIcon className="size-3.5!" aria-hidden="true" />
           <span>Move to Left</span>
         </DropdownMenuItem>,
         <DropdownMenuItem
@@ -212,7 +212,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
           }}
           disabled={!canMoveRight || isPinned !== false}
         >
-          <ArrowRight className="size-3.5!" aria-hidden="true" />
+          <ArrowRightIcon className="size-3.5!" aria-hidden="true" />
           <span>Move to Right</span>
         </DropdownMenuItem>,
       );
@@ -227,7 +227,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
       items.push(
         <DropdownMenuSub key="visibility">
           <DropdownMenuSubTrigger>
-            <Settings2 className="size-3.5!" />
+            <Settings2Icon className="size-3.5!" />
             <span>Columns</span>
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent side="right">
@@ -251,6 +251,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
     }
 
     return items;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     filter,
     canSort,
@@ -299,7 +300,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
             aria-label={`Unpin ${title} column`}
             title={`Unpin ${title} column`}
           >
-            <PinOff className="size-3.5! opacity-50!" aria-hidden="true" />
+            <PinOffIcon className="size-3.5! opacity-50!" aria-hidden="true" />
           </Button>
         )}
       </div>

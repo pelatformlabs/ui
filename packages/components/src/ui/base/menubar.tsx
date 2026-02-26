@@ -3,7 +3,7 @@
 import type * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { Menubar as MenubarPrimitive } from "@base-ui/react/menubar";
-import { Check } from "lucide-react";
+import { CheckIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import {
@@ -112,7 +112,7 @@ function MenubarCheckboxItem({
     >
       <span className="cn-menubar-checkbox-item-indicator pointer-events-none absolute flex items-center justify-center">
         <MenuPrimitive.CheckboxItemIndicator>
-          <Check />
+          <CheckIcon />
         </MenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}
@@ -144,7 +144,7 @@ function MenubarRadioItem({
     >
       <span className="cn-menubar-radio-item-indicator pointer-events-none absolute flex items-center justify-center">
         <MenuPrimitive.RadioItemIndicator>
-          <Check />
+          <CheckIcon />
         </MenuPrimitive.RadioItemIndicator>
       </span>
       {children}

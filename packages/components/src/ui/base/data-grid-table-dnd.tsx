@@ -21,7 +21,7 @@ import {
   type HeaderGroup,
   type Row,
 } from "@tanstack/react-table";
-import { GripVertical } from "lucide-react";
+import { GripVerticalIcon } from "lucide-react";
 
 import { Button } from "./button";
 import { useDataGrid } from "./data-grid";
@@ -75,7 +75,7 @@ function DataGridTableDndHeader<TData>({ header }: { header: Header<TData, unkno
             {...listeners}
             aria-label="Drag to reorder"
           >
-            <GripVertical className="opacity-60 hover:opacity-100" aria-hidden="true" />
+            <GripVerticalIcon className="opacity-60 hover:opacity-100" aria-hidden="true" />
           </Button>
         )}
         <span className="grow truncate">

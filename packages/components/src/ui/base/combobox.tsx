@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react";
-import { Check, ChevronDown, X } from "lucide-react";
+import { CheckIcon, ChevronDownIcon, XIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
@@ -22,7 +22,7 @@ function ComboboxTrigger({ className, children, ...props }: ComboboxPrimitive.Tr
       {...props}
     >
       {children}
-      <ChevronDown className="cn-combobox-trigger-icon pointer-events-none" />
+      <ChevronDownIcon className="cn-combobox-trigger-icon pointer-events-none" />
     </ComboboxPrimitive.Trigger>
   );
 }
@@ -35,7 +35,7 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
       className={cn("cn-combobox-clear", className)}
       {...props}
     >
-      <X className="cn-combobox-clear-icon pointer-events-none" />
+      <XIcon className="cn-combobox-clear-icon pointer-events-none" />
     </ComboboxPrimitive.Clear>
   );
 }
@@ -131,7 +131,7 @@ function ComboboxItem({ className, children, ...props }: ComboboxPrimitive.Item.
     >
       {children}
       <ComboboxPrimitive.ItemIndicator render={<span className="cn-combobox-item-indicator" />}>
-        <Check className="cn-combobox-item-indicator-icon pointer-events-none" />
+        <CheckIcon className="cn-combobox-item-indicator-icon pointer-events-none" />
       </ComboboxPrimitive.ItemIndicator>
     </ComboboxPrimitive.Item>
   );
@@ -218,7 +218,7 @@ function ComboboxChip({
           className="cn-combobox-chip-remove"
           data-slot="combobox-chip-remove"
         >
-          <X className="cn-combobox-chip-indicator-icon pointer-events-none" />
+          <XIcon className="cn-combobox-chip-indicator-icon pointer-events-none" />
         </ComboboxPrimitive.ChipRemove>
       )}
     </ComboboxPrimitive.Chip>

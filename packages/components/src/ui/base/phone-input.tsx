@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useMemo, useState } from "react";
-import { Globe } from "lucide-react";
+import { GlobeIcon } from "lucide-react";
 import * as BasePhoneInput from "react-phone-number-input";
 import flags from "react-phone-number-input/flags";
 
@@ -193,7 +193,7 @@ function FlagComponent({ country, countryName }: BasePhoneInput.FlagProps) {
 
   return (
     <span className="flex h-4 w-4 items-center justify-center [&_svg:not([class*='size-'])]:size-full! [&_svg:not([class*='size-'])]:rounded-[5px]">
-      {Flag ? <Flag title={countryName} /> : <Globe className="size-4 opacity-60" />}
+      {Flag ? <Flag title={countryName} /> : <GlobeIcon className="size-4 opacity-60" />}
     </span>
   );
 }

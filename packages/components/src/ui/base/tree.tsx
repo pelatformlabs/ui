@@ -6,7 +6,7 @@ import { createContext, useContext } from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import type { ItemInstance } from "@headless-tree/core";
-import { ChevronDown, Minus, Plus } from "lucide-react";
+import { ChevronDownIcon, MinusIcon, PlusIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 
@@ -145,12 +145,20 @@ function TreeItemLabel<T = any>({
       {item.isFolder() &&
         (toggleIconType === "plus-minus" ? (
           item.isExpanded() ? (
-            <Minus className="size-3.5 text-muted-foreground" strokeWidth={1} />
+            <MinusIcon
+              className="size-3.5 text-muted-foreground"
+              stroke="currentColor"
+              strokeWidth="1"
+            />
           ) : (
-            <Plus className="size-3.5 text-muted-foreground" strokeWidth={1} />
+            <PlusIcon
+              className="size-3.5 text-muted-foreground"
+              stroke="currentColor"
+              strokeWidth="1"
+            />
           )
         ) : (
-          <ChevronDown className="size-4 in-aria-[expanded=false]:-rotate-90 text-muted-foreground" />
+          <ChevronDownIcon className="size-4 in-aria-[expanded=false]:-rotate-90 text-muted-foreground" />
         ))}
       {children || (typeof item.getItemName === "function" ? item.getItemName() : null)}
     </span>

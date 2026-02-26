@@ -20,13 +20,14 @@ import {
 } from "lucide-react";
 import type { DateRange, DayButton } from "react-day-picker";
 
-import { useIsMobile } from "@pelatform/ui.hook";
+import { useIsMobile } from "../../hooks/use-is-mobile";
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
 import { Calendar, CalendarDayButton } from "./calendar";
 import { Input } from "./input";
 import { ScrollArea } from "./scroll-area";
 import { Tabs, TabsList, TabsTrigger } from "./tabs";
+
 export interface DateSelectorI18nConfig {
   // Labels
   selectDate: string;

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { Column } from "@tanstack/react-table";
-import { Check, CirclePlus } from "lucide-react";
+import { CheckIcon, CirclePlusIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Badge } from "./badge";
@@ -42,7 +42,7 @@ function DataGridColumnFilter<TData, TValue>({
       <PopoverTrigger
         render={
           <Button variant="outline" size="sm">
-            <CirclePlus className="size-4" />
+            <CirclePlusIcon className="size-4" />
             {title}
             {selectedValues?.size > 0 && (
               <>
@@ -91,8 +91,8 @@ function DataGridColumnFilter<TData, TValue>({
               {filteredOptions.map((option) => {
                 const isSelected = selectedValues.has(option.value);
                 return (
-                  <button
-                    type="button"
+                  // biome-ignore lint/a11y/useKeyWithClickEvents: <>
+                  <div
                     key={option.value}
                     onClick={() => {
                       if (isSelected) {
@@ -104,7 +104,7 @@ function DataGridColumnFilter<TData, TValue>({
                       column?.setFilterValue(filterValues.length ? filterValues : undefined);
                     }}
                     className={cn(
-                      "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden",
+                      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden",
                       "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
                     )}
                   >
@@ -116,7 +116,7 @@ function DataGridColumnFilter<TData, TValue>({
                           : "opacity-50 [&_svg]:invisible",
                       )}
                     >
-                      <Check className="h-4 w-4" />
+                      <CheckIcon className="size-4" />
                     </div>
                     {option.icon && <option.icon className="mr-2 h-4 w-4 text-muted-foreground" />}
                     <span>{option.label}</span>
@@ -125,7 +125,7 @@ function DataGridColumnFilter<TData, TValue>({
                         {facets.get(option.value)}
                       </span>
                     )}
-                  </button>
+                  </div>
                 );
               })}
             </div>
@@ -134,13 +134,13 @@ function DataGridColumnFilter<TData, TValue>({
             <>
               <div className="-mx-1 my-1 h-px bg-border" />
               <div className="p-1">
-                <button
-                  type="button"
+                {/** biome-ignore lint/a11y/useKeyWithClickEvents: <> */}
+                <div
                   onClick={() => column?.setFilterValue(undefined)}
-                  className="relative flex w-full cursor-default select-none items-center justify-center rounded-sm px-2 py-1.5 text-sm outline-hidden hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                  className="relative flex cursor-default select-none items-center justify-center rounded-sm px-2 py-1.5 text-sm outline-hidden hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                 >
                   Clear filters
-                </button>
+                </div>
               </div>
             </>
           )}

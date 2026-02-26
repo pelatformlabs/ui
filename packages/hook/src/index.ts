@@ -9,7 +9,7 @@ export * from "./use-intersection-observer";
 export * from "./use-is-mac";
 export * from "./use-media-query";
 export * from "./use-menu";
-export * from "./use-mobile";
+export * from "./use-is-mobile";
 export * from "./use-mounted";
 export * from "./use-mutation-observer";
 export * from "./use-recaptcha-v2";

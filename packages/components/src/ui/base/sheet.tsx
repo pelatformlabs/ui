@@ -2,7 +2,7 @@
 
 import type * as React from "react";
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
-import { X } from "lucide-react";
+import { XIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
@@ -58,7 +58,7 @@ function SheetContent({
             data-slot="sheet-close"
             render={<Button variant="ghost" className="cn-sheet-close" size="icon-sm" />}
           >
-            <X />
+            <XIcon />
             <span className="sr-only">Close</span>
           </SheetPrimitive.Close>
         )}

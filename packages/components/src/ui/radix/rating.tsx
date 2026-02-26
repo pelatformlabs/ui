@@ -112,15 +112,13 @@ function Rating({
       const fillPercentage = partiallyFilled ? (displayRating - (i - 1)) * 100 : 0;
 
       stars.push(
-        <button
-          type="button"
+        // biome-ignore lint/a11y/useKeyWithClickEvents: <>
+        <div
           key={i}
-          className={cn("relative bg-transparent p-0", editable && "cursor-pointer")}
+          className={cn("relative", editable && "cursor-pointer")}
           onClick={() => handleStarClick(i)}
           onMouseEnter={() => handleStarMouseEnter(i)}
           onMouseLeave={handleStarMouseLeave}
-          disabled={!editable}
-          aria-label={`Set rating to ${i}`}
         >
           {/* Background star (empty) */}
           <StarIcon
@@ -140,7 +138,7 @@ function Rating({
               className={cn(starVariants({ size }), "fill-yellow-400 text-yellow-400")}
             />
           </div>
-        </button>,
+        </div>,
       );
     }
 

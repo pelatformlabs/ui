@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { PanelLeftIcon } from "lucide-react";
 import { Slot } from "radix-ui";
 
-import { useIsMobile } from "@pelatform/ui.hook";
+import { useIsMobile } from "../../hooks/use-is-mobile";
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
 import { Input } from "./input";

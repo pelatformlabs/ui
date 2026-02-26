@@ -3,7 +3,7 @@
 import { createContext, type ReactNode, useContext, useId } from "react";
 import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field";
 import { cva, type VariantProps } from "class-variance-authority";
-import { Minus, Plus } from "lucide-react";
+import { MinusIcon, PlusIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Label } from "./label";
@@ -132,7 +132,7 @@ function NumberFieldDecrement({
       data-slot="number-field-decrement"
       {...props}
     >
-      {children ?? <Minus />}
+      {children ?? <MinusIcon />}
     </NumberFieldPrimitive.Decrement>
   );
 }
@@ -162,7 +162,7 @@ function NumberFieldIncrement({
       data-slot="number-field-increment"
       {...props}
     >
-      {children ?? <Plus />}
+      {children ?? <PlusIcon />}
     </NumberFieldPrimitive.Increment>
   );
 }

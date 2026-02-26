@@ -4,9 +4,9 @@ import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
-import { PanelLeft } from "lucide-react";
+import { PanelLeftIcon } from "lucide-react";
 
-import { useIsMobile } from "@pelatform/ui.hook";
+import { useIsMobile } from "../../hooks/use-is-mobile";
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
 import { Input } from "./input";
@@ -255,7 +255,7 @@ function SidebarTrigger({ className, onClick, ...props }: React.ComponentProps<t
       }}
       {...props}
     >
-      <PanelLeft className="cn-rtl-flip" />
+      <PanelLeftIcon className="cn-rtl-flip" />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 
 import { cn } from "../../lib/cn";
 import { Button } from "./button";
@@ -184,7 +184,7 @@ function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      <ChevronLeft className="cn-rtl-flip" />
+      <ChevronLeftIcon className="cn-rtl-flip" />
       <span className="sr-only">Previous slide</span>
     </Button>
   );
@@ -214,7 +214,7 @@ function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      <ChevronRight className="cn-rtl-flip" />
+      <ChevronRightIcon className="cn-rtl-flip" />
       <span className="sr-only">Next slide</span>
     </Button>
   );
