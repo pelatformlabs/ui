@@ -1,5 +1,6 @@
 "use client";
 
+import type * as React from "react";
 import { Autocomplete as AutocompletePrimitive } from "@base-ui/react/autocomplete";
 import { cva, type VariantProps } from "class-variance-authority";
 import { ChevronsUpDownIcon, XIcon } from "lucide-react";

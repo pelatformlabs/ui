@@ -1,5 +1,6 @@
 "use client";
 
+import type * as React from "react";
 import { createContext, type ReactNode, useContext, useId } from "react";
 import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field";
 import { cva, type VariantProps } from "class-variance-authority";

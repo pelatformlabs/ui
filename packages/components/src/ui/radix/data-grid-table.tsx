@@ -1,5 +1,6 @@
 "use client";
 
+import type * as React from "react";
 import { type CSSProperties, Fragment, type ReactNode } from "react";
 import {
   type Cell,

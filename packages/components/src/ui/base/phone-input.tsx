@@ -1,5 +1,6 @@
 "use client";
 
+import type * as React from "react";
 import { createContext, useContext, useMemo, useState } from "react";
 import { GlobeIcon } from "lucide-react";
 import * as BasePhoneInput from "react-phone-number-input";
