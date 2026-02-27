@@ -4,7 +4,7 @@ export default defineConfig(() => {
   return {
     clean: true,
     dts: true,
-    external: ["react"],
+    external: ["react", "react-dom"],
     entry: ["./src/index.ts", "./src/animation.ts", "./src/base.ts", "./src/radix.ts"],
     format: "esm",
     target: "ES2022",
