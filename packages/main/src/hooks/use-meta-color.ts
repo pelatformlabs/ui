@@ -9,34 +9,7 @@
 import * as React from "react";
 import { useTheme } from "next-themes";
 
-/**
- * Available theme modes in the application
- * - light: Force light theme
- * - dark: Force dark theme
- * - system: Follow system/OS preference (auto-detect)
- */
-const THEME_MODES = {
-  LIGHT: "light",
-  DARK: "dark",
-  SYSTEM: "system",
-} as const;
-
-/**
- * Meta theme colors for different theme modes
- * Used for:
- * - HTML meta theme-color tags
- * - Browser address bar coloring
- * - PWA theme colors
- * - System theme integration
- */
-const META_THEME_COLORS = {
-  /** Light theme color - Pure white for clean, bright appearance */
-  [THEME_MODES.LIGHT]: "#ffffff",
-  /** Dark theme color - Near black with slight warmth to reduce eye strain */
-  [THEME_MODES.DARK]: "#09090b",
-  /** System theme - Will be determined by user's OS preference */
-  [THEME_MODES.SYSTEM]: "auto", // Special value indicating system preference
-} as const;
+import { META_THEME_COLORS, THEME_MODES } from "../lib/colors";
 
 /**
  * Hook for managing HTML meta theme-color tag based on current theme
