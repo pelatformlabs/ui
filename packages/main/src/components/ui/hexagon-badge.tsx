@@ -8,7 +8,7 @@
 
 import type { ReactNode } from "react";
 
-import { cn } from "@pelatform/utils";
+import { cn } from "../../lib/cn";
 
 /**
  * Props interface for HexagonBadge component
@@ -55,8 +55,6 @@ interface HexagonBadgeProps {
  * @example
  * ```tsx
  * // Basic usage with an icon
- * import { StarIcon } from '@pelatform/ui.general';
- *
  * <HexagonBadge>
  *   <StarIcon className="w-6 h-6" />
  * </HexagonBadge>

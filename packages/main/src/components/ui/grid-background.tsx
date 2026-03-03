@@ -8,7 +8,7 @@
 
 import type { FC } from "react";
 
-import { cn } from "@pelatform/utils";
+import { cn } from "../../lib/cn";
 
 /**
  * Props interface for the GridBackground component
@@ -76,13 +76,16 @@ export const GridBackground: FC<GridBackgroundProps> = ({
   return (
     <div className={cn("stripe-grid absolute inset-0 -z-50 h-full w-full", className)}>
       <div className="relative h-full w-full overflow-hidden">
-        <div className="pointer-events-none absolute top-0 left-0 h-full w-full" aria-hidden="true">
+        <div
+          className="pointer-events-none absolute start-0 top-0 h-full w-full"
+          aria-hidden="true"
+        >
           <div
             className={cn("relative mx-auto grid h-full grid-cols-4 grid-rows-1", maxWidthClass)}
           >
             {columnElements}
             <div
-              className="absolute top-0 right-0 h-full w-px"
+              className="absolute end-0 top-0 h-full w-px"
               style={{ backgroundColor: "var(--grid-base-color)" }}
             />
           </div>

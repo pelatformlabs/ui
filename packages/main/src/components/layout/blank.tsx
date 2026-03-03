@@ -8,8 +8,8 @@
 
 import type { ReactNode } from "react";
 
-import type { BaseComponentProps } from "@pelatform/ui.general";
-import { cn } from "@pelatform/utils";
+import { cn } from "../../lib/cn";
+import type { BaseComponentProps } from "../../types/components";
 import { Grid } from "./grid";
 
 /**

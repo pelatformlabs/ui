@@ -8,8 +8,8 @@
 
 import type { ComponentProps } from "react";
 
-import type { LinkComponent } from "@pelatform/ui.general";
-import { cn } from "@pelatform/utils";
+import { cn } from "../../lib/cn";
+import type { LinkComponentProps } from "../../types/components";
 import { DefaultLink, type SharedLink } from "../utils/shared";
 
 /**
@@ -64,7 +64,7 @@ export function ExtraLink({
   target,
   className,
   children,
-}: SharedLink & ComponentProps<LinkComponent>) {
+}: SharedLink & ComponentProps<LinkComponentProps>) {
   return (
     <Link
       href={href}

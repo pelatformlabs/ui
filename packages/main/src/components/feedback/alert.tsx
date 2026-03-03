@@ -13,7 +13,7 @@
 
 "use client";
 
-import type { ReactNode } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import {
   CheckIcon,
   CircleAlertIcon,
@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-import { Alert, AlertIcon, AlertTitle } from "@pelatform/ui.default";
+import { Alert, AlertTitle } from "@pelatform/ui.components/base";
 
 /**
  * Configuration options for the alert toast notification
@@ -35,7 +35,7 @@ export interface AlertToastOptions {
   /** Icon variant to display in the alert - determines which icon is shown */
   icon?: "primary" | "destructive" | "success" | "info" | "warning";
   /** Visual variant of the alert component - affects styling and colors */
-  variant?: "secondary" | "primary" | "destructive" | "mono" | "success" | "info" | "warning";
+  variant?: ComponentProps<typeof Alert>["variant"];
 }
 
 /**
@@ -56,7 +56,7 @@ const iconMap = {
  * @param options - Configuration options for the toast
  * @param options.message - The message to display (default: 'This is a toast')
  * @param options.icon - The icon variant to show (default: 'success')
- * @param options.variant - The visual style variant (default: 'mono')
+ * @param options.variant - The visual style variant (default: 'default')
  *
  * @example
  * ```tsx
@@ -74,13 +74,13 @@ const iconMap = {
 export function AlertToast({
   message = "This is a toast",
   icon = "success",
-  variant = "mono",
+  variant = "default",
 }: AlertToastOptions) {
   // Create a custom toast with Alert component for consistent styling
   toast.custom(
     () => (
-      <Alert variant={variant} icon={icon}>
-        <AlertIcon>{iconMap[icon ?? "success"]}</AlertIcon>
+      <Alert variant={variant}>
+        {iconMap[icon ?? "success"]}
         <AlertTitle>{message}</AlertTitle>
       </Alert>
     ),
@@ -150,7 +150,7 @@ export function AlertNotification({ message, variant = "info" }: AlertToastOptio
 
   return (
     <Alert variant={variant}>
-      <AlertIcon>{getIcon()}</AlertIcon>
+      {getIcon()}
       <AlertTitle>{message}</AlertTitle>
     </Alert>
   );
@@ -196,15 +196,12 @@ export function AlertNotification({ message, variant = "info" }: AlertToastOptio
  */
 export const AlertComingsoon = ({
   message = "This feature is coming soon.",
-  icon = "success",
-  variant = "mono",
+  variant = "default",
 }: AlertToastOptions = {}): void => {
   toast.custom(
     () => (
-      <Alert variant={variant} icon={icon}>
-        <AlertIcon>
-          <CircleAlertIcon />
-        </AlertIcon>
+      <Alert variant={variant}>
+        <CircleAlertIcon />
         <AlertTitle>{message}</AlertTitle>
       </Alert>
     ),

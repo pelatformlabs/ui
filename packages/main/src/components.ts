@@ -40,7 +40,6 @@ export * from "./components/providers/theme-provider";
 // UI Components
 export * from "./components/ui/announcement";
 export * from "./components/ui/background-paths";
-
 export * from "./components/ui/book";
 export * from "./components/ui/dots-pattern";
 export * from "./components/ui/grid-background";
@@ -50,11 +49,11 @@ export * from "./components/ui/language-switcher";
 export * from "./components/ui/logo";
 export * from "./components/ui/mode-switcher";
 export * from "./components/ui/moving-border";
-export * from "./components/ui/subscribe";
+// export * from "./components/ui/subscribe";
 export * from "./components/ui/toolbar";
 export * from "./components/ui/user-avatar";
 
 // Utility Components
 export * from "./components/utils/fonts";
-export * from "./components/utils/recaptcha-popover";
+// export * from "./components/utils/recaptcha-popover";
 export * from "./components/utils/shared";

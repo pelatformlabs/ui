@@ -11,7 +11,7 @@ import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-qu
 import { CircleAlertIcon } from "lucide-react";
 import { toast } from "sonner";
 
-import { Alert, AlertIcon, AlertTitle } from "@pelatform/ui.default";
+import { Alert, AlertTitle } from "@pelatform/ui.components/base";
 
 /**
  * React Query provider component with optimized configuration
@@ -117,10 +117,8 @@ export const QueryProvider = ({
             // Show error toast notification
             toast.custom(
               () => (
-                <Alert variant="mono" icon="destructive" close={false}>
-                  <AlertIcon>
-                    <CircleAlertIcon />
-                  </AlertIcon>
+                <Alert variant="default">
+                  <CircleAlertIcon />
                   <AlertTitle>{message}</AlertTitle>
                 </Alert>
               ),

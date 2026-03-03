@@ -16,8 +16,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@pelatform/ui.default";
-import { cn, googleTrackEvent } from "@pelatform/utils";
+} from "@pelatform/ui.components/base";
+import { cn } from "../../lib/cn";
 import { DefaultLink, type SharedLink } from "../utils/shared";
 
 /**
@@ -100,7 +100,7 @@ export interface NavigationProps extends SharedLink {
  */
 export function MainNav({ Link = DefaultLink, pathname, items, className }: NavigationProps) {
   return (
-    <div className={cn("mr-4 hidden items-center justify-center md:flex", className)}>
+    <div className={cn("me-4 hidden items-center justify-center md:flex", className)}>
       <nav className="flex items-center gap-4 font-medium text-sm xl:gap-6">
         {items.map((item: NavItem) => (
           <NavItemRenderer Link={Link} key={item.title} item={item} pathname={pathname} level={1} />
@@ -137,7 +137,7 @@ function NavItemRenderer({ Link = DefaultLink, item, pathname, level }: NavItemR
   if (hasChildren && level <= 3) {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger>
           <button
             className={cn(
               "inline-flex cursor-pointer items-center gap-1 transition-colors hover:text-foreground/80 focus-visible:outline-0",
@@ -177,7 +177,6 @@ function NavItemRenderer({ Link = DefaultLink, item, pathname, level }: NavItemR
         "relative inline-flex items-center gap-1 transition-colors hover:text-foreground/80",
         isActive ? "text-foreground" : "text-foreground/60",
       )}
-      onClick={() => handleMenuClick(item)}
     >
       {item.icon && <item.icon />}
       {item.title}
@@ -226,7 +225,7 @@ function ChildNavItemRenderer({ Link = DefaultLink, item, pathname, level }: Nav
   }
 
   return (
-    <DropdownMenuItem asChild>
+    <DropdownMenuItem>
       <Link
         href={item.href || ""}
         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
@@ -236,7 +235,6 @@ function ChildNavItemRenderer({ Link = DefaultLink, item, pathname, level }: Nav
             ? "font-medium text-foreground"
             : "text-muted-foreground hover:text-foreground",
         )}
-        onClick={() => handleMenuClick(item)}
       >
         {item.icon && <item.icon />}
         {item.title}
@@ -244,17 +242,4 @@ function ChildNavItemRenderer({ Link = DefaultLink, item, pathname, level }: Nav
       </Link>
     </DropdownMenuItem>
   );
-}
-
-export function handleMenuClick(item: NavItem) {
-  googleTrackEvent({
-    name: `site_header_menu_${item.title.toLowerCase().replace(/\s+/g, "_")}_link_click`,
-    properties: {
-      menu_item: item.title,
-      menu_path: item.href || "#",
-      is_external: !!item.external,
-      category: "navigation",
-      label: `Header Menu ${item.title} Click`,
-    },
-  });
 }

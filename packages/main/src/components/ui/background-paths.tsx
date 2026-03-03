@@ -8,7 +8,7 @@
 
 import { motion } from "motion/react";
 
-import { cn } from "@pelatform/utils";
+import { cn } from "../../lib/cn";
 
 /**
  * FloatingPaths Component

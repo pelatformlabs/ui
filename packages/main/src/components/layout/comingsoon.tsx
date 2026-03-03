@@ -7,8 +7,8 @@
 
 "use client";
 
-import { HoverBackground } from "@pelatform/ui.animation";
-import { cn } from "@pelatform/utils";
+import { HoverBackground } from "@pelatform/ui.components/animation";
+import { cn } from "../../lib/cn";
 
 /**
  * Props interface for the `ComingSoon` component

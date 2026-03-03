@@ -16,8 +16,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@pelatform/ui.default";
-import { cn, THEME_MODES, type ThemeMode } from "@pelatform/utils";
+} from "@pelatform/ui.components/base";
+import { cn } from "../../lib/cn";
+import { THEME_MODES, type ThemeMode } from "../../lib/colors";
 
 /**
  * Props interface for the ModeSwitcher component
@@ -28,7 +29,7 @@ export interface ModeSwitcherProps {
   /** Button variant style */
   variant?: "ghost" | "outline" | "secondary";
   /** Button size */
-  size?: "sm" | "md" | "lg";
+  size?: React.ComponentProps<typeof Button>["size"];
   /** Custom cycle order for themes (defaults to system -> light -> dark) */
   cycleOrder?: ThemeMode[];
   /** Button type: 'toggle' for a single button or 'dropdown' and 'sub-dropdown' for a menu with options */
@@ -80,7 +81,7 @@ export interface ModeSwitcherProps {
 export function ModeSwitcher({
   className,
   variant = "ghost",
-  size = "md",
+  size = "default",
   cycleOrder = [THEME_MODES.SYSTEM, THEME_MODES.LIGHT, THEME_MODES.DARK],
   type = "toogle",
   label = {
@@ -128,8 +129,8 @@ export function ModeSwitcher({
   if (type === "toogle") {
     return (
       <Button
-        variant={variant}
         size={size}
+        variant={variant}
         className={cn("group/toggle size-8 px-0 text-foreground", className)}
         onClick={toggleTheme}
         aria-label="Switch theme"
@@ -143,10 +144,10 @@ export function ModeSwitcher({
   if (type === "dropdown") {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger>
           <Button
-            variant={variant}
             size={size}
+            variant={variant}
             className={cn(
               "group/toggle size-8 px-0 text-foreground ring-0! focus:outline-none! focus:ring-0! focus-visible:outline-none! focus-visible:ring-0! focus-visible:ring-offset-0!",
               className,
@@ -156,7 +157,7 @@ export function ModeSwitcher({
             <span className="sr-only">Toggle theme</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" onCloseAutoFocus={(e) => e.preventDefault()}>
+        <DropdownMenuContent align="end">
           <DropdownMenuItem
             className={isActive("light") ? "bg-accent" : ""}
             onClick={() => setTheme("light")}

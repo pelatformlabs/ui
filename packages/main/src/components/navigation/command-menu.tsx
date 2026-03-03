@@ -18,17 +18,16 @@
 "use client";
 
 import * as React from "react";
-import type { DialogProps } from "@radix-ui/react-dialog";
 import { SearchIcon } from "lucide-react";
 
-import { Button, CommandDialog, CommandInput, CommandList } from "@pelatform/ui.default";
-import { cn, googleTrackEvent } from "@pelatform/utils";
+import { Button, CommandDialog, CommandInput, CommandList } from "@pelatform/ui.components/base";
+import { cn } from "../../lib/cn";
 
 /**
  * Props interface for the CommandMenu component
  * Extends DialogProps from Radix UI for full dialog customization
  */
-export interface CommandMenuProps extends DialogProps {
+export interface CommandMenuProps {
   /** Child elements to render inside the command list (command items, groups, etc.) */
   children: React.ReactNode;
   /** Additional CSS classes for the trigger button */
@@ -156,20 +155,6 @@ export function CommandMenu({
 
         setOpen((currentOpen) => {
           const newState = !currentOpen;
-
-          // Track analytics only when opening the menu
-          if (newState) {
-            googleTrackEvent({
-              name: "site_header_search_trigger_shortcut",
-              properties: {
-                method: e.key === "/" ? "slash" : "cmd_k",
-                category: "search",
-                label: `Search Trigger - ${e.key === "/" ? "Slash" : "Cmd+K"}`,
-                timestamp: Date.now(),
-              },
-            });
-          }
-
           return newState;
         });
       }
@@ -183,46 +168,28 @@ export function CommandMenu({
   }, []);
 
   /**
-   * Handler for button click events with analytics tracking
-   * Tracks user interaction when the search button is clicked
-   */
-  const handleButtonClick = React.useCallback(() => {
-    googleTrackEvent({
-      name: "site_header_search_trigger_click",
-      properties: {
-        method: "button_click",
-        category: "search",
-        label: "Search Trigger - Button Click",
-        timestamp: Date.now(),
-      },
-    });
-  }, []);
-
-  /**
    * Handler for opening the command menu
    * Combines state update with analytics tracking
    */
   const handleOpenMenu = React.useCallback(() => {
     setOpen(true);
-    handleButtonClick();
-  }, [handleButtonClick]);
+  }, []);
 
   return (
     <>
       {/* Search trigger button with keyboard shortcut hint */}
       <Button
-        variant="outline"
-        mode="input"
         size="sm"
-        className={cn("relative h-8 w-full py-0 pl-2 sm:w-40 sm:pr-12 lg:w-48", classButton)}
+        variant="outline"
+        className={cn("relative h-8 w-full py-0 ps-2 sm:w-40 sm:pe-12 lg:w-48", classButton)}
         onClick={handleOpenMenu}
         aria-label={`Open command menu (${keyHint})`}
         {...props}
       >
-        <SearchIcon className="mr-2 h-4 w-4" aria-hidden="true" />
+        <SearchIcon className="me-2 size-4" />
         <span className="inline-flex text-muted-foreground">{searchButtonText}</span>
         <kbd
-          className="pointer-events-none absolute top-1/2 right-[5px] hidden h-5 -translate-y-1/2 select-none items-center gap-1 rounded border bg-muted px-1.5 font-medium font-mono text-[10px] opacity-100 sm:flex"
+          className="pointer-events-none absolute end-[5px] top-1/2 hidden h-5 -translate-y-1/2 select-none items-center gap-1 rounded border bg-muted px-1.5 font-medium font-mono text-[10px] opacity-100 sm:flex"
           aria-label={`Keyboard shortcut: ${keyHint}`}
         >
           {keyHint}

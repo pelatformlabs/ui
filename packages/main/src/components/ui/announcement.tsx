@@ -7,10 +7,10 @@
 "use client";
 
 import type { HTMLAttributes } from "react";
+import type { VariantProps } from "class-variance-authority";
 
-import { Badge, type badgeVariants } from "@pelatform/ui.default";
-import type { VariantProps } from "@pelatform/ui.general";
-import { cn } from "@pelatform/utils";
+import { Badge, type badgeVariants } from "@pelatform/ui.components/base";
+import { cn } from "../../lib/cn";
 
 /**
  * Props interface for the Announcement component

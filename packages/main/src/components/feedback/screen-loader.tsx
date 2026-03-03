@@ -8,7 +8,7 @@
 
 import { LoaderIcon } from "lucide-react";
 
-import { cn } from "@pelatform/utils";
+import { cn } from "../../lib/cn";
 
 /**
  * Props interface for the ScreenLoader component
@@ -85,7 +85,7 @@ export interface ScreenLoaderProps {
 export function ScreenLoader({
   loadingText = "Loading...",
   className = "",
-  spinnerClassName = "size-6 animate-spin",
+  spinnerClassName = "size-6",
   textClassName = "text-muted-foreground font-medium text-sm",
   contentLoader = false,
 }: ScreenLoaderProps = {}) {
@@ -93,7 +93,7 @@ export function ScreenLoader({
     return (
       <div className={cn("flex w-full grow items-center justify-center", className)}>
         <div className="flex items-center gap-2.5">
-          <LoaderIcon className={spinnerClassName} aria-hidden="true" />
+          <LoaderIcon className={cn("animate-spin", spinnerClassName)} />
           <span className={textClassName}>{loadingText}</span>
         </div>
       </div>
@@ -110,7 +110,7 @@ export function ScreenLoader({
       aria-live="polite"
       aria-label={loadingText}
     >
-      <LoaderIcon className={spinnerClassName} aria-hidden="true" />
+      <LoaderIcon className={cn("animate-spin", spinnerClassName)} />
       <div className={textClassName}>{loadingText}</div>
     </div>
   );

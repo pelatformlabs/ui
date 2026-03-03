@@ -4,7 +4,7 @@
  * for common UI elements like images, links, and navigation
  */
 
-import type { ImageComponent, LinkComponent } from "@pelatform/ui.general";
+import type { ImageComponentProps, LinkComponentProps } from "../../types/components";
 
 /**
  * Interface for components that accept a custom Image component
@@ -12,7 +12,7 @@ import type { ImageComponent, LinkComponent } from "@pelatform/ui.general";
  */
 export interface SharedImage {
   /** Custom Image component implementation */
-  Image?: ImageComponent;
+  Image?: ImageComponentProps;
 }
 
 /**
@@ -21,7 +21,7 @@ export interface SharedImage {
  */
 export interface SharedLink {
   /** Custom Link component implementation */
-  Link?: LinkComponent;
+  Link?: LinkComponentProps;
 }
 
 /**
@@ -56,7 +56,7 @@ export interface SharedNavigate {
  * />
  * ```
  */
-export const DefaultImage: ImageComponent = ({ src, alt, className }) => (
+export const DefaultImage: ImageComponentProps = ({ src, alt, className }) => (
   <img src={src} alt={alt} className={className} />
 );
 
@@ -84,7 +84,7 @@ export const DefaultImage: ImageComponent = ({ src, alt, className }) => (
  * </DefaultLink>
  * ```
  */
-export const DefaultLink: LinkComponent = ({ href, className, children }) => (
+export const DefaultLink: LinkComponentProps = ({ href, className, children }) => (
   <a href={href} className={className}>
     {children}
   </a>

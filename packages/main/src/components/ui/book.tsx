@@ -8,7 +8,7 @@
 
 import type React from "react";
 
-import { cn } from "@pelatform/utils";
+import { cn } from "../../lib/cn";
 
 /**
  * Props interface for the Book component

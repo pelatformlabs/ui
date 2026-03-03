@@ -19,17 +19,17 @@ import {
   DrawerDescription,
   DrawerTitle,
   DrawerTrigger,
-} from "@pelatform/ui.default";
-import type { BaseComponentProps } from "@pelatform/ui.general";
-import { cn } from "@pelatform/utils";
+} from "@pelatform/ui.components/base";
 import { useMetaColor } from "../../hooks/use-meta-color";
+import { cn } from "../../lib/cn";
+import type { BaseComponentProps } from "../../types/components";
 import {
   DefaultLink,
   DefaultNavigate,
   type SharedLink,
   type SharedNavigate,
 } from "../utils/shared";
-import { handleMenuClick, type NavItem } from "./main-nav";
+import type { NavItem } from "./main-nav";
 
 /**
  * MobileNav Component
@@ -162,7 +162,7 @@ export function MobileNavItemRenderer({
           {item.title}
           <ChevronDownIcon
             className={cn(
-              "ml-auto size-3.5 opacity-60 transition-transform",
+              "ms-auto size-3.5 opacity-60 transition-transform",
               isOpen && "rotate-180",
             )}
           />
@@ -193,7 +193,6 @@ export function MobileNavItemRenderer({
           router(item.href.toString());
         }
         onOpenChange?.(false);
-        handleMenuClick(item);
       }}
       className={cn(
         "inline-flex items-center gap-1 text-sm transition-colors",
@@ -202,7 +201,7 @@ export function MobileNavItemRenderer({
     >
       {item.icon && <item.icon />}
       {item.title}
-      {item.external && <ArrowUpRightIcon className="ml-1 size-3.5 opacity-60" />}
+      {item.external && <ArrowUpRightIcon className="ms-1 size-3.5 opacity-60" />}
     </Link>
   );
   // return (

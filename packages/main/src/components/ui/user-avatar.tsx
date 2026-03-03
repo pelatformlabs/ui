@@ -1,18 +1,12 @@
 /**
  * User Avatar Component
- * Displays user profile pictures with fallback initials and optional status indicators
+ * Displays user profile pictures with fallback initials
  * Built on top of the base Avatar component with enhanced user-specific features
  */
 
 "use client";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  AvatarIndicator,
-  AvatarStatus,
-} from "@pelatform/ui.default";
+import { Avatar, AvatarFallback, AvatarImage } from "@pelatform/ui.components/base";
 
 /**
  * Props interface for the UserAvatar component
@@ -20,8 +14,6 @@ import {
 interface UserAvatarProps {
   /** Additional CSS classes for styling */
   className?: string;
-  /** Whether to show online status indicator */
-  indicator?: boolean;
   /** Source URL for the user's profile image */
   src?: string | null | undefined;
   /** Alt text for the image, also used to generate initials */
@@ -32,19 +24,16 @@ interface UserAvatarProps {
  * UserAvatar Component
  *
  * Displays a user's profile picture with automatic fallback to initials
- * when no image is available. Supports optional online status indicators
- * and follows accessibility best practices.
+ * when no image is available.
  *
  * Features:
  * - Automatic initials generation from name
  * - Fallback handling for missing images
- * - Optional online status indicator
  * - Accessible alt text support
  * - Customizable styling
  *
  * @param props - Component props
  * @param props.className - Additional CSS classes for styling
- * @param props.indicator - Whether to show online status indicator (default: false)
  * @param props.src - Source URL for the user's profile image
  * @param props.alt - Alt text for the image, also used to generate initials
  * @returns JSX element containing the user avatar
@@ -55,13 +44,6 @@ interface UserAvatarProps {
  * <UserAvatar
  *   src="https://example.com/avatar.jpg"
  *   alt="John Doe"
- * />
- *
- * // Avatar with online indicator
- * <UserAvatar
- *   src="https://example.com/avatar.jpg"
- *   alt="Jane Smith"
- *   indicator={true}
  * />
  *
  * // Avatar with fallback initials (no image)
@@ -77,7 +59,6 @@ interface UserAvatarProps {
  *       key={user.id}
  *       src={user.avatar}
  *       alt={user.name}
- *       indicator={user.isOnline}
  *       className="w-8 h-8"
  *     />
  *   ))}
@@ -88,7 +69,6 @@ interface UserAvatarProps {
  *   <UserAvatar
  *     src={currentUser.avatar}
  *     alt={currentUser.name}
- *     indicator={true}
  *     className="w-16 h-16"
  *   />
  *   <div>
@@ -98,7 +78,7 @@ interface UserAvatarProps {
  * </div>
  * ```
  */
-export function UserAvatar({ className, indicator = false, src, alt }: UserAvatarProps) {
+export function UserAvatar({ className, src, alt }: UserAvatarProps) {
   const name = alt ?? "User";
   const initial = getInitials(name);
 
@@ -106,11 +86,6 @@ export function UserAvatar({ className, indicator = false, src, alt }: UserAvata
     <Avatar className={className}>
       <AvatarImage src={src ?? undefined} alt={name} />
       <AvatarFallback>{initial}</AvatarFallback>
-      {indicator && (
-        <AvatarIndicator className="-end-2 -top-2">
-          <AvatarStatus variant="online" className="size-2.5" />
-        </AvatarIndicator>
-      )}
     </Avatar>
   );
 }

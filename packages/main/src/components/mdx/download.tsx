@@ -8,9 +8,9 @@
 
 import { DownloadIcon } from "lucide-react";
 
-import { Button } from "@pelatform/ui.default";
-import type { BaseComponentProps } from "@pelatform/ui.general";
-import { cn } from "@pelatform/utils";
+import { Button } from "@pelatform/ui.components/base";
+import { cn } from "../../lib/cn";
+import type { BaseComponentProps } from "../../types/components";
 
 /**
  * DownloadFile Component
@@ -63,7 +63,7 @@ export function DownloadFile({ children, className, href }: BaseComponentProps &
     <div className="inline-flex pb-4">
       <Button size="lg" className={cn("rounded-full", className)}>
         <a href={href} target="_blank" rel="noopener noreferrer">
-          <DownloadIcon className="mr-2 size-5" />
+          <DownloadIcon className="me-2 size-5" />
           {children}
         </a>
       </Button>

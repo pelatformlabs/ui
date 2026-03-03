@@ -9,8 +9,8 @@
 
 import type { ReactNode } from "react";
 
-import { Badge } from "@pelatform/ui.default";
-import { assetsUrl, cn } from "@pelatform/utils";
+import { Badge } from "@pelatform/ui.components/base";
+import { cn } from "../../lib/cn";
 
 /**
  * Props interface for the `ErrorComponents` component
@@ -26,6 +26,8 @@ export interface ErrorComponentsProps {
   textSubtitle?: ReactNode;
   /** Optional action button (e.g., retry) */
   button?: ReactNode;
+  /** Function to generate asset URLs (e.g., for CDN integration) */
+  assetsUrl?: (path: string) => string;
 }
 
 /**
@@ -52,6 +54,7 @@ export function ErrorComponents({
   textTitle,
   textSubtitle,
   button,
+  assetsUrl = (path: string) => path,
 }: ErrorComponentsProps) {
   if (type === "404") {
     return (
@@ -69,7 +72,7 @@ export function ErrorComponents({
           />
         </div>
 
-        <Badge variant="destructive" appearance="outline" className="mb-3">
+        <Badge variant="destructive" className="mb-3">
           404 Error
         </Badge>
 
@@ -96,7 +99,7 @@ export function ErrorComponents({
           />
         </div>
 
-        <Badge variant="destructive" appearance="outline" className="mb-3">
+        <Badge variant="destructive" className="mb-3">
           500 Error
         </Badge>
 

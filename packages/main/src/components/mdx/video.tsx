@@ -8,7 +8,7 @@
 
 import type { ComponentProps } from "react";
 
-import { cn } from "@pelatform/utils";
+import { cn } from "../../lib/cn";
 
 /**
  * Video Component

@@ -6,7 +6,7 @@
 
 "use client";
 
-import { useTransition } from "react";
+import { type ComponentProps, useTransition } from "react";
 import { GlobeIcon, LanguagesIcon } from "lucide-react";
 
 import {
@@ -21,9 +21,15 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@pelatform/ui.default";
-import { cn, getFlagUrl } from "@pelatform/utils";
+} from "@pelatform/ui.components/base";
+import { cn } from "../../lib/cn";
 import { DefaultImage, type SharedImage } from "../utils/shared";
+
+function getFlagUrl(flag: string): string {
+  const flagCode = flag.toLowerCase();
+
+  return `"https://assets.pelatform.com"/media/flags/${flagCode}.svg`;
+}
 
 /**
  * Locale option used by the LanguageSwitcher
@@ -50,7 +56,7 @@ export interface LanguageSwitcherProps extends SharedImage {
   /** Button variant style (for toggle type) */
   variant?: "ghost" | "outline" | "secondary";
   /** Button size (for toggle type) */
-  size?: "sm" | "md" | "lg";
+  size?: ComponentProps<typeof Button>["size"];
   /** Whether to show language names */
   showNames?: boolean;
   /** Whether to show flag icons */
@@ -73,7 +79,7 @@ export function LanguageSwitcher({
   className,
   type = "dropdown",
   variant = "ghost",
-  size = "md",
+  size = "default",
   showNames = true,
   showFlags = true,
   label = "Language",
@@ -107,7 +113,7 @@ export function LanguageSwitcher({
   if (type === "dropdown") {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger>
           <Button
             variant={variant}
             size={size}
@@ -124,11 +130,7 @@ export function LanguageSwitcher({
             </span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="end"
-          className="min-w-[150px]"
-          onCloseAutoFocus={(e) => e.preventDefault()}
-        >
+        <DropdownMenuContent align="end" className="min-w-[150px]">
           {languages.map((lang) => (
             <DropdownMenuItem
               key={lang.code}
@@ -169,7 +171,7 @@ export function LanguageSwitcher({
         <span className="relative flex grow items-center justify-between gap-2">
           {label}
           {currentLanguage && (
-            <Badge appearance="outline" className="absolute end-0 top-1/2 -translate-y-1/2">
+            <Badge variant="outline" className="absolute end-0 top-1/2 -translate-y-1/2">
               {currentLanguage.name}
               {showFlags && currentLanguage.flag && (
                 <Image

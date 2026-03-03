@@ -8,9 +8,9 @@
 
 import { ChevronLeftIcon } from "lucide-react";
 
-import { Button } from "@pelatform/ui.default";
-import type { BaseComponentProps } from "@pelatform/ui.general";
-import { cn } from "@pelatform/utils";
+import { Button } from "@pelatform/ui.components/base";
+import { cn } from "../../lib/cn";
+import type { BaseComponentProps } from "../../types/components";
 import { DefaultLink, type SharedLink } from "../utils/shared";
 
 /**
@@ -87,8 +87,8 @@ export function BackLink({ Link = DefaultLink, children, href, className }: Back
       )}
     >
       <Button
+        size="icon"
         variant="secondary"
-        mode="icon"
         className="size-7.5! transition-transform duration-100 group-hover:-translate-x-0.5"
       >
         <ChevronLeftIcon />
