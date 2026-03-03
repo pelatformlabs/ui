@@ -1,6 +1,9 @@
 # pelatform-ui
 
-A Modern and Minimal React UI Library built with TailwindCSS. The main package that provides access to all Pelatform UI components, hooks, and utilities through a unified interface. This package includes all the components, hooks, and utilities from the other Pelatform UI packages.
+[![Version](https://img.shields.io/npm/v/pelatform-ui.svg)](https://www.npmjs.com/package/pelatform-ui)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+A Modern and Minimal React UI Library built with TailwindCSS. The main package that provides access to all Pelatform UI components, hooks, and utilities through a unified interface.
 
 ## Installation
 
@@ -26,22 +29,20 @@ import "pelatform-ui/css";
 
 pelatform-ui is the main entry point that consolidates all Pelatform UI packages:
 
-- **@@pelatform/ui.general** - Core utilities and types
-- **@@pelatform/ui.hook** - React hooks (15 hooks)
-- **@@pelatform/ui.animation** - Animation components (14 components)
-- **@@pelatform/ui.aria** - Accessible ARIA components (2 components)
-- **@@pelatform/ui.base** - Base headless components (40+ components)
-- **@@pelatform/ui.default** - Styled default components (71 components)
-
-Plus additional ready-to-use components for layouts, navigation, and UI elements.
+- **@pelatform/ui.components** - All UI components (172 components)
+  - Animation (18 components)
+  - Base (77 headless components)
+  - Radix (77 styled components)
+- **@pelatform/ui.hook** - React hooks (18 hooks)
+- **Custom components** - Ready-to-use layouts, navigation, providers, and utilities
 
 ## Import Paths
 
 ```typescript
 // Main exports (utilities, types, icons)
-import { cn, cva, googleTrackEvent } from "pelatform-ui";
+import { cn, cva } from "pelatform-ui";
 
-// Hooks
+// React hooks
 import { useHydrated, useMobile, useMediaQuery } from "pelatform-ui/hooks";
 
 // Animation components
@@ -51,16 +52,13 @@ import {
   Marquee,
 } from "pelatform-ui/animation";
 
-// ARIA components
-import { DateField, ShowMore } from "pelatform-ui/aria";
-
-// Base components
+// Base headless components (full styling control)
 import { Button, Input, Select } from "pelatform-ui/base";
 
-// Default styled components
-import { Card, DataGrid, Kanban } from "pelatform-ui/default";
+// Radix styled components (pre-styled)
+import { Card, DataGrid, Calendar } from "pelatform-ui/radix";
 
-// All components (base + default + custom)
+// Custom Pelatform components
 import { SiteHeader, SiteFooter, CommandMenu } from "pelatform-ui/components";
 
 // Styles
@@ -70,7 +68,7 @@ import "pelatform-ui/css";
 ## Quick Start
 
 ```typescript
-import { Button, Card, Input } from "pelatform-ui/default";
+import { Card, Button, Input } from "pelatform-ui/radix";
 import { useHydrated } from "pelatform-ui/hooks";
 import "pelatform-ui/css";
 
@@ -88,7 +86,7 @@ function App() {
 }
 ```
 
-## Components
+## Custom Components
 
 ### Layout Components
 
@@ -113,9 +111,6 @@ function App() {
 ### Feedback Components
 
 - **Alert** - Alert notifications
-- **AlertToast** - Toast notifications
-- **AlertNotification** - Notification alerts
-- **AlertComingsoon** - Coming soon alert
 - **Dialog** - Modal dialog
 - **ScreenLoader** - Loading screen
 
@@ -127,20 +122,18 @@ function App() {
 - **DotsPattern** - Dot pattern background
 - **GridBackground** - Grid pattern background
 - **HexagonBadge** - Hexagon-shaped badge
-- **Icons** - Icon components
 - **ImageInput** - Image upload input
 - **LanguageSwitcher** - Language selector
 - **Logo** - Brand logo
 - **ModeSwitcher** - Theme mode toggle
 - **MovingBorder** - Animated border effect
-- **Subscribe** - Email subscription
 - **Toolbar** - Toolbar component
 - **UserAvatar** - User avatar display
 
 ### Provider Components
 
 - **QueryProvider** - TanStack Query provider
-- **ThemeProvider** - Theme management (next-themes + tooltip)
+- **ThemeProvider** - Theme management (next-themes)
 
 ### MDX Components
 
@@ -154,7 +147,6 @@ function App() {
 ### Utility Components
 
 - **Fonts** - Font configuration
-- **RecaptchaPopover** - reCAPTCHA integration
 - **Shared** - Shared utilities
 
 ## Theme Management
@@ -178,23 +170,48 @@ function App({ children }) {
 
 ## Hooks
 
-15 production-ready hooks for common use cases:
+18 production-ready hooks for common use cases:
+
+### Analytics & Tracking
 
 - **useAnalytics** - CRUD operation tracking
-- **useBodyClass** - Body class management
-- **useCopyToClipboard** - Clipboard operations
-- **useFileUpload** - File upload with drag & drop
-- **useHydrated** - SSR-safe hydration detection
+
+### Responsive Design
+
 - **useMediaQuery** - Media query tracking
-- **useMenu** - Menu navigation state
-- **useMobile** - Mobile detection
-- **useMounted** - Mount state detection
-- **useMutationObserver** - DOM mutation observation
-- **useRecaptchaV2** - reCAPTCHA integration
-- **useRemoveGAParams** - GA parameter cleanup
-- **useScrollPosition** - Scroll tracking
-- **useSliderInput** - Slider input management
+- **useIsMobile** - Mobile detection
 - **useViewport** - Viewport dimensions
+- **useIntersectionObserver** - Intersection observation
+
+### Form & Input Management
+
+- **useFileUpload** - File upload with drag & drop
+- **useSliderInput** - Slider input management
+- **useCopyToClipboard** - Clipboard operations
+
+### Navigation & Scrolling
+
+- **useMenu** - Menu navigation state
+- **useScrollPosition** - Scroll tracking
+
+### DOM Management
+
+- **useBodyClass** - Body class management
+- **useMutationObserver** - DOM mutation observation
+
+### Platform Detection
+
+- **useIsMac** - macOS detection
+
+### Security
+
+- **useRecaptchaV2** - reCAPTCHA integration
+
+### Utilities
+
+- **useMounted** - Mount state detection
+- **useHydrated** - SSR-safe hydration detection
+- **useRemoveGAParams** - GA parameter cleanup
 
 ## Styling
 
@@ -218,8 +235,8 @@ Full TypeScript support with comprehensive type definitions for all components a
 
 ## Features
 
-- 100+ total components across all packages
-- 15 React hooks for common use cases
+- 172+ total components across all packages
+- 18 React hooks for common use cases
 - Full dark mode support
 - Responsive design
 - Accessibility (WCAG 2.1)
@@ -233,9 +250,10 @@ Full TypeScript support with comprehensive type definitions for all components a
 
 ### Production Dependencies
 
-- `@radix-ui/react-dialog`
-- `radix-ui`
-- `tw-animate-css`
+- `class-variance-authority` - Component variants
+- `clsx` - Conditional className
+- `tailwind-merge` - Tailwind class merging
+- `tw-animate-css` - Animation utilities
 
 ### Peer Dependencies
 

@@ -6,6 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is **Pelatform UI**, a monorepo containing React UI library packages. The project uses Bun as the package manager, Turborepo for monorepo orchestration, Biome for linting/formatting, and Changesets for version management.
 
+**Current Structure**: This is V2 of Pelatform UI with a simplified 4-package architecture (components, hook, main, mcp).
+
 ## Essential Commands
 
 ### Development
@@ -47,39 +49,36 @@ bun run release            # Build and publish packages to npm (maintainers only
 ```
 ui/
 ├── packages/
-│   ├── core/
-│   │   ├── general/       # @pelatform/ui.general - Core utilities and types
-│   │   └── hook/          # @pelatform/ui.hook - React hooks (15 hooks)
-│   ├── components/
-│   │   ├── animation/     # @pelatform/ui.animation - Animation components
-│   │   ├── aria/          # @pelatform/ui.aria - Accessible ARIA components
-│   │   ├── base/          # @pelatform/ui.base - Headless base components
-│   │   └── default/       # @pelatform/ui.default - Styled default components
-│   ├── main/              # pelatform-ui - Main entry point package
-│   └── mcp/               # @pelatform/mcp.ui - MCP server (private)
-├── apps/                  # Reserved for example applications
-└── scripts/               # Build and release scripts
+│   ├── components/       # @pelatform/ui.components - All UI components (animation, base, radix)
+│   ├── hook/             # @pelatform/ui.hook - React hooks (18 hooks)
+│   ├── main/             # pelatform-ui - Main entry point with custom components
+│   └── mcp/              # @pelatform/mcp.ui - MCP server (private)
+├── apps/                 # Reserved for example applications
+└── scripts/              # Build and release scripts
 ```
 
 **Workspace Convention**: All packages in `packages/` directory are part of the workspace. Internal dependencies use the `workspace:*` protocol in package.json files.
 
 ### Package System
 
-**@pelatform/ui.general** (`packages/core/general/`)
+**@pelatform/ui.components** (`packages/components/`)
 
-- Core utilities library with analytics, assets, colors, IP, parsing, and general utils
-- Exports class-variance-authority (cva) and VariantProps
-- Component types and menu types
-- Dependencies: class-variance-authority, clsx, tailwind-merge
+- Multi-entry package containing all UI components organized into three categories:
+- **Entry points**: `.` (main), `./animation`, `./base`, `./radix`
+- **Animation** (18 components): Text effects (ShimmeringText, TextReveal, TypingText, VideoText, WordRotate), number animations (CountingNumber, SlidingNumber), layout effects (Marquee, GitHubButton), and backgrounds (GradientBackground, GridBackground, HoverBackground)
+- **Base** (77 components): Headless components built on Base UI - forms (Input, Textarea, Select, Checkbox, Radio, Switch, Slider), selection (Combobox, Listbox, Autocomplete), layout (Accordion, Tabs, Dialog, Popover, Tooltip), data (Table, Pagination, Avatar, Badge), and more
+- **Radix** (77 components): Styled Radix UI components - Accordion, Alert, AlertDialog, AspectRatio, Autocomplete, Avatar, Badge, Breadcrumb, Button, ButtonGroup, Calendar, Card, Carousel, Chart, Checkbox, Collapsible, Combobox, Command, ContextMenu, DataGrid (with filtering/pagination/dnd), DateSelector, Dialog, Direction, DropdownMenu, Form, HoverCard, Input, Label, Menubar, NavigationMenu, Pagination, Popover, Progress, RadioGroup, Resizable, ScrollArea, Select, Separator, Sheet, Slider, Sonner, Switch, Table, Tabs, Textarea, Toast, Toggle, ToggleGroup, Tooltip
+- Exports CSS via `./css` entry point (from src/style.css)
+- Built with "use client" banner for Next.js compatibility
 
-**@pelatform/ui.hook** (`packages/core/hook/`)
+**@pelatform/ui.hook** (`packages/hook/`)
 
-- 15 React hooks collection including:
-  - Analytics, body class, clipboard, file upload
-  - Hydration detection (useHydrated), media queries, menu
-  - Mobile detection, mounted state, mutation observer
-  - reCAPTCHA v2, scroll position, slider input
-  - Viewport tracking, GA params removal
+- 18 React hooks collection:
+  - Analytics: useAnalytics
+  - DOM interactions: useBodyClass, useCopyToClipboard, useFileUpload, useScrollPosition, useSliderInput
+  - Detection: useHydrated (SSR-safe), useIntersectionObserver, useIsMac, useIsMobile, useMediaQuery, useMounted, useMutationObserver, useViewport
+  - Features: useMenu, useRecaptchaV2, useRemoveGaParams
+- Core utility hooks for common patterns
 
 **@pelatform/mcp.ui** (`packages/mcp/`)
 
@@ -89,101 +88,59 @@ ui/
 - Built with TypeScript, no bundler (direct tsc compilation)
 - Dependencies: @modelcontextprotocol/sdk, glob, zod
 
-**External Dependencies**
-
-Shared TypeScript configurations provided via external `@pelatform/tsconfig` (not in this monorepo).
-
-**@pelatform/ui.animation** (`packages/components/animation/`)
-
-- 14 animation components for text effects and transitions:
-  - Text animations: ShimmeringText, TextReveal, TypingText, GradientText
-  - Number animations: CountingNumber, AnimatedNumber
-  - Layout animations: Marquee, InfiniteSlider
-  - Background effects: AnimatedGridPattern, ParticlesBackground, etc.
-- Exports CSS via `./css` entry point
-
-**@pelatform/ui.aria** (`packages/components/aria/`)
-
-- 2 accessible ARIA components with WCAG 2.1 compliance:
-  - DateField: Accessible date input field
-  - ShowMore: Expandable content with keyboard navigation
-- Exports CSS via `./css` entry point
-
-**@pelatform/ui.base** (`packages/components/base/`)
-
-- 40+ headless base components with full accessibility
-- **Use cases**: When you need complete control over styling or want to build custom design systems
-- Built on Base UI components with React Hook Form integration
-- **Component categories**:
-  - Forms: Input, Textarea, Select, Checkbox, Radio, Switch, Slider
-  - Selection: Combobox, Listbox, MultiSelect
-  - Layout: Accordion, Tabs, Dialog, Popover, Tooltip
-  - Data: Table, Pagination, Avatar, Badge
-  - Buttons, Toasts, and more
-- Exports CSS via `./css` entry point
-
-**@pelatform/ui.default** (`packages/components/default/`)
-
-- 71 styled default components across 8 categories
-- **Use cases**: When you need pre-built components with consistent styling out of the box
-- Full Radix UI + TanStack + motion integration
-- **Component categories**:
-  - Layout & Structure (10): Accordion, Card, Tabs, Sidebar, etc.
-  - Navigation (7): Breadcrumb, Command, DropdownMenu, etc.
-  - Forms (11): Input, Select, Checkbox, Form with validation, etc.
-  - Data Display (12): Alert, Avatar, Badge, Calendar, etc.
-  - Data Tables (9): DataGrid with sorting/filtering/pagination
-  - Dialogs (7): Dialog, Sheet, Drawer, AlertDialog, etc.
-  - Advanced (8): Carousel, Kanban, Stepper, Tree, etc.
-  - Utilities (7): Button, ButtonGroup, Sonner toasts, etc.
-- Exports CSS via `./css` entry point
-
 **pelatform-ui** (`packages/main/`)
 
-- Main entry point that aggregates all packages
-- Organized import paths:
-  - `pelatform-ui` - Core utilities, types, icons
-  - `pelatform-ui/hooks` - Hooks
-  - `pelatform-ui/animation` - Animation components
-  - `pelatform-ui/aria` - ARIA components
-  - `pelatform-ui/base` - Headless components
-  - `pelatform-ui/default` - Styled components
-  - `pelatform-ui/components` - Custom components (layouts, navigation, etc.)
-  - `pelatform-ui/server` - Server-side utilities
-  - `pelatform-ui/css` - Complete theme stylesheet
-  - `pelatform-ui/css/*` - Individual component CSS (e.g., `pelatform-ui/css/button.css`)
+- Main entry point that re-exports from components and hook packages
+- **Organized import paths**:
+  - `pelatform-ui` - Core utilities (cn, colors), types, icons
+  - `pelatform-ui/animation` - Animation components (re-exported from @pelatform/ui.components/animation)
+  - `pelatform-ui/base` - Base headless components (re-exported from @pelatform/ui.components/base)
+  - `pelatform-ui/radix` - Radix styled components (re-exported from @pelatform/ui.components/radix)
+  - `pelatform-ui/hooks` - React hooks (re-exported from @pelatform/ui.hook + custom useMetaColor)
+  - `pelatform-ui/components` - Custom Pelatform components
+- **Custom components categories**:
+  - Feedback: Alert, Dialog, ScreenLoader
+  - Layout: Auth, Blank, Body, ComingSoon, Error, Grid, Section, SiteFooter, SiteHeader, Wrapper
+  - MDX: CodeDisplay, Download, Link, Video, Wrapper, YouTube
+  - Navigation: BackLink, CommandMenu, MainNav, MobileNav
+  - Providers: QueryProvider, ThemeProvider
+  - UI: Announcement, BackgroundPaths, Book, DotsPattern, GridBackground, HexagonBadge, ImageInput, LanguageSwitcher, Logo, ModeSwitcher, MovingBorder, Toolbar, UserAvatar
+  - Utils: Fonts, Shared
+- CSS files located at `css/theme.css` with components in `css/styles/`
 - Includes `llms.txt` for AI assistant integration
-- Multi-entry tsup build produces separate dist files for each export path
-- CSS files located at `css/theme.css` with components in `css/components/`
 
 ### Build System
 
 - **Bundler**: tsup (ESM only, targets ES2022)
 - **TypeScript**: Module resolution is "bundler", strict mode enabled; extends external `@pelatform/tsconfig`
 - **Format**: All packages export ESM format with TypeScript declarations
-- **External Dependencies**: React is externalized in builds
-- **CSS Handling**: Component packages with CSS use build scripts that copy `src/style.css` to `dist/style.css` after tsup build
-- **Peer Dependencies**: Component packages use peerDependencies to avoid bundling shared libraries (React, Radix UI, motion, etc.)
-- **"use client" Banner**: Component packages (animation, aria, base, default) add `"use client";` via tsup banner for Next.js compatibility
-- **Multi-Entry Builds**: Main package uses multiple tsup entry points to produce separate exports (animation, aria, base, default, hooks, components, server)
+- **External Dependencies**: React and React DOM are externalized in builds
+- **CSS Handling**: Components package copies `src/style.css` to `dist/style.css` after tsup build
+- **Peer Dependencies**: Component packages use peerDependencies to avoid bundling shared libraries
+- **"use client" Banner**: Components package adds `"use client";` via tsup banner for Next.js compatibility
+- **Multi-Entry Builds**: Both components and main packages use multiple tsup entry points
 
 **Build Configurations**
 
-Core packages (`@pelatform/ui.general`, `@pelatform/ui.hook`):
+Components package (`@pelatform/ui.components`):
+
+```typescript
+// Multi-entry build with "use client" banner
+entry: [
+  "./src/index.ts",     // Main entry
+  "./src/animation.ts", // Animation components
+  "./src/base.ts",      // Base headless components
+  "./src/radix.ts",     // Radix styled components
+];
+banner: { js: '"use client";' };
+external: ["react", "react-dom"];
+// Build script: "tsup && cp src/style.css dist/style.css"
+```
+
+Hook package (`@pelatform/ui.hook`):
 
 ```typescript
 // Standard tsup config - single entry point
-entry: ["./src/index.ts"];
-external: ["react"];
-```
-
-Component packages (`@pelatform/ui.animation`, `@pelatform/ui.aria`, `@pelatform/ui.base`, `@pelatform/ui.default`):
-
-```typescript
-// Adds "use client" banner for Next.js compatibility
-banner: {
-  js: '"use client";';
-}
 entry: ["./src/index.ts"];
 external: ["react"];
 ```
@@ -193,15 +150,15 @@ Main package (`pelatform-ui`):
 ```typescript
 // Multi-entry build for organized exports
 entry: [
-  "./src/index.ts", // Main entry
-  "./src/animation.ts", // Animation re-exports
-  "./src/aria.ts", // ARIA re-exports
-  "./src/base.ts", // Base re-exports
-  "./src/default.ts", // Default re-exports
-  "./src/hooks.ts", // Hooks re-exports
-  "./src/components.ts", // Components re-exports
-  "./src/server.ts", // Server utilities
+  "./src/index.ts",      // Core utilities, types, icons
+  "./src/animation.ts",  // Animation re-exports
+  "./src/base.ts",       // Base re-exports
+  "./src/radix.ts",      // Radix re-exports
+  "./src/hooks.ts",      // Hooks re-exports
+  "./src/components.ts", // Custom components
 ];
+// No "use client" banner - sub-components add it
+external: ["react", "react-dom"];
 ```
 
 MCP package (`@pelatform/mcp.ui`):
@@ -235,17 +192,17 @@ Follow the conventional commit format (enforced via commitlint):
 type(scope): description
 
 Types: feat, fix, docs, refactor, test, chore, build, ci
-Scopes: Package names (ui.general, ui.hook, ui.animation, ui.aria, ui.base, ui.default, main)
+Scopes: Package names (ui.components, ui.hook, main, mcp)
 ```
 
 Examples:
 
 - `feat(hook): add useHydrated hook for SSR-safe hydration`
-- `feat(animation): add new text reveal component`
-- `fix(base): resolve button component accessibility issue`
-- `docs(default): update data grid documentation`
-- `refactor(react): simplify import paths`
-- `chore(general): update dependencies`
+- `feat(components): add new text reveal component`
+- `fix(components): resolve button component accessibility issue`
+- `docs(main): update data grid documentation`
+- `refactor(components): simplify import paths`
+- `chore(main): update dependencies`
 
 Configuration: `.commitlintrc.cjs` - Extends `@commitlint/config-conventional` with custom types
 
@@ -259,7 +216,7 @@ Configuration: `.commitlintrc.cjs` - Extends `@commitlint/config-conventional` w
 
 ### Adding a New Package
 
-1. Create directory in `packages/core/`, `packages/components/`, or `packages/main/`
+1. Create directory in `packages/` (components, hook, main, or mcp)
 2. Set up with standard structure:
    - `src/index.ts` - Main exports
    - `package.json` - Package metadata with workspace references
@@ -267,14 +224,14 @@ Configuration: `.commitlintrc.cjs` - Extends `@commitlint/config-conventional` w
    - `tsup.config.ts` - Build configuration (see existing packages for standard config)
    - `README.md` - Package documentation
    - `CHANGELOG.md` - Version history
-3. Package naming: Use `@pelatform/*` for public packages (e.g., @pelatform/ui.general)
+3. Package naming: Use `@pelatform/ui.*` for public packages (e.g., @pelatform/ui.components, @pelatform/ui.hook)
 4. For component packages with CSS:
    - Add `src/style.css` file
    - Configure `./css` export in package.json exports field
    - Update build script to copy CSS: `"build": "tsup && cp src/style.css dist/style.css"`
 5. For component packages that need Next.js client directive:
    - Add `banner: { js: '"use client";' }` to tsup.config.ts
-   - This is required for animation, aria, base, and default component packages
+   - This is required for packages that export React components
 6. Configure peer dependencies for shared libraries to avoid bundling duplication
 7. Add package scripts to `package.json`:
    ```json
@@ -289,61 +246,73 @@ Configuration: `.commitlintrc.cjs` - Extends `@commitlint/config-conventional` w
 
 **Package Categories**
 
-- **Core packages** (`packages/core/`): Utilities, hooks, foundational code (use tsup, single entry)
-- **Component packages** (`packages/components/`): UI components (use tsup with "use client" banner)
-- **Main package** (`packages/main/`): Aggregate entry point (use tsup with multi-entry)
-- **MCP/special packages** (`packages/mcp/`): Special-purpose packages (may use tsc directly)
+- **Components package** (`packages/components/`): All UI components with multi-entry build (animation, base, radix)
+- **Hook package** (`packages/hook/`): React hooks (single entry, no "use client" banner)
+- **Main package** (`packages/main/`): Aggregate entry point with custom components (multi-entry build)
+- **MCP package** (`packages/mcp/`): Special-purpose packages (use tsc directly, no tsup)
 
 ### Working on Individual Packages
 
 ```bash
-cd packages/core/general
+cd packages/components  # or packages/hook, packages/main
 bun dev              # Watch mode with tsup
 bun build            # Build package
 bun types:check      # Type-check only
 ```
 
-### Choosing Between Base and Default Components
+### Choosing Between Base and Radix Components
 
-- **Use `@pelatform/ui.base`** when:
+- **Use `pelatform-ui/base`** when:
   - Building a custom design system with specific styling requirements
   - Need complete control over component appearance
   - Want to minimize bundle size by only importing necessary styles
   - Creating components that must match existing brand guidelines
+  - Base components are headless and built on Base UI
 
-- **Use `@pelatform/ui.default`** when:
+- **Use `pelatform-ui/radix`** when:
   - Need pre-styled components that work out of the box
   - Building prototypes or MVPs quickly
   - Want consistent styling across the application
   - Don't have strict design requirements
+  - Radix components are styled with Tailwind CSS and include animations
 
-- **Use both together** - You can import from both packages in the same application
+- **Use both together** - You can import from both categories in the same application
 
 ### Export Patterns
 
 Each package's `src/index.ts` should clearly organize exports:
 
-**Core packages (general, hook, components):**
+**Hook package (no "use client" banner):**
 
 ```typescript
 // Type exports first (for tree-shaking)
-export type * from "./types/...";
+export type * from "./hooks/...";
 
 // Value exports
-export * from "./lib/...";
+export * from "./hooks/...";
+```
+
+**Components package (multi-entry with "use client" banner):**
+
+```typescript
+// Type exports first (for tree-shaking)
+export type * from "./ui/...";
+
+// Value exports
+export * from "./ui/...";
 ```
 
 **Main package re-exports:**
 
 ```typescript
 // Re-export types first (preserves type-only exports)
-export type * from "@pelatform/ui.general";
-export * from "@pelatform/ui.general";
+export type * from "@pelatform/ui.components/animation";
+export * from "@pelatform/ui.components/animation";
 ```
 
-**Entry point files (animation.ts, hooks.ts, etc.):**
+**Entry point files (animation.ts, base.ts, radix.ts, hooks.ts):**
 
-These simply re-export from their respective workspace packages for the multi-entry build.
+These simply re-export from their respective workspace packages for the multi-entry build:
 
 ## Workspace Protocol
 
@@ -357,7 +326,7 @@ This monorepo uses workspace protocol for internal dependencies. In package.json
 
 **Workspace Dependency Management**:
 
-- Internal packages use `workspace:*` protocol (e.g., `@pelatform/ui.general: workspace:*`)
+- Internal packages use `workspace:*` protocol (e.g., `@pelatform/ui.components: workspace:*`, `@pelatform/ui.hook: workspace:*`)
 - Changesets automatically updates workspace dependencies with patch versions during release
 - Run `bun update` after `bun run version` to sync workspace references
 - Never manually version workspace dependencies - let Changesets handle it
@@ -394,11 +363,11 @@ Configuration: `.changeset/config.json` - Uses main branch, public access, patch
 
 ## Important Notes
 
-- **Package Manager**: Must use Bun 1.3.6+ (defined in packageManager field as `bun@1.3.6`)
+- **Package Manager**: Must use Bun 1.3.10+ (defined in packageManager field as `bun@1.3.10`)
 - **Node Version**: Requires Node.js 22+ (defined in engines.field)
 - **Biome**: Used exclusively for linting and formatting (no ESLint/Prettier); extends `@pelatform/biome-config/base`
 - **Turbo**: Caches builds, runs tasks in dependency order, configured in `turbo.json`
-- **React Version**: Uses React 19.2.0; peer dependencies support React >=18.0.0 || >=19.0.0-rc.0
+- **React Version**: Uses React 19.2.4; peer dependencies support React >=18.0.0 || >=19.0.0-rc.0
 - **TypeScript**: Version 5.9.3, strict mode enforced; extends external `@pelatform/tsconfig`
 - **Git Hooks**: Husky is configured (`bun prepare` installs hooks automatically)
 - **Lint-Staged**: Configured at both root and package level for pre-commit checks
@@ -416,4 +385,4 @@ Configuration: `.changeset/config.json` - Uses main branch, public access, patch
 - `lint`: Runs in all packages
 - `clean`/`clean:all`: No caching, non-persistent
 
-**CSS Location**: Main package CSS files are located in the source tree at `css/theme.css` with components in `css/components/`. These are included in the published package (not in `dist/`) and exported via the `./css` and `./css/*` export paths.
+**CSS Location**: Main package CSS files are located in the source tree at `css/theme.css` with components in `css/styles/`. These are included in the published package (not in `dist/`) and exported via the `./css` and `./css/*` export paths.

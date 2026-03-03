@@ -3,7 +3,7 @@
 [![Version](https://img.shields.io/npm/v/@pelatform/ui.hook.svg)](https://www.npmjs.com/package/@pelatform/ui.hook)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A collection of production-ready React hooks for the Pelatform UI Library. This package provides 15 reusable hooks for analytics, responsive design, form handling, navigation, DOM management, and more.
+A collection of production-ready React hooks for the Pelatform UI Library. This package provides 18 reusable hooks for analytics, responsive design, form handling, navigation, DOM management, and more.
 
 ## Installation
 
@@ -65,6 +65,37 @@ Track viewport dimensions with real-time updates.
 import { useViewport } from "@pelatform/ui.hook";
 
 const [height, width] = useViewport();
+```
+
+#### `useIntersectionObserver`
+
+Observe element intersection with viewport using Intersection Observer API.
+
+```typescript
+import { useIntersectionObserver } from "@pelatform/ui.hook";
+
+const ref = useRef<HTMLDivElement>(null);
+const { isIntersecting, entry } = useIntersectionObserver(ref, {
+  threshold: 0.5,
+  triggerOnce: true,
+});
+
+<div ref={ref}>
+  {isIntersecting ? "Visible!" : "Not visible"}
+</div>
+```
+
+#### `useIsMac`
+
+Detect if the user's operating system is macOS.
+
+```typescript
+import { useIsMac } from "@pelatform/ui.hook";
+
+const isMac = useIsMac();
+
+// Useful for keyboard shortcut hints (⌘ vs Ctrl)
+<div>Press {isMac ? "⌘" : "Ctrl"} + K to open command menu</div>
 ```
 
 ### Form & Input Management
@@ -151,14 +182,14 @@ const elementScroll = useScrollPosition({ targetRef: myRef });
 
 ### DOM Management
 
-#### `useBodyClasses`
+#### `useBodyClass`
 
 Dynamically add/remove CSS classes from the document body element.
 
 ```typescript
-import { useBodyClasses } from "@pelatform/ui.hook";
+import { useBodyClass } from "@pelatform/ui.hook";
 
-useBodyClasses("dark-theme overflow-hidden");
+useBodyClass("dark-theme overflow-hidden");
 ```
 
 #### `useMutationObserver`
@@ -245,7 +276,8 @@ useRemoveGAParams(); // Cleans URL after GA processes linker attribution
 - **Responsive Design**: `useMediaQuery`, `useIsMobile`, `useViewport`
 - **Form Management**: `useFileUpload`, `useSliderInput`, `useCopyToClipboard`
 - **Navigation**: `useMenu`, `useScrollPosition`
-- **DOM Interaction**: `useMutationObserver`, `useBodyClasses`
+- **DOM Interaction**: `useMutationObserver`, `useBodyClass`, `useIntersectionObserver`
+- **Platform Detection**: `useIsMac`
 - **Security**: `useRecaptchaV2`
 - **SSR Safety**: `useMounted`, `useHydrated`, `useRemoveGAParams`
 
@@ -255,12 +287,14 @@ useRemoveGAParams(); // Cleans URL after GA processes linker attribution
 
 - `useMounted`
 - `useHydrated`
-- `useBodyClasses`
+- `useBodyClass`
 - `useRemoveGAParams`
 - `useMediaQuery`
 - `useIsMobile`
+- `useIsMac`
 - `useViewport`
 - `useScrollPosition`
+- `useIntersectionObserver`
 
 **Moderate** (State Management):
 
