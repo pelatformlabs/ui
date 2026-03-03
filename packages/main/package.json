@@ -11,6 +11,7 @@
   "exports": {
     "./css": "./css/theme.css",
     "./css/*": "./css/styles/*.css",
+    "./css/components/*": "./css/components/*.css",
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
