@@ -1,5 +1,11 @@
 # pelatform-ui
 
+## 1.2.4
+
+### Patch Changes
+
+- [`e786529`](https://github.com/pelatformlabs/ui/commit/e786529289bf6de735bb54c4c42acc4d4239ac97) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Add layout-fixed variant and new color variables
+
 ## 1.2.3
 
 ### Patch Changes
