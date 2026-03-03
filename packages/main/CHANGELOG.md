@@ -1,5 +1,11 @@
 # pelatform-ui
 
+## 1.2.2
+
+### Patch Changes
+
+- [`170b163`](https://github.com/pelatformlabs/ui/commit/170b1635852105d00eb4ebc82d5d29ca121ace81) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Add component CSS files and update theme styles
+
 ## 1.2.1
 
 ### Patch Changes
