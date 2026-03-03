@@ -7,11 +7,11 @@
 // "use client";
 
 // import type { ReactNode } from "react";
-// import { Popover } from "@base-ui/react/popover";
 // import { CircleAlertIcon } from "lucide-react";
+// import { Popover } from "radix-ui";
 // import { toast } from "sonner";
 
-// import { Alert, AlertTitle, Button } from "@pelatform/ui.components/base";
+// import { Alert, AlertIcon, AlertTitle, Button } from "@pelatform/ui.default";
 // import { useRecaptchaV2 } from "@pelatform/ui.hook";
 
 // /**
@@ -131,8 +131,10 @@
 //       if (!token) {
 //         toast.custom(
 //           () => (
-//             <Alert variant="default">
-//               <CircleAlertIcon />
+//             <Alert variant="mono" icon="destructive">
+//               <AlertIcon>
+//                 <CircleAlertIcon />
+//               </AlertIcon>
 //               <AlertTitle>Please complete the reCAPTCHA verification.</AlertTitle>
 //             </Alert>
 //           ),
@@ -147,8 +149,10 @@
 //       console.error("Error getting reCAPTCHA token:", error);
 //       toast.custom(
 //         () => (
-//           <Alert variant="default">
-//             <CircleAlertIcon />
+//           <Alert variant="mono" icon="destructive">
+//             <AlertIcon>
+//               <CircleAlertIcon />
+//             </AlertIcon>
 //             <AlertTitle>Please complete the reCAPTCHA verification.</AlertTitle>
 //           </Alert>
 //         ),

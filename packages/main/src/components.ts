@@ -38,13 +38,13 @@ export * from "./components/providers/query-provider";
 export * from "./components/providers/theme-provider";
 
 // UI Components
-// export * from "./components/ui/announcement";
+export * from "./components/ui/announcement";
 export * from "./components/ui/background-paths";
-// export * from "./components/ui/book";
+export * from "./components/ui/book";
 export * from "./components/ui/dots-pattern";
 export * from "./components/ui/grid-background";
 export * from "./components/ui/hexagon-badge";
-// export * from "./components/ui/image-input";
+export * from "./components/ui/image-input";
 export * from "./components/ui/language-switcher";
 export * from "./components/ui/logo";
 export * from "./components/ui/mode-switcher";
