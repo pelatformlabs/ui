@@ -124,9 +124,9 @@
   @apply after:border-border relative after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten;
 }
 
-@utility section-soft {
-  @apply from-background to-surface/40 dark:bg-background bg-gradient-to-b;
-}
+/* @utility section-soft {
+  @apply from-background to-surface/40 dark:bg-background 3xl:fixed:bg-none bg-gradient-to-b;
+} */
 
 @utility theme-container {
   @apply font-sans;
