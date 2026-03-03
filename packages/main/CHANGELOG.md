@@ -1,5 +1,11 @@
 # pelatform-ui
 
+## 1.2.3
+
+### Patch Changes
+
+- [`00a57c2`](https://github.com/pelatformlabs/ui/commit/00a57c29b25c68f5907b7cadf61ef6499a03cc66) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Remove section-soft utility class
+
 ## 1.2.2
 
 ### Patch Changes
