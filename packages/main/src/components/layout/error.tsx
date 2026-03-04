@@ -9,7 +9,7 @@
 
 import type { ReactNode } from "react";
 
-import { Badge } from "@pelatform/ui.components/base";
+import { Badge } from "@pelatform/ui.components/radix";
 import { cn } from "../../lib/cn";
 
 /**
@@ -72,7 +72,7 @@ export function ErrorComponents({
           />
         </div>
 
-        <Badge variant="destructive" className="mb-3">
+        <Badge variant="destructive-outline" className="mb-3">
           404 Error
         </Badge>
 
@@ -99,7 +99,7 @@ export function ErrorComponents({
           />
         </div>
 
-        <Badge variant="destructive" className="mb-3">
+        <Badge variant="destructive-outline" className="mb-3">
           500 Error
         </Badge>
 

@@ -16,7 +16,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@pelatform/ui.components/base";
+} from "@pelatform/ui.components/radix";
 import { cn } from "../../lib/cn";
 import { DefaultLink, type SharedLink } from "../utils/shared";
 
@@ -137,7 +137,7 @@ function NavItemRenderer({ Link = DefaultLink, item, pathname, level }: NavItemR
   if (hasChildren && level <= 3) {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <button
             className={cn(
               "inline-flex cursor-pointer items-center gap-1 transition-colors hover:text-foreground/80 focus-visible:outline-0",
@@ -225,7 +225,7 @@ function ChildNavItemRenderer({ Link = DefaultLink, item, pathname, level }: Nav
   }
 
   return (
-    <DropdownMenuItem>
+    <DropdownMenuItem asChild>
       <Link
         href={item.href || ""}
         {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}

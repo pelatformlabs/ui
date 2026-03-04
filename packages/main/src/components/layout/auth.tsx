@@ -8,7 +8,7 @@
 
 import type { ReactNode } from "react";
 
-import { Card, CardContent } from "@pelatform/ui.components/base";
+import { Card, CardContent } from "@pelatform/ui.components/radix";
 import { cn } from "../../lib/cn";
 import type { BaseComponentProps } from "../../types/components";
 

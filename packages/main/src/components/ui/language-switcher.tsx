@@ -21,7 +21,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@pelatform/ui.components/base";
+} from "@pelatform/ui.components/radix";
 import { cn } from "../../lib/cn";
 import { DefaultImage, type SharedImage } from "../utils/shared";
 
@@ -113,7 +113,7 @@ export function LanguageSwitcher({
   if (type === "dropdown") {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <Button
             variant={variant}
             size={size}
@@ -130,7 +130,11 @@ export function LanguageSwitcher({
             </span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="min-w-[150px]">
+        <DropdownMenuContent
+          align="end"
+          className="min-w-[150px]"
+          onCloseAutoFocus={(e) => e.preventDefault()}
+        >
           {languages.map((lang) => (
             <DropdownMenuItem
               key={lang.code}

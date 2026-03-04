@@ -15,7 +15,7 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@pelatform/ui.components/base";
+} from "@pelatform/ui.components/radix";
 
 /**
  * Props interface for the ConfirmDismissDialog component

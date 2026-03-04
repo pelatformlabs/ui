@@ -11,7 +11,7 @@ import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-qu
 import { CircleAlertIcon } from "lucide-react";
 import { toast } from "sonner";
 
-import { Alert, AlertTitle } from "@pelatform/ui.components/base";
+import { Alert, AlertTitle } from "@pelatform/ui.components/radix";
 
 /**
  * React Query provider component with optimized configuration

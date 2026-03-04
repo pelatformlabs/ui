@@ -9,7 +9,7 @@
 import type { HTMLAttributes } from "react";
 import type { VariantProps } from "class-variance-authority";
 
-import { Badge, type badgeVariants } from "@pelatform/ui.components/base";
+import { Badge, type badgeVariants } from "@pelatform/ui.components/radix";
 import { cn } from "../../lib/cn";
 
 /**

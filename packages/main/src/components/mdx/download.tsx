@@ -8,7 +8,7 @@
 
 import { DownloadIcon } from "lucide-react";
 
-import { Button } from "@pelatform/ui.components/base";
+import { Button } from "@pelatform/ui.components/radix";
 import { cn } from "../../lib/cn";
 import type { BaseComponentProps } from "../../types/components";
 

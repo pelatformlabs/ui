@@ -9,7 +9,7 @@
 import type * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-import { TooltipProvider } from "@pelatform/ui.components/base";
+import { TooltipProvider } from "@pelatform/ui.components/radix";
 import { DEFAULT_THEME_MODE, THEME_MODES } from "../../lib/colors";
 
 /**
@@ -98,7 +98,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
         TooltipProvider with optimized delay for better UX
         Provides tooltip context for all child components
       */}
-      <TooltipProvider delay={0}>{children}</TooltipProvider>
+      <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
     </NextThemesProvider>
   );
 }

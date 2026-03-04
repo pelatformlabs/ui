@@ -6,12 +6,6 @@
 export * from "./components/icons";
 
 /************************************
- **** LIB
- *************************************/
-export * from "./lib/cn";
-export * from "./lib/colors";
-
-/************************************
  **** TYPES
  *************************************/
 export * from "./types/components";

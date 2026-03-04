@@ -19,7 +19,7 @@ import {
   DrawerDescription,
   DrawerTitle,
   DrawerTrigger,
-} from "@pelatform/ui.components/base";
+} from "@pelatform/ui.components/radix";
 import { useMetaColor } from "../../hooks/use-meta-color";
 import { cn } from "../../lib/cn";
 import type { BaseComponentProps } from "../../types/components";

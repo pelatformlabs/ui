@@ -24,7 +24,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
-import { Alert, AlertTitle } from "@pelatform/ui.components/base";
+import { Alert, AlertTitle } from "@pelatform/ui.components/radix";
 
 /**
  * Configuration options for the alert toast notification

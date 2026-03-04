@@ -24,17 +24,21 @@
       "types": "./dist/base.d.ts",
       "default": "./dist/base.js"
     },
-    "./radix": {
-      "types": "./dist/radix.d.ts",
-      "default": "./dist/radix.js"
+    "./components": {
+      "types": "./dist/components.d.ts",
+      "default": "./dist/components.js"
     },
     "./hooks": {
       "types": "./dist/hooks.d.ts",
       "default": "./dist/hooks.js"
     },
-    "./components": {
-      "types": "./dist/components.d.ts",
-      "default": "./dist/components.js"
+    "./radix": {
+      "types": "./dist/radix.d.ts",
+      "default": "./dist/radix.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "default": "./dist/utils.js"
     }
   },
   "scripts": {

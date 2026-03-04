@@ -16,7 +16,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@pelatform/ui.components/base";
+} from "@pelatform/ui.components/radix";
 import { cn } from "../../lib/cn";
 import { THEME_MODES, type ThemeMode } from "../../lib/colors";
 
@@ -144,7 +144,7 @@ export function ModeSwitcher({
   if (type === "dropdown") {
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
           <Button
             size={size}
             variant={variant}
@@ -157,7 +157,7 @@ export function ModeSwitcher({
             <span className="sr-only">Toggle theme</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" onCloseAutoFocus={(e) => e.preventDefault()}>
           <DropdownMenuItem
             className={isActive("light") ? "bg-accent" : ""}
             onClick={() => setTheme("light")}

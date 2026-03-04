@@ -20,7 +20,7 @@
 import * as React from "react";
 import { SearchIcon } from "lucide-react";
 
-import { Button, CommandDialog, CommandInput, CommandList } from "@pelatform/ui.components/base";
+import { Button, CommandDialog, CommandInput, CommandList } from "@pelatform/ui.components/radix";
 import { cn } from "../../lib/cn";
 
 /**
