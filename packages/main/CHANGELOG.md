@@ -1,5 +1,11 @@
 # pelatform-ui
 
+## 1.2.6
+
+### Patch Changes
+
+- [`a671498`](https://github.com/pelatformlabs/ui/commit/a671498c955c877f5c4f6877cc3a89e08ff47bcc) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Updated component imports from base to radix
+
 ## 1.2.5
 
 ### Patch Changes
