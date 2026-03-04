@@ -23,7 +23,7 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
           title: (
             <>
               <Logo className="size-6.5" />
-              <span className="font-medium max-md:hidden">UI</span>
+              <span className="font-semibold">Pelatform UI</span>
             </>
           ),
         }}
