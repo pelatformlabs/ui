@@ -127,12 +127,14 @@ Components package (`@pelatform/ui.components`):
 ```typescript
 // Multi-entry build with "use client" banner
 entry: [
-  "./src/index.ts",     // Main entry
+  "./src/index.ts", // Main entry
   "./src/animation.ts", // Animation components
-  "./src/base.ts",      // Base headless components
-  "./src/radix.ts",     // Radix styled components
+  "./src/base.ts", // Base headless components
+  "./src/radix.ts", // Radix styled components
 ];
-banner: { js: '"use client";' };
+banner: {
+  js: '"use client";';
+}
 external: ["react", "react-dom"];
 // Build script: "tsup && cp src/style.css dist/style.css"
 ```
@@ -150,11 +152,11 @@ Main package (`pelatform-ui`):
 ```typescript
 // Multi-entry build for organized exports
 entry: [
-  "./src/index.ts",      // Core utilities, types, icons
-  "./src/animation.ts",  // Animation re-exports
-  "./src/base.ts",       // Base re-exports
-  "./src/radix.ts",      // Radix re-exports
-  "./src/hooks.ts",      // Hooks re-exports
+  "./src/index.ts", // Core utilities, types, icons
+  "./src/animation.ts", // Animation re-exports
+  "./src/base.ts", // Base re-exports
+  "./src/radix.ts", // Radix re-exports
+  "./src/hooks.ts", // Hooks re-exports
   "./src/components.ts", // Custom components
 ];
 // No "use client" banner - sub-components add it

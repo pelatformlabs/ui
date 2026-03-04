@@ -80,7 +80,11 @@ import { cn, cva } from "pelatform-ui";
 import { useHydrated, useMobile, useMediaQuery } from "pelatform-ui/hooks";
 
 // Animation components
-import { ShimmeringText, CountingNumber, Marquee } from "pelatform-ui/animation";
+import {
+  ShimmeringText,
+  CountingNumber,
+  Marquee,
+} from "pelatform-ui/animation";
 
 // Base headless components (full styling control)
 import { Button, Input, Select } from "pelatform-ui/base";
