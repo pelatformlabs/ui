@@ -1,5 +1,11 @@
 # pelatform-ui
 
+## 1.2.5
+
+### Patch Changes
+
+- [`5c8113c`](https://github.com/pelatformlabs/ui/commit/5c8113cf4e73ab59997927c252b19900c8558b1a) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Fix radix ui import
+
 ## 1.2.4
 
 ### Patch Changes
