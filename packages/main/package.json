@@ -26,7 +26,7 @@
     },
     "./radix": {
       "types": "./dist/radix.d.ts",
-      "radix": "./dist/radix.js"
+      "default": "./dist/radix.js"
     },
     "./hooks": {
       "types": "./dist/hooks.d.ts",

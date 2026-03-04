@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
-import { DocsLayout } from "@fumadocs/base-ui/layouts/notebook";
-import { RootProvider } from "@fumadocs/base-ui/provider/next";
+import { DocsLayout } from "fumadocs-ui/layouts/notebook";
+import { RootProvider } from "fumadocs-ui/provider/next";
 
 import { Logo } from "pelatform-ui/components";
 import { source } from "@/lib/source";

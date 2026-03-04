@@ -13,5 +13,5 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "bumpVersionsWithWorkspaceProtocolOnly": true,
-  "ignore": ["@pelatform/mcp.ui"]
+  "ignore": ["@pelatform/mcp.ui", "@apps/*"]
 }
