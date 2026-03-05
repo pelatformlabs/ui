@@ -61,9 +61,7 @@ export function LayoutBlank({ children, footer, className, logo }: LayoutBlankPr
         )}
       >
         <div className="grow basis-0">{logo && <div className="pt-4">{logo}</div>}</div>
-
         <div className="w-full max-w-4xl px-4 py-16">{children}</div>
-
         <div className="grow basis-0">{footer}</div>
       </div>
     </>
