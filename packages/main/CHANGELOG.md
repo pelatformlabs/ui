@@ -1,5 +1,15 @@
 # pelatform-ui
 
+## 1.2.7
+
+### Patch Changes
+
+- [`3104f10`](https://github.com/pelatformlabs/ui/commit/3104f10e014c6219b9f3eade7b4e11c8ca4f880f) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Adjust peer dependencies in tsup.config files for better management.
+
+- Updated dependencies [[`3104f10`](https://github.com/pelatformlabs/ui/commit/3104f10e014c6219b9f3eade7b4e11c8ca4f880f)]:
+  - @pelatform/ui.components@0.1.1
+  - @pelatform/ui.hook@0.2.1
+
 ## 1.2.6
 
 ### Patch Changes

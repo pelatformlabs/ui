@@ -49,7 +49,7 @@
     },
     "packages/components": {
       "name": "@pelatform/ui.components",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "devDependencies": {
         "@base-ui/react": "^1.2.0",
         "@dnd-kit/core": "^6.3.1",
@@ -114,7 +114,7 @@
     },
     "packages/hook": {
       "name": "@pelatform/ui.hook",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "devDependencies": {
         "@pelatform/tsconfig": "^0.1.4",
         "@types/node": "^25.3.3",
@@ -129,7 +129,7 @@
     },
     "packages/main": {
       "name": "pelatform-ui",
-      "version": "1.2.6",
+      "version": "1.2.7",
       "dependencies": {
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
