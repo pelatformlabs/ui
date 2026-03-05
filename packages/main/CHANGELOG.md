@@ -1,5 +1,11 @@
 # pelatform-ui
 
+## 1.2.8
+
+### Patch Changes
+
+- [`25e2ce3`](https://github.com/pelatformlabs/ui/commit/25e2ce3b12154a62d4c3bdadfbdd04cee9702949) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update spinnerClassName default value for consistency
+
 ## 1.2.7
 
 ### Patch Changes
