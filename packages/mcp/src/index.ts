@@ -23,9 +23,8 @@ const __dirname = dirname(__filename);
 // Handle both development (src) and built (dist) environments
 const PACKAGES_ROOT = resolve(__dirname, "..", ".."); // packages/mcp/src|dist -> packages
 
-// V2 Architecture: Direct package paths
-const COMPONENTS_PACKAGE = join(PACKAGES_ROOT, "components");
-const HOOK_PACKAGE = join(PACKAGES_ROOT, "hook");
+// Direct package paths
+const CORE_PACKAGE = join(PACKAGES_ROOT, "core");
 const MAIN_PACKAGE = join(PACKAGES_ROOT, "main");
 
 // Package information cache
@@ -37,8 +36,8 @@ const components = new Map<string, any>();
 class PelatformUIMCPServer {
   private async loadPackageInfo(): Promise<void> {
     try {
-      // V2: Scan individual packages directly
-      const packageDirs = [COMPONENTS_PACKAGE, HOOK_PACKAGE, MAIN_PACKAGE];
+      // V3: Scan core and main packages
+      const packageDirs = [CORE_PACKAGE, MAIN_PACKAGE];
 
       for (const packageDir of packageDirs) {
         const packageJsonPath = join(packageDir, "package.json");
@@ -112,12 +111,9 @@ class PelatformUIMCPServer {
   }
 
   private getPackageCategory(packageName: string): string {
-    // V2 Architecture categories
-    if (packageName === "@pelatform/ui.components") {
-      return "components";
-    }
-    if (packageName === "@pelatform/ui.hook") {
-      return "hooks";
+    // V3 Architecture categories (simplified)
+    if (packageName === "@pelatform/ui") {
+      return "core";
     }
     if (packageName === "pelatform-ui") {
       return "main";
@@ -178,7 +174,7 @@ class PelatformUIMCPServer {
               {
                 error: `Package ${packageName} not found`,
                 availablePackages: Array.from(packages.keys()),
-                hint: "Available packages in V2: @pelatform/ui.components, @pelatform/ui.hook, pelatform-ui",
+                hint: "Available packages in V3: @pelatform/ui, pelatform-ui",
               },
               null,
               2,
@@ -245,7 +241,7 @@ class PelatformUIMCPServer {
               {
                 error: `Package ${packageName} not found`,
                 availablePackages: Array.from(packages.keys()),
-                hint: "Available packages in V2: @pelatform/ui.components, @pelatform/ui.hook, pelatform-ui",
+                hint: "Available packages in V3: @pelatform/ui, pelatform-ui",
               },
               null,
               2,
@@ -316,7 +312,7 @@ class PelatformUIMCPServer {
               {
                 error: `Package ${packageName} not found`,
                 availablePackages: Array.from(packages.keys()),
-                hint: "Available packages in V2: @pelatform/ui.components, @pelatform/ui.hook, pelatform-ui",
+                hint: "Available packages in V3: @pelatform/ui, pelatform-ui",
               },
               null,
               2,
@@ -378,13 +374,13 @@ class PelatformUIMCPServer {
 
   private generateUsageExample(packageName: string, componentName?: string): string {
     // V2 specific usage examples
-    if (packageName === "@pelatform/ui.components") {
+    if (packageName === "@pelatform/ui") {
       if (componentName) {
         return `// Import from specific entry point
-import { ${componentName} } from "@pelatform/ui.components/${this.getComponentCategory(componentName)}";
+import { ${componentName} } from "@pelatform/ui/${this.getComponentCategory(componentName)}";
 
 // Or import from main entry
-import { ${componentName} } from "@pelatform/ui.components";
+import { ${componentName} } from "@pelatform/ui";
 
 // Usage example for ${componentName}
 function Example() {
@@ -397,23 +393,26 @@ function Example() {
 
 export default Example;`;
       }
-      return `// Pelatform UI Components Package
-// Multi-entry package with animation, base, and radix components
+      return `// Pelatform UI - Scope Package
+// Multi-entry package with animation, base, components, hooks, and radix
 
 // Import animation components
-import { ShimmeringText, CountingNumber } from "@pelatform/ui.components/animation";
+import { ShimmeringText, CountingNumber } from "@pelatform/ui/animation";
 
 // Import base headless components (full styling control)
-import { Button, Input, Dialog } from "@pelatform/ui.components/base";
+import { Button, Input, Dialog } from "@pelatform/ui/base";
 
 // Import radix styled components (pre-styled)
-import { Card, DataGrid, Calendar } from "@pelatform/ui.components/radix";
+import { Card, DataGrid, Calendar } from "@pelatform/ui/radix";
 
-// Import all (not recommended - use specific imports)
-import { Button, Card } from "@pelatform/ui.components";
+// Import custom components
+import { Icons, Logo } from "@pelatform/ui/components";
+
+// Import hooks
+import { useHydrated, useMobile } from "@pelatform/ui/hooks";
 
 // Import styles
-import "@pelatform/ui.components/css";
+import "@pelatform/ui/css";
 
 function Example() {
   return (
@@ -421,52 +420,6 @@ function Example() {
       <Input placeholder="Enter text" />
       <Button>Submit</Button>
     </Card>
-  );
-}
-
-export default Example;`;
-    }
-
-    if (packageName === "@pelatform/ui.hook") {
-      if (componentName) {
-        return `import { ${componentName} } from "@pelatform/ui.hook";
-
-// Usage example for ${componentName}
-function Example() {
-  const hook = ${componentName}();
-
-  return (
-    <div>
-      {/* Use the hook here */}
-    </div>
-  );
-}
-
-export default Example;`;
-      }
-      return `// Pelatform UI Hooks Package
-// 18 production-ready React hooks
-
-import {
-  useHydrated,
-  useMobile,
-  useMediaQuery,
-  useAnalytics,
-  useFileUpload,
-  useCopyToClipboard,
-  // ... and more
-} from "@pelatform/ui.hook";
-
-function Example() {
-  const hydrated = useHydrated();
-  const isMobile = useMobile();
-
-  if (!hydrated) return null;
-
-  return (
-    <div>
-      {isMobile ? "Mobile view" : "Desktop view"}
-    </div>
   );
 }
 
@@ -643,7 +596,7 @@ function App() {
 // Create server instance
 const server = new McpServer({
   name: "Pelatform UI",
-  version: "0.2.0",
+  version: "0.3.0",
 });
 
 // Instance of our business logic
@@ -653,12 +606,12 @@ const pelatformServer = new PelatformUIMCPServer();
 server.registerTool(
   "list_packages",
   {
-    description: "List all available Pelatform UI packages (V2 Architecture)",
+    description: "List all available Pelatform UI packages (V3 Architecture)",
     inputSchema: {
       category: z
-        .enum(["components", "hooks", "main", "mcp", "all"])
+        .enum(["core", "main", "mcp", "all"])
         .default("all")
-        .describe("Filter packages by category (V2: components, hooks, main, mcp)"),
+        .describe("Filter packages by category (V3: core, main, mcp)"),
     },
   },
   async ({ category }) => {
@@ -675,9 +628,7 @@ server.registerTool(
       package_name: z
         .string()
         .min(1, "Package name is required")
-        .describe(
-          "The name of the package (V2: @pelatform/ui.components, @pelatform/ui.hook, pelatform-ui)",
-        ),
+        .describe("The name of the package (V3: @pelatform/ui, pelatform-ui)"),
     },
   },
   async ({ package_name }) => {
@@ -715,9 +666,7 @@ server.registerTool(
       package_name: z
         .string()
         .min(1, "Package name is required")
-        .describe(
-          "The package containing the component (V2: @pelatform/ui.components, @pelatform/ui.hook, pelatform-ui)",
-        ),
+        .describe("The package containing the component (V3: @pelatform/ui, pelatform-ui)"),
       component_path: z
         .string()
         .min(1, "Component path is required")
@@ -738,9 +687,7 @@ server.registerTool(
       package_name: z
         .string()
         .min(1, "Package name is required")
-        .describe(
-          "The package to get examples for (V2: @pelatform/ui.components, @pelatform/ui.hook, pelatform-ui)",
-        ),
+        .describe("The package to get examples for (V3: @pelatform/ui, pelatform-ui)"),
       component_name: z.string().optional().describe("Optional specific component name"),
     },
   },
@@ -753,10 +700,13 @@ server.registerTool(
 /**
  * Main entry point for the Pelatform UI MCP Server
  *
- * V2 Architecture - Supports simplified 4-package structure:
- * - @pelatform/ui.components (172 components: animation, base, radix)
- * - @pelatform/ui.hook (18 React hooks)
- * - pelatform-ui (main entry point with custom components)
+ * V3 Architecture - Supports simplified 2-package structure:
+ * - @pelatform/ui (scope package - version 2.0.0)
+ *   Multi-entry package that re-exports from pelatform-ui
+ *   Entry points: ., ./animation, ./base, ./components, ./hooks, ./radix
+ * - pelatform-ui (main package - version 1.2.9)
+ *   All UI components (170+), hooks (18), and styles
+ *   Animation (18), Base (77), Radix (77), Custom (2+)
  * - @pelatform/mcp.ui (MCP server - private)
  *
  * This script initializes the MCP server using the official MCP SDK and
@@ -765,7 +715,7 @@ server.registerTool(
 async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("Pelatform UI MCP server V2 running on stdio");
+  console.error("Pelatform UI MCP server V3 running on stdio");
 }
 
 main().catch((error) => {

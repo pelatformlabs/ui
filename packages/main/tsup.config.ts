@@ -14,9 +14,9 @@ export default defineConfig(() => {
       "./src/components.ts",
       "./src/hooks.ts",
       "./src/radix.ts",
-      "./src/utils.ts",
     ],
     format: "esm",
     target: "ES2022",
+    banner: { js: '"use client";' },
   };
 });

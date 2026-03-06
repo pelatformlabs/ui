@@ -1,7 +1,7 @@
 import Link from "next/link";
 
-import { GridBackground } from "pelatform-ui/animation";
-import { Button } from "pelatform-ui/radix";
+import { GridBackground } from "@pelatform/ui/animation";
+import { Button } from "@pelatform/ui/radix";
 
 export default function Page() {
   return (

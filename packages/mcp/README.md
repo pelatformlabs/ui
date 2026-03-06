@@ -6,24 +6,27 @@ MCP server for exploring Pelatform UI library packages, components, and document
 
 This MCP server provides access to:
 
-- **4 packages** in the Pelatform UI library
+- **2 packages** in the Pelatform UI library
 - **Component discovery** and search
 - **Source code reading** for development
 - **Usage examples** and documentation
 
 ## Available Packages
 
-### V2 Architecture
+### V3 Architecture (Simplified)
 
-Pelatform UI V2 uses a simplified 4-package architecture:
+Pelatform UI V3 uses a simplified 2-package architecture:
 
-- **@pelatform/ui.components** - All UI components (172 components)
-  - Animation (18 components)
-  - Base (77 headless components)
-  - Radix (77 styled components)
-- **@pelatform/ui.hook** - React hooks (18 hooks)
-- **pelatform-ui** - Main entry point with custom components
-- **@pelatform/mcp.ui** - MCP server (private package)
+- **@pelatform/ui** - Scope package (version 2.0.0)
+  - Multi-entry package that re-exports from pelatform-ui
+  - Entry points: ., ./animation, ./base, ./components, ./hooks, ./radix
+  - Published as scoped package for better organization
+
+- **pelatform-ui** - Main package (version 1.2.9)
+  - Contains all UI components, hooks, and styles
+  - 170+ components: Animation (14), Base (77), Radix (77)
+  - 18 React hooks
+  - Complete styling system
 
 ## Setup
 
@@ -90,14 +93,14 @@ Lists all available packages in the Pelatform UI library.
 
 **Parameters:**
 
-- `category` (optional): Filter by "components", "hooks", "main", "mcp", or "all" (default: "all")
+- `category` (optional): Filter by "core", "main", "mcp", or "all" (default: "all")
 
 **Example Prompts:**
 
 ```
 Show me all available packages.
-List component packages only.
-What hooks are available?
+List core packages only.
+What's in the main package?
 ```
 
 ### 2. `get_package_info`
@@ -106,13 +109,13 @@ Gets detailed information about a specific package.
 
 **Parameters:**
 
-- `package_name` (required): Full package name (e.g., "@pelatform/ui.components")
+- `package_name` (required): Full package name (e.g., "@pelatform/ui" or "pelatform-ui")
 
 **Example Prompts:**
 
 ```
-Tell me about the @pelatform/ui.components package.
-What's in the hooks package?
+Tell me about the @pelatform/ui package.
+What's in the pelatform-ui package?
 Show me details for pelatform-ui.
 ```
 
@@ -130,7 +133,7 @@ Searches for components across all packages.
 ```
 Find the Button component.
 Search for "DataGrid" components.
-Look for form components in the components package.
+Look for form components.
 Find all animation-related components.
 ```
 
@@ -146,7 +149,7 @@ Reads the source code of a specific component.
 **Example Prompts:**
 
 ```
-Show me the code for Button component in the components package.
+Show me the code for Button component.
 Read the DataGrid implementation.
 Display the source code for useHydrated hook.
 ```
@@ -163,7 +166,7 @@ Gets usage examples for packages or components.
 **Example Prompts:**
 
 ```
-Give me usage examples for the components package.
+Give me usage examples for the main package.
 How do I use the base components?
 Show me examples for the DataGrid component.
 What's the correct way to implement hooks?
@@ -186,7 +189,7 @@ Use the tools to discover and explore available packages:
 ### 1. Package Discovery
 
 1. Use `list_packages` to see all available packages
-2. Filter by category if needed (components/hooks/main)
+2. Filter by category if needed (core/main)
 3. Use `get_package_info` for detailed package information
 
 ### 2. Component Search and Analysis
@@ -205,7 +208,7 @@ Use the tools to discover and explore available packages:
 
 ### Be Specific with Names
 
-- Use full package names: `@pelatform/ui.components` not just "components"
+- Use full package names: `@pelatform/ui` or `pelatform-ui`
 - Use exact component names when possible
 - Include file extensions in component paths
 
@@ -215,11 +218,10 @@ Use the tools to discover and explore available packages:
 - Use `get_package_info` before `get_usage_example`
 - Search across packages when unsure of location
 
-### Understand the V2 Structure
+### Understand the V3 Structure
 
-- **Components Package**: All UI components (animation, base, radix)
-- **Hooks Package**: React hooks for common use cases
-- **Main Package**: Entry point with custom components
+- **@pelatform/ui** (core): Scope package with multi-entry imports
+- **pelatform-ui** (main): All components, hooks, and styles
 - Each package has its own `src/` directory with TypeScript/React files
 
 ## Troubleshooting
@@ -249,22 +251,28 @@ packages/
 │   ├── src/              # Source code
 │   ├── dist/             # Built output
 │   └── README.md         # This file
-├── components/           # All UI components
-│   ├── src/
-│   │   ├── ui/
-│   │   │   ├── animation/    # 18 animation components
-│   │   │   ├── base/         # 77 headless components
-│   │   │   └── radix/        # 77 styled components
-│   │   ├── animation.ts      # Animation entry point
-│   │   ├── base.ts           # Base entry point
-│   │   └── radix.ts          # Radix entry point
-├── hook/                 # React hooks
-│   └── src/               # 18 hooks
-└── main/                 # Main package
+├── core/                 # @pelatform/ui package
+│   └── src/              # Re-exports from pelatform-ui
+│       ├── index.ts
+│       ├── animation.ts
+│       ├── base.ts
+│       ├── components.ts
+│       ├── hooks.ts
+│       └── radix.ts
+└── main/                 # pelatform-ui package
     ├── src/
-    │   ├── components/      # Custom components
-    │   ├── hooks/           # Custom hooks
-    │   └── lib/             # Utilities
+    │   ├── ui/
+    │   │   ├── animation/    # 14 animation components
+    │   │   ├── base/         # 77 headless components
+    │   │   └── radix/        # 77 styled components
+    │   ├── components/       # Custom components
+    │   ├── hooks/            # 18 React hooks
+    │   ├── index.ts
+    │   ├── animation.ts
+    │   ├── base.ts
+    │   ├── components.ts
+    │   ├── hooks.ts
+    │   └── radix.ts
     └── css/                # Theme stylesheets
 ```
 

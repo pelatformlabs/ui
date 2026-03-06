@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import { DocsLayout } from "fumadocs-ui/layouts/notebook";
 import { RootProvider } from "fumadocs-ui/provider/next";
 
-import { Logo } from "pelatform-ui/components";
+import { Logo } from "@pelatform/ui/components";
 import { source } from "@/lib/source";
 
 // fill this with your actual GitHub info, for example:

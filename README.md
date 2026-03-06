@@ -17,6 +17,10 @@ Building UI in the React ecosystem often requires cobbling together multiple lib
 ## Installation
 
 ```bash
+# Install the scoped package (recommended)
+bun add @pelatform/ui
+
+# Or install the main package directly
 bun add pelatform-ui
 
 # Peer dependencies (if not already installed)
@@ -26,8 +30,8 @@ bun add react react-dom
 ## Quick Start
 
 ```typescript
-import "pelatform-ui/css";
-import { Button, Card, Input } from "pelatform-ui/radix";
+import { Button, Card, Input } from "@pelatform/ui/radix";
+import "@pelatform/ui/css";
 
 function App() {
   return (
@@ -41,30 +45,25 @@ function App() {
 
 ## Packages
 
-This monorepo contains packages organized into a simplified V2 architecture:
+This monorepo contains packages organized into a simplified 3-package architecture:
 
-### Components Package
+### @pelatform/ui (Scope Package)
 
-- **[@pelatform/ui.components](./packages/components)** - All UI components in one package
-  - **Animation** (18 components): Text effects, number animations, layout effects, backgrounds
+- **[@pelatform/ui](./packages/core)** - Scope package that re-exports from pelatform-ui
+  - Multi-entry package with organized imports
+  - Entry points: ., ./animation, ./base, ./components, ./hooks, ./radix
+  - Published as scoped package for better organization
+
+### pelatform-ui (Main Package)
+
+- **[pelatform-ui](./packages/main)** - Main package with all components and hooks
+  - **Animation** (14 components): Text effects, number animations, layout effects, backgrounds
   - **Base** (77 components): Headless components built on Base UI for full styling control
   - **Radix** (77 components): Pre-styled Radix UI components ready to use
+  - **Custom** (2+ components): Icons, Logo, and other Pelatform-specific components
+  - **Hooks** (18 hooks): React hooks for common use cases
 
-### Hooks Package
-
-- **[@pelatform/ui.hook](./packages/hook)** - 18 React hooks
-  - `useHydrated`, `useIsMobile`, `useMediaQuery`, `useAnalytics`
-  - `useCopyToClipboard`, `useFileUpload`, `useScrollPosition`
-  - `useMutationObserver`, `useRecaptchaV2`, and more
-
-### Main Package
-
-- **[pelatform-ui](./packages/main)** - Main entry point
-  - Re-exports all components and hooks from workspace packages
-  - Custom components (layouts, navigation, MDX, providers, UI utilities)
-  - Complete styling via `pelatform-ui/css`
-
-### MCP Package
+### @pelatform/mcp.ui (MCP Server)
 
 - **[@pelatform/mcp.ui](./packages/mcp)** - MCP server (private)
   - Model Context Protocol server for Pelatform UI documentation
@@ -72,43 +71,34 @@ This monorepo contains packages organized into a simplified V2 architecture:
 
 ## Import Paths
 
+You can use either the scoped package (`@pelatform/ui`) or the main package (`pelatform-ui`):
+
 ```typescript
-// Core utilities, types, icons
-import { cn, cva } from "pelatform-ui";
+// Using scoped package (recommended)
+import { useHydrated, useMobile } from "@pelatform/ui/hooks";
+import { ShimmeringText } from "@pelatform/ui/animation";
+import { Button } from "@pelatform/ui/base";
+import { Card } from "@pelatform/ui/radix";
+import { Icons, Logo } from "@pelatform/ui/components";
+import "@pelatform/ui/css";
 
-// React hooks
-import { useHydrated, useMobile, useMediaQuery } from "pelatform-ui/hooks";
-
-// Animation components
-import {
-  ShimmeringText,
-  CountingNumber,
-  Marquee,
-} from "pelatform-ui/animation";
-
-// Base headless components (full styling control)
-import { Button, Input, Select } from "pelatform-ui/base";
-
-// Radix styled components (pre-styled)
-import { Card, DataGrid, Calendar } from "pelatform-ui/radix";
-
-// Custom Pelatform components
-import { SiteHeader, SiteFooter, CommandMenu } from "pelatform-ui/components";
-
-// Complete theme stylesheet
-import "pelatform-ui/css";
-
-// Individual component styles
-import "pelatform-ui/css/button.css";
+// Or using main package directly
+import { useHydrated } from "pelatform-ui/hooks";
+import { ShimmeringText } from "pelatform-ui/animation";
+import { Button } from "pelatform-ui/base";
+import { Card } from "pelatform-ui/radix";
+import "@pelatform/ui/css";
 ```
+
+**Note**: Both packages provide the same imports. The scoped package (`@pelatform/ui`) is recommended for better organization and to follow npm best practices.
 
 ## Component Categories
 
-### Animation Components (18)
+### Animation Components (14)
 
-- **Text Effects**: ShimmeringText, TextReveal, TypingText, VideoText, WordRotate
+- **Text Effects**: ShimmeringText, TextReveal, TypingText, VideoText, WordRotate, SvgText
 - **Number Animations**: CountingNumber, SlidingNumber
-- **Layout Effects**: Marquee, GitHubButton
+- **Layout Effects**: Marquee, GitHubButton, AvatarGroup
 - **Backgrounds**: GradientBackground, GridBackground, HoverBackground
 
 ### Base Components (77)
@@ -126,33 +116,36 @@ Pre-styled Radix UI components ready to use:
 
 - **Layout**: Accordion, AspectRatio, Card, Collapsible, Resizable, Separator
 - **Navigation**: Breadcrumb, Command, ContextMenu, DropdownMenu, Menubar, NavigationMenu
-- **Forms**: Checkbox, Combobox, Input, Label, RadioGroup, Select, Slider, Switch, Textarea
-- **Overlays**: Alert, AlertDialog, Dialog, Drawer, HoverCard, Popover, Sheet, Toast
-- **Feedback**: Progress, Skeleton, Sonner (toasts)
+- **Forms**: Checkbox, Combobox, Form, Input, Label, RadioGroup, Select, Slider, Switch, Textarea
+- **Overlays**: AlertDialog, Dialog, Drawer, DropdownMenu, HoverCard, Popover, Sheet, Toast
+- **Feedback**: Alert, Progress, Skeleton, Sonner
 - **Data Display**: Avatar, Badge, Calendar, Carousel, Chart, DataGrid, Table, Tree
 - **Advanced**: DataGrid with filtering, sorting, pagination, drag-and-drop
 
 ### Custom Components
 
-Layout, navigation, and utility components for complete applications:
+Pelatform-specific components:
 
-- **Layout**: Auth, Blank, Body, ComingSoon, Error, Grid, Section, SiteHeader, SiteFooter, Wrapper
-- **Navigation**: BackLink, CommandMenu, MainNav, MobileNav
-- **Feedback**: Alert, Dialog, ScreenLoader
-- **Providers**: QueryProvider, ThemeProvider
-- **MDX**: CodeDisplay, Download, Link, Video, Wrapper, YouTube
-- **UI**: Announcement, BackgroundPaths, Book, DotsPattern, GridBackground, HexagonBadge, ImageInput, LanguageSwitcher, Logo, ModeSwitcher, MovingBorder, Toolbar, UserAvatar
-- **Utils**: Fonts, Shared
+- **Icons**: Icon components and utilities
+- **Logo**: Pelatform logo component
+- **And more**: Additional custom components for specific use cases
+
+### Hooks (18)
+
+- **Analytics**: useAnalytics
+- **DOM Interactions**: useBodyClass, useCopyToClipboard, useFileUpload, useScrollPosition, useSliderInput
+- **Detection**: useHydrated (SSR-safe), useIntersectionObserver, useIsMac, useIsMobile, useMediaQuery, useMounted, useMutationObserver, useViewport
+- **Features**: useMenu, useRecaptchaV2, useRemoveGAParams
 
 ## Choosing Between Base and Radix
 
-- **Use `pelatform-ui/base`** when:
+- **Use `@pelatform/ui/base`** when:
   - Building a custom design system with specific styling requirements
   - Need complete control over component appearance
   - Want to minimize bundle size by only importing necessary styles
   - Creating components that must match existing brand guidelines
 
-- **Use `pelatform-ui/radix`** when:
+- **Use `@pelatform/ui/radix`** when:
   - Need pre-styled components that work out of the box
   - Building prototypes or MVPs quickly
   - Want consistent styling across the application

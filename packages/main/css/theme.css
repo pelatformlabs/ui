@@ -1,8 +1,6 @@
 @import "tw-animate-css";
 
-@import "@pelatform/ui.components/css";
-
-@import "./shadcn/neutral.css";
+@import "./color/neutral.css";
 @import "./animations.css";
 
 /* start: shadcn/create styles */
@@ -26,10 +24,6 @@
 @custom-variant fixed (&:is(.layout-fixed *));
 
 :root {
-  /** Dashboard **/
-  --sidebar-width: 280px;
-  --header-height: 60px;
-
   /* Extended colors */
   --success: var(--color-emerald-500);
   --success-foreground: var(--color-emerald-900);
@@ -39,17 +33,6 @@
   --warning-foreground: var(--color-yellow-900);
   --invert: var(--color-zinc-900);
   --invert-foreground: var(--color-zinc-50);
-
-  --surface: oklch(0.98 0 0);
-  --surface-foreground: var(--foreground);
-  --code: var(--surface);
-  --code-foreground: var(--surface-foreground);
-  --code-highlight: oklch(0.96 0 0);
-  --code-number: oklch(0.56 0 0);
-
-  /** Grid colors **/
-  --grid-base-color: rgba(66, 71, 112, 0.09);
-  --grid-dots-color: rgba(66, 71, 112, 0.09);
 }
 
 .dark {
@@ -62,17 +45,6 @@
   --warning-foreground: var(--color-yellow-600);
   --invert: var(--color-zinc-700);
   --invert-foreground: var(--color-zinc-50);
-
-  --surface: oklch(0.2 0 0);
-  --surface-foreground: oklch(0.708 0 0);
-  --code: var(--surface);
-  --code-foreground: var(--surface-foreground);
-  --code-highlight: oklch(0.27 0 0);
-  --code-number: oklch(0.72 0 0);
-
-  /** Grid color **/
-  --grid-base-color: rgba(255, 255, 255, 0.09);
-  --grid-dots-color: rgba(255, 255, 255, 0.09);
 }
 
 @theme inline {
@@ -98,13 +70,6 @@
   --color-warning-foreground: var(--warning-foreground);
   --color-invert: var(--invert);
   --color-invert-foreground: var(--invert-foreground);
-
-  --color-surface: var(--surface);
-  --color-surface-foreground: var(--surface-foreground);
-  --color-code: var(--code);
-  --color-code-foreground: var(--code-foreground);
-  --color-code-highlight: var(--code-highlight);
-  --color-code-number: var(--code-number);
 }
 
 /** Custom Scrollbar **/
@@ -140,14 +105,6 @@
 
 @utility border-grid {
   @apply border-border/50 dark:border-border;
-}
-
-@utility border-ghost {
-  @apply after:border-border relative after:absolute after:inset-0 after:border after:mix-blend-darken dark:after:mix-blend-lighten;
-}
-
-@utility section-soft {
-  @apply from-background to-surface/40 dark:bg-background 3xl:fixed:bg-none bg-gradient-to-b;
 }
 
 @utility theme-container {
@@ -186,20 +143,5 @@
   ::-webkit-scrollbar-thumb {
     background: var(--input);
     border-radius: 5px;
-  }
-}
-
-@utility step {
-  counter-increment: step;
-
-  &:before {
-    @apply border-background bg-muted mr-2 inline-flex size-6 items-center justify-center rounded-full text-center -indent-px font-mono text-sm font-medium md:absolute md:mt-[-4px] md:ml-[-50px] md:size-9 md:border-4;
-    content: counter(step);
-  }
-}
-
-@utility extend-touch-target {
-  @media (pointer: coarse) {
-    @apply relative touch-manipulation after:absolute after:-inset-2;
   }
 }
