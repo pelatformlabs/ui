@@ -1,5 +1,11 @@
 # pelatform-ui
 
+## 1.2.9
+
+### Patch Changes
+
+- [`3358441`](https://github.com/pelatformlabs/ui/commit/33584413e6c510a3c3aa094c7b891ea6372be324) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update peerDependencies
+
 ## 1.2.8
 
 ### Patch Changes
