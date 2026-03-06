@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@import "@pelatform/ui/css";
+
+:root {
+  --primary: oklch(0.782 0.106 167.126);
+}
+
+.dark {
+  --primary: oklch(0.782 0.106 167.126);
+}

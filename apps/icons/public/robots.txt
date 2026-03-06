@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Host: https://pelatform-icons.vercel.app
+
+Sitemap: https://pelatform-icons.vercel.app/sitemap.xml
