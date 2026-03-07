@@ -1,79 +1,90 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { categories as categoriesImport } from "@pelatform/icons/categories";
+import iconsByCategoryModule from "@pelatform/icons/icons-by-category";
+import type { IconCategory } from "@pelatform/icons/types";
 
-import * as icons from "@pelatform/icons";
+export type CategoryOption = { id: "all" | IconCategory; title: string };
+export type IconStyle = "all" | "outline" | "filled";
 
-export const useQueryParams = () => {
-  const params = useSearchParams();
+const baseCategories = Array.isArray(categoriesImport)
+  ? (categoriesImport as CategoryOption[])
+  : [];
+const hasAllCategory = baseCategories.some((cat) => cat.id === "all");
 
-  return {
-    query: params.get("query")?.toString() || "",
-    category: params.get("category") || "all",
-  };
-};
+export const categories: CategoryOption[] = hasAllCategory
+  ? baseCategories
+  : [{ id: "all", title: "All" }, ...baseCategories];
 
-export const getCategory = (category: string) => {
-  return "all";
-};
+const iconsByCategory = (iconsByCategoryModule as Record<string, string[]> | undefined) ?? {};
 
-export const getCategoryOptions = () => {
-  return [{ id: "all", title: "All" }];
-};
+// Cache for computed results to avoid repeated calculations
+const categoryCache = new Map<string, string[]>();
+const componentNameCache = new Map<string, string>();
 
-export const filteredIcons = (iconStyle: string) => {
-  const { query = "" } = useQueryParams();
-  const queryLower = query?.toLowerCase() || "";
-  const categoryIcons = null;
+export function normalizeCategory(category: string): "all" | IconCategory {
+  const found = categories.find((item) => item.id === category);
+  return (found?.id ?? "all") as "all" | IconCategory;
+}
 
-  return Object.entries(icons).filter(([name]) => {
-    const nameLower = name.toLowerCase();
-    const matchesSearch = nameLower.includes(queryLower);
-    // biome-ignore lint/suspicious/noExplicitAny: <>
-    const matchesCategory = !categoryIcons || (categoryIcons as any).has(name);
-    const matchesStyle =
-      iconStyle === "all"
-        ? true
-        : iconStyle === "outline"
-          ? !nameLower.includes("filled")
-          : nameLower.includes("filled");
+export const getCategoryOptions = () => categories;
 
-    return matchesSearch && matchesCategory && matchesStyle;
-  });
-};
+export function getCategoryTitle(category: "all" | IconCategory) {
+  return categories.find((item) => item.id === category)?.title ?? "All";
+}
 
-export const getHeading = (iconStyle: string) => {
-  const { query, category } = useQueryParams();
+export function getIconsByCategory(
+  category: "all" | IconCategory,
+  style: IconStyle = "all",
+): string[] {
+  // Create cache key
+  const cacheKey = `${category}-${style}`;
 
-  let heading = "All icons";
-  if (iconStyle === "outline") {
-    heading = "Outline icons";
-  } else if (iconStyle === "filled") {
-    heading = "Filled icons";
-  } else if (query.trim() !== "") {
-    heading = `Search results for "${query}"`;
+  // Return cached result if available
+  if (categoryCache.has(cacheKey)) {
+    return categoryCache.get(cacheKey)!;
   }
 
-  const matchedCategory = getCategory(category);
-  if (matchedCategory !== "all") {
-    heading += ` in category ${matchedCategory.charAt(0).toUpperCase() + matchedCategory.slice(1)}`;
-  }
+  const baseIcons =
+    category === "all" ? Object.values(iconsByCategory).flat() : iconsByCategory[category] || [];
 
-  return heading;
-};
+  let result: string[];
 
-export const getPlaceholder = (iconStyle: string) => {
-  const icons = filteredIcons(iconStyle);
-  const totalIcons = icons.length;
-
-  let placeholder = `Search ${totalIcons}`;
-  if (iconStyle === "outline") {
-    placeholder += " outline icons";
-  } else if (iconStyle === "filled") {
-    placeholder += " filled icons";
+  if (style === "all") {
+    const filledIcons = baseIcons.map((icon) => `${icon}-filled`);
+    result = [...baseIcons, ...filledIcons];
+  } else if (style === "filled") {
+    result = baseIcons.map((icon) => `${icon}-filled`);
   } else {
-    placeholder += " icons";
+    result = baseIcons;
   }
 
-  return placeholder;
-};
+  // Cache the result
+  categoryCache.set(cacheKey, result);
+
+  return result;
+}
+
+export function iconNameToComponentName(iconName: string): string {
+  // Return cached result if available
+  if (componentNameCache.has(iconName)) {
+    return componentNameCache.get(iconName)!;
+  }
+
+  const componentName =
+    "Icon" +
+    iconName
+      .split("-")
+      .map((word) => {
+        if (word.length === 0) return "";
+        if (/^\d+$/.test(word)) return word;
+        if (word.length === 1) return word.toUpperCase();
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join("");
+
+  // Cache the result
+  componentNameCache.set(iconName, componentName);
+
+  return componentName;
+}

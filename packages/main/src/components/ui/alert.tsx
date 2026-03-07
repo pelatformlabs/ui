@@ -43,11 +43,11 @@ export interface AlertToastOptions {
  * Maps icon variants to their corresponding React components
  */
 const iconMap = {
-  primary: <CircleAlertIcon />,
-  success: <CircleCheckIcon />,
-  info: <InfoIcon />,
-  warning: <TriangleAlertIcon />,
-  destructive: <CircleXIcon />,
+  primary: <CircleAlertIcon className="text-primary" />,
+  success: <CircleCheckIcon className="text-success" />,
+  info: <InfoIcon className="text-info" />,
+  warning: <TriangleAlertIcon className="text-warning" />,
+  destructive: <CircleXIcon className="text-destructive" />,
 } satisfies Record<"primary" | "success" | "info" | "warning" | "destructive", ReactNode>;
 
 /**

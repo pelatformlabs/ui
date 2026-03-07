@@ -1,5 +1,6 @@
 import { type ReactNode, Suspense } from "react";
 import type { Metadata } from "next/types";
+import { NuqsAdapter } from "nuqs/adapters/next";
 
 import { ThemeProvider } from "@pelatform/ui/components";
 import { Toaster as Sonner } from "@pelatform/ui/radix";
@@ -33,12 +34,14 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={cn("h-full", fontVariables)} suppressHydrationWarning>
-      <body className="style-vega flex h-full flex-col bg-muted font-sans text-base text-foreground antialiased">
+      <body className="style-vega flex h-full flex-col bg-background font-sans text-base text-foreground antialiased">
         <ThemeProvider defaultTheme="light">
-          <Suspense>
-            {children}
-            <Sonner position="top-center" />
-          </Suspense>
+          <NuqsAdapter>
+            <Suspense>
+              {children}
+              <Sonner position="top-center" />
+            </Suspense>
+          </NuqsAdapter>
         </ThemeProvider>
       </body>
     </html>

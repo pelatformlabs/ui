@@ -8,3 +8,7 @@
 .dark {
   --primary: oklch(0.782 0.106 167.126);
 }
+
+.cn-sheet-overlay {
+  @apply supports-backdrop-filter:backdrop-blur-none;
+}

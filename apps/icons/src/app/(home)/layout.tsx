@@ -9,10 +9,10 @@ export default function MainLayout({ children }: { children: ReactNode }) {
   return (
     <div
       data-vaul-drawer-wrapper="true"
-      className="relative flex min-h-screen grow flex-col border-border/40 bg-background dark:border-border"
+      className="relative flex min-h-screen grow flex-col border-border/40 dark:border-border"
     >
       <Header />
-      <main className="flex flex-1">{children}</main>
+      <main className="flex flex-1 bg-muted">{children}</main>
       <Footer />
     </div>
   );

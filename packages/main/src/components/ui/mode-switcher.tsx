@@ -26,7 +26,7 @@ export interface ModeSwitcherProps {
   /** Additional CSS classes for the button */
   className?: string;
   /** Button variant style */
-  variant?: "ghost" | "outline" | "secondary";
+  variant?: React.ComponentProps<typeof Button>["variant"];
   /** Button size */
   size?: React.ComponentProps<typeof Button>["size"];
   /** Custom cycle order for themes (defaults to system -> light -> dark) */

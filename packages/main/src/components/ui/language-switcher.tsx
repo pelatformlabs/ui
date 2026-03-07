@@ -53,7 +53,7 @@ export interface LanguageSwitcherProps {
   /** UI type: standalone dropdown or submenu dropdown */
   type?: "dropdown" | "sub-dropdown";
   /** Button variant style (for toggle type) */
-  variant?: "ghost" | "outline" | "secondary";
+  variant?: ComponentProps<typeof Button>["variant"];
   /** Button size (for toggle type) */
   size?: ComponentProps<typeof Button>["size"];
   /** Whether to show language names */
@@ -72,6 +72,8 @@ export interface LanguageSwitcherProps {
   onLocaleChange: (newLocale: string) => void | Promise<void>;
   /** Custom flags asset url */
   customFlagUrl?: boolean;
+  /** Badge variant style */
+  badgeVariant?: ComponentProps<typeof Badge>["variant"];
 }
 
 export function LanguageSwitcher({
@@ -87,6 +89,7 @@ export function LanguageSwitcher({
   locales,
   onLocaleChange,
   customFlagUrl = false,
+  badgeVariant = "info-outline",
 }: LanguageSwitcherProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -173,7 +176,7 @@ export function LanguageSwitcher({
         <span className="relative flex grow items-center justify-between gap-2">
           {label}
           {currentLanguage && (
-            <Badge variant="info-outline" className="absolute end-0 top-1/2 -translate-y-1/2">
+            <Badge variant={badgeVariant} className="absolute end-0 top-1/2 -translate-y-1/2">
               {currentLanguage.name}
               {showFlags && currentLanguage.flag && (
                 <img

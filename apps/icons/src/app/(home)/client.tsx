@@ -1,15 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { parseColor } from "@react-stately/color";
+import { parseAsString, useQueryState } from "nuqs";
 import { useDebouncedCallback } from "use-debounce";
 
-import * as icons from "@pelatform/icons";
-import { IconPalette } from "@pelatform/icons";
+import { IconPalette, Icons } from "@pelatform/icons";
 import {
   Button,
   Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  Label,
   Pagination,
   PaginationContent,
   PaginationItem,
@@ -32,16 +36,19 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@pelatform/ui/radix";
-import { filteredIcons, getCategoryOptions, getHeading, getPlaceholder } from "@/lib/utils";
+import { IconListItem } from "@/components/icon-list-item";
+import { InstallIcon } from "@/components/install-icon";
+import {
+  getCategoryOptions,
+  getCategoryTitle,
+  getIconsByCategory,
+  iconNameToComponentName,
+  normalizeCategory,
+} from "@/lib/utils";
 
 const ITEMS_PER_PAGE = 150;
 
 export function ClientPage() {
-  const pathname = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-
   // all state
   const [currentPage, setCurrentPage] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
@@ -52,16 +59,79 @@ export function ClientPage() {
   const [currentStroke, setCurrentStroke] = useState(2);
   const [currentColor, setCurrentColor] = useState(parseColor("#a6a09b"));
 
-  const query = searchParams.get("query")?.toString() || "";
-  const category = searchParams.get("category") || "all";
+  const [queryParam, setQueryParam] = useQueryState("query", parseAsString.withDefault(""));
+  const [categoryParam, setCategoryParam] = useQueryState(
+    "category",
+    parseAsString.withDefault("all"),
+  );
 
-  const heading = getHeading(currentStyle);
-  const placeholder = getPlaceholder(currentStyle);
-  const allIcons = filteredIcons(currentStyle);
+  const category = normalizeCategory(categoryParam);
+
+  const [searchValue, setSearchValue] = useState(queryParam);
+  useEffect(() => {
+    setSearchValue(queryParam);
+  }, [queryParam]);
+
+  const iconEntries = useMemo(() => {
+    return Object.entries(Icons).filter(
+      ([name, Icon]) => name.startsWith("Icon") && typeof Icon === "function",
+    ) as [string, React.ComponentType<React.SVGProps<SVGSVGElement>>][];
+  }, []);
+
+  const categoryIconNames = useMemo(() => {
+    const iconNames = getIconsByCategory(category, currentStyle as "all" | "outline" | "filled");
+    const componentNames = iconNames.map(iconNameToComponentName);
+    return new Set(componentNames);
+  }, [category, currentStyle]);
+
+  const allIcons = useMemo(() => {
+    const queryLower = searchValue.trim().toLowerCase();
+
+    return iconEntries.filter(([name]) => {
+      const nameLower = name.toLowerCase();
+      const matchesQuery = queryLower ? nameLower.includes(queryLower) : true;
+      const matchesCategory = categoryIconNames.has(name);
+
+      return matchesQuery && matchesCategory;
+    });
+  }, [iconEntries, searchValue, categoryIconNames]);
+
+  const heading = useMemo(() => {
+    let title = "All icons";
+
+    if (currentStyle === "outline") {
+      title = "Outline icons";
+    } else if (currentStyle === "filled") {
+      title = "Filled icons";
+    } else if (searchValue.trim() !== "") {
+      title = `Search results for "${searchValue}"`;
+    }
+
+    if (category !== "all") {
+      title += ` in category ${getCategoryTitle(category)}`;
+    }
+
+    return title;
+  }, [currentStyle, searchValue, category]);
+
+  const placeholder = useMemo(() => {
+    const totalIcons = allIcons.length;
+    let text = `Search ${totalIcons}`;
+
+    if (currentStyle === "outline") {
+      text += " outline icons";
+    } else if (currentStyle === "filled") {
+      text += " filled icons";
+    } else {
+      text += " icons";
+    }
+
+    return text;
+  }, [allIcons.length, currentStyle]);
 
   const totalIcons = allIcons.length;
   const totalPages = Math.ceil(totalIcons / ITEMS_PER_PAGE);
-  const _paginatedIcons = allIcons.slice(
+  const paginatedIcons = allIcons.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE,
   );
@@ -72,45 +142,14 @@ export function ClientPage() {
     setCurrentStroke(2);
     setCurrentColor(parseColor("#a6a09b"));
 
-    params.delete("query");
-    params.delete("category");
-    router.replace(pathname);
+    setSearchValue("");
+    void setQueryParam("", { history: "replace" });
+    void setCategoryParam("all", { history: "replace" });
+    setCurrentPage(1);
   };
 
-  const handleSearch = useDebouncedCallback((term: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (term) {
-      params.set("query", term);
-    } else {
-      params.delete("query");
-    }
-
-    // Keep existing category if present
-    const existingCategory = searchParams.get("category");
-    if (existingCategory && existingCategory !== "all") {
-      params.set("category", existingCategory);
-    }
-
-    router.push(`${pathname}?${params.toString()}`);
-    setCurrentPage(1);
-  }, 300);
-
-  const handleCategory = useDebouncedCallback((selected: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (selected && selected !== "all") {
-      params.set("category", selected);
-    } else {
-      params.delete("category");
-    }
-
-    // Keep existing query if present
-    const existingQuery = searchParams.get("query");
-    if (existingQuery) {
-      params.set("query", existingQuery);
-    }
-
-    router.push(`${pathname}?${params.toString()}`);
-    setCurrentPage(1);
+  const commitSearchToUrl = useDebouncedCallback((term: string) => {
+    void setQueryParam(term ? term : null, { history: "replace" });
   }, 300);
 
   const styles = [
@@ -122,89 +161,144 @@ export function ClientPage() {
   return (
     <>
       <div className="relative mb-6 flex items-center gap-2 md:mb-8 md:gap-4">
-        <Input
-          onChange={(e) => handleSearch(e.target.value)}
-          defaultValue={query}
-          aria-label="Search icons"
-          placeholder={placeholder}
-          className="w-full *:md:h-12 **:[input]:pl-4! **:[svg]:md:top-3.5! **:[svg]:md:size-5!"
-        />
+        <InputGroup className="h-10 md:h-12 **:[svg]:size-5!">
+          <InputGroupAddon>
+            <Icons.IconSearch className="text-muted-foreground" />
+          </InputGroupAddon>
+          <InputGroupInput
+            value={searchValue}
+            onChange={(e) => {
+              const next = e.target.value;
+              setSearchValue(next);
+              commitSearchToUrl(next);
+            }}
+            aria-label="Search icons"
+            placeholder={placeholder}
+          />
+          {searchValue ? (
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                size="icon-xs"
+                variant="ghost"
+                onClick={() => {
+                  commitSearchToUrl.cancel();
+                  setSearchValue("");
+                  void setQueryParam("", { history: "replace" });
+                }}
+                aria-label="Clear search"
+              >
+                <Icons.IconX className="size-4" />
+              </InputGroupButton>
+            </InputGroupAddon>
+          ) : null}
+        </InputGroup>
         <Button
           size="icon"
           variant="outline"
           className="size-10 md:size-12"
           onClick={() => setIsOpen(true)}
         >
-          <IconPalette className="size-5! md:size-6!" />
+          <IconPalette className="size-5! text-muted-foreground md:size-6!" />
         </Button>
       </div>
+
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent side="left">
           <SheetHeader>
-            <SheetTitle className="gap-6">
+            <SheetTitle className="flex items-center gap-6">
               Customize icons
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Button size="icon" variant="ghost" onClick={handleReset}>
-                    <icons.IconReload />
+                    <Icons.IconReload />
                   </Button>
                 </TooltipTrigger>
                 <TooltipContent side="right">Reset settings to default.</TooltipContent>
               </Tooltip>
             </SheetTitle>
           </SheetHeader>
-          <div className="flex flex-col gap-5 px-6 py-4">
-            <div>
-              <h3 className="mb-2 font-medium text-sm">Style:</h3>
-              <ToggleGroup
-                spacing={4}
-                type="single"
-                value={currentStyle}
-                onValueChange={(v) => {
-                  if (v) setCurrentStyle(v);
-                }}
-              >
-                {styles.map(({ id, label }) => (
-                  <ToggleGroupItem
-                    key={id}
-                    value={id}
-                    className={
-                      currentStyle === id ? "border-brand-700! bg-brand-700! text-white!" : ""
+          <div className="flex flex-col gap-6 px-6 py-5">
+            <div className="grid w-full gap-4">
+              <Label className="font-medium">Style</Label>
+              <div className="flex items-center">
+                <ToggleGroup
+                  type="single"
+                  variant="outline"
+                  value={currentStyle}
+                  onValueChange={(v) => {
+                    if (v) {
+                      setCurrentStyle(v);
+                      setCurrentPage(1);
                     }
-                  >
-                    {label}
-                  </ToggleGroupItem>
-                ))}
-              </ToggleGroup>
+                  }}
+                >
+                  {styles.map(({ id, label }) => (
+                    <ToggleGroupItem
+                      key={id}
+                      value={id}
+                      className={
+                        currentStyle === id
+                          ? "border-primary bg-primary text-white transition-colors hover:text-foreground"
+                          : ""
+                      }
+                    >
+                      {label}
+                    </ToggleGroupItem>
+                  ))}
+                </ToggleGroup>
+              </div>
             </div>
-            <div>
-              <h3 className="mb-2 font-medium text-sm">Size:</h3>
-              <Slider
-                step={4}
-                value={[currentSize]}
-                min={20}
-                max={48}
-                onValueChange={(v) => setCurrentSize(v[0])}
-                className="mb-1"
-              />
-              <span className="text-muted-foreground text-xs">{currentSize} px</span>
+            <div className="grid w-full gap-4">
+              <Label className="font-medium">Size</Label>
+              <div className="relative pt-8">
+                <div
+                  className="absolute top-0 rounded bg-foreground px-2 py-0.5 font-semibold text-background text-xs tabular-nums"
+                  style={{
+                    left: `${((currentSize - 20) / (48 - 20)) * 100}%`,
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  {currentSize} px
+                  <div className="absolute -bottom-1 left-1/2 size-2 -translate-x-1/2 rotate-45 bg-foreground" />
+                </div>
+                <Slider
+                  step={4}
+                  min={20}
+                  max={48}
+                  value={[currentSize]}
+                  onValueChange={(v) => setCurrentSize(v[0])}
+                  className="mb-1 h-1.5 bg-primary"
+                />
+              </div>
             </div>
             {currentStyle !== "filled" && (
-              <div>
-                <h3 className="mb-2 font-medium text-sm">Stroke:</h3>
-                <Slider
-                  step={0.25}
-                  value={[currentStroke]}
-                  min={1}
-                  max={2}
-                  onValueChange={(v) => setCurrentStroke(v[0])}
-                  className="mb-1"
-                />
-                <span className="text-muted-foreground text-xs">{currentStroke} px</span>
+              <div className="grid w-full gap-4">
+                <Label className="font-medium">Stroke</Label>
+                <div className="relative pt-8">
+                  <div
+                    className="absolute top-0 rounded bg-foreground px-2 py-0.5 font-semibold text-background text-xs tabular-nums"
+                    style={{
+                      left: `${((currentStroke - 1) / (2 - 1)) * 100}%`,
+                      transform: "translateX(-50%)",
+                    }}
+                  >
+                    {currentStroke} px
+                    <div className="absolute -bottom-1 left-1/2 size-2 -translate-x-1/2 rotate-45 bg-foreground" />
+                  </div>
+                  <Slider
+                    step={0.25}
+                    min={1}
+                    max={2}
+                    value={[currentStroke]}
+                    onValueChange={(v) => setCurrentStroke(v[0])}
+                    className="mb-1 h-1.5! bg-primary"
+                  />
+                </div>
               </div>
             )}
-            <div>
-              <h3 className="mb-2 font-medium text-sm">Color:</h3>
+            <div className="grid w-full gap-4">
+              <Label className="font-medium">Color</Label>
               <Input
                 type="color"
                 value={currentColor.toString("hex")}
@@ -212,9 +306,15 @@ export function ClientPage() {
                 className="h-10 w-full"
               />
             </div>
-            <div>
-              <h3 className="mb-2 font-medium text-sm">Category:</h3>
-              <Select value={category} onValueChange={(key) => handleCategory(key || "all")}>
+            <div className="grid w-full gap-4">
+              <Label className="font-medium">Category</Label>
+              <Select
+                value={category}
+                onValueChange={(key) => {
+                  void setCategoryParam(key === "all" ? "" : key, { history: "replace" });
+                  setCurrentPage(1);
+                }}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
@@ -227,14 +327,16 @@ export function ClientPage() {
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <h3 className="mb-2 font-medium text-sm">Install:</h3>
-              {/* <InstallIcon /> */}
+            <div className="grid w-full gap-4">
+              <Label className="font-medium">Install</Label>
+              <InstallIcon />
             </div>
           </div>
         </SheetContent>
       </Sheet>
+
       <h2 className="mb-5 font-semibold text-2xl tracking-tight">{heading}</h2>
+
       {totalIcons === 0 ? (
         <div className="mt-6 text-center text-muted-foreground">
           <h3 className="font-semibold text-lg">No results found</h3>
@@ -242,16 +344,12 @@ export function ClientPage() {
         </div>
       ) : (
         <>
-          {/* <ListBox
-            selectionMode="single"
-            aria-label="List Icon"
-            layout="grid"
-            className="flex flex-wrap justify-around gap-2 md:gap-4"
-          >
+          <div className="flex flex-wrap justify-around gap-2 md:gap-4">
             {paginatedIcons.map(([name, Icon]) => (
               <IconListItem
                 key={name}
                 name={name}
+                // biome-ignore lint/suspicious/noExplicitAny: <>
                 Icon={Icon as any}
                 iconStyle={currentStyle}
                 iconSize={currentSize}
@@ -259,7 +357,7 @@ export function ClientPage() {
                 iconColor={String(currentColor)}
               />
             ))}
-          </ListBox> */}
+          </div>
           {totalIcons > ITEMS_PER_PAGE && (
             <Pagination className="mt-8 lg:mt-12">
               <PaginationContent>
