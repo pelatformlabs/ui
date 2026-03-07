@@ -1,9 +1,9 @@
 import { type ReactNode, Suspense } from "react";
 import type { Metadata } from "next/types";
-import { ThemeProvider } from "next-themes";
 
-import { Toaster as Sonner, TooltipProvider } from "@pelatform/ui/radix";
-import { cn, DEFAULT_THEME_MODE, THEME_MODES } from "@pelatform/utils";
+import { ThemeProvider } from "@pelatform/ui/components";
+import { Toaster as Sonner } from "@pelatform/ui/radix";
+import { cn } from "@pelatform/utils";
 import { fontVariables } from "@/lib/fonts";
 
 import "@/styles/globals.css";
@@ -34,21 +34,11 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={cn("h-full", fontVariables)} suppressHydrationWarning>
       <body className="style-vega flex h-full flex-col bg-muted font-sans text-base text-foreground antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme={DEFAULT_THEME_MODE}
-          enableSystem
-          disableTransitionOnChange
-          enableColorScheme
-          storageKey="theme"
-          themes={[THEME_MODES.LIGHT, THEME_MODES.DARK, THEME_MODES.SYSTEM]}
-        >
-          <TooltipProvider delayDuration={0}>
-            <Suspense>
-              {children}
-              <Sonner position="top-center" />
-            </Suspense>
-          </TooltipProvider>
+        <ThemeProvider defaultTheme="light">
+          <Suspense>
+            {children}
+            <Sonner position="top-center" />
+          </Suspense>
         </ThemeProvider>
       </body>
     </html>

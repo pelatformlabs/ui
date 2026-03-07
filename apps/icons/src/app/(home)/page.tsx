@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import { Spinner } from "@pelatform/ui/radix";
+import { ClientPage } from "./client";
 
 export default function Page() {
   return (
@@ -29,8 +30,7 @@ export default function Page() {
               </div>
             }
           >
-            {/* <ClientPage /> */}
-            <div>Client Page</div>
+            <ClientPage />
           </Suspense>
         </div>
       </div>

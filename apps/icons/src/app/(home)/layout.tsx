@@ -2,8 +2,8 @@
 
 import type { ReactNode } from "react";
 
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 
 export default function MainLayout({ children }: { children: ReactNode }) {
   return (
@@ -11,9 +11,9 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       data-vaul-drawer-wrapper="true"
       className="relative flex min-h-screen grow flex-col border-border/40 bg-background dark:border-border"
     >
-      <SiteHeader />
+      <Header />
       <main className="flex flex-1">{children}</main>
-      <SiteFooter />
+      <Footer />
     </div>
   );
 }
