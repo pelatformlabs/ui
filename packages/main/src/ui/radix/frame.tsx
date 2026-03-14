@@ -116,4 +116,4 @@ function FrameFooter({ className, ...props }: React.ComponentProps<"footer">) {
   );
 }
 
-export { Frame, FramePanel, FrameHeader, FrameTitle, FrameDescription, FrameFooter, frameVariants };
+export { Frame, FrameDescription, FrameFooter, FrameHeader, FramePanel, FrameTitle, frameVariants };

@@ -665,9 +665,9 @@ export {
   Kanban,
   KanbanBoard,
   KanbanColumn,
+  KanbanColumnContent,
   KanbanColumnHandle,
   KanbanItem,
   KanbanItemHandle,
-  KanbanColumnContent,
   KanbanOverlay,
 };

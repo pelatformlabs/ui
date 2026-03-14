@@ -215,4 +215,4 @@ function TreeDragLine({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   );
 }
 
-export { Tree, TreeItem, TreeItemLabel, TreeDragLine };
+export { Tree, TreeDragLine, TreeItem, TreeItemLabel };

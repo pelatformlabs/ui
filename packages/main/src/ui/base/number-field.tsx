@@ -236,9 +236,9 @@ function CursorGrowIcon(props: React.ComponentProps<"svg">) {
 
 export {
   NumberField,
-  NumberFieldScrubArea,
   NumberFieldDecrement,
-  NumberFieldIncrement,
   NumberFieldGroup,
+  NumberFieldIncrement,
   NumberFieldInput,
+  NumberFieldScrubArea,
 };

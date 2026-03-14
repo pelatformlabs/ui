@@ -69,4 +69,4 @@ function AccordionContent({ className, children, ...props }: AccordionPrimitive.
   );
 }
 
-export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger };

@@ -68,4 +68,4 @@ function Badge({ className, variant, size, asChild = false, ...props }: BadgePro
   );
 }
 
-export { Badge, badgeVariants, type BadgeProps };
+export { Badge, type BadgeProps, badgeVariants };

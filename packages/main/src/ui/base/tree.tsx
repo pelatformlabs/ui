@@ -190,4 +190,4 @@ function TreeDragLine({ className, ...props }: React.HTMLAttributes<HTMLDivEleme
   );
 }
 
-export { Tree, TreeItem, TreeItemLabel, TreeDragLine };
+export { Tree, TreeDragLine, TreeItem, TreeItemLabel };
