@@ -1,5 +1,17 @@
 # pelatform-ui
 
+## 1.4.0
+
+### Minor Changes
+
+- [`08150d8`](https://github.com/pelatformlabs/ui/commit/08150d8d4498fb40348783b089351a9d0d4d4704) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Included @tanstack/react-virtual with version constraints in package.json for core, main, and lock files.
+  - Updated CSS styles to incorporate new font-heading utility in various components.
+  - Enhanced UI components with additional styling adjustments for better consistency and appearance.
+
+### Patch Changes
+
+- [`347f4c7`](https://github.com/pelatformlabs/ui/commit/347f4c7a05f63675d9d1564f86248aeff62355ec) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update dependencies to latest versions
+
 ## 1.3.1
 
 ### Patch Changes
