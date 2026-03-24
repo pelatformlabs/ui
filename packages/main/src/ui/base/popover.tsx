@@ -54,7 +54,7 @@ function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
   return (
     <PopoverPrimitive.Title
       data-slot="popover-title"
-      className={cn("cn-popover-title", className)}
+      className={cn("cn-popover-title cn-font-heading", className)}
       {...props}
     />
   );

@@ -1,7 +1,13 @@
 "use client";
 
-import { createContext, type ReactNode, useContext } from "react";
-import type { ColumnFiltersState, RowData, SortingState, Table } from "@tanstack/react-table";
+import { createContext, type ReactNode, useContext, useMemo } from "react";
+import type {
+  Column,
+  ColumnFiltersState,
+  RowData,
+  SortingState,
+  Table,
+} from "@tanstack/react-table";
 
 import { cn } from "@pelatform/utils";
 
@@ -14,6 +20,15 @@ declare module "@tanstack/react-table" {
     skeleton?: ReactNode;
     expandedContent?: (row: TData) => ReactNode;
   }
+}
+
+/** Label for headers / column visibility: `meta.headerTitle`, string `columnDef.header`, or `column.id`. */
+export function getColumnHeaderLabel<TData, TValue>(column: Column<TData, TValue>): string {
+  const meta = column.columnDef.meta as { headerTitle?: string } | undefined;
+  if (typeof meta?.headerTitle === "string") return meta.headerTitle;
+  const defHeader = column.columnDef.header;
+  if (typeof defHeader === "string") return defHeader;
+  return String(column.id);
 }
 
 export type DataGridApiFetchParams = {
@@ -56,6 +71,8 @@ export interface DataGridProps<TData extends object> {
   isLoading?: boolean;
   loadingMode?: "skeleton" | "spinner";
   loadingMessage?: ReactNode | string;
+  fetchingMoreMessage?: ReactNode | string;
+  allRowsLoadedMessage?: ReactNode | string;
   emptyMessage?: ReactNode | string;
   tableLayout?: {
     dense?: boolean;
@@ -73,6 +90,7 @@ export interface DataGridProps<TData extends object> {
     columnsMovable?: boolean;
     columnsDraggable?: boolean;
     rowsDraggable?: boolean;
+    rowsPinnable?: boolean;
   };
   tableClassNames?: {
     base?: string;
@@ -102,18 +120,35 @@ function DataGridProvider<TData extends object>({
   table,
   ...props
 }: DataGridProps<TData> & { table: Table<TData> }) {
-  return (
-    <DataGridContext.Provider
-      value={{
-        props,
-        table,
-        recordCount: props.recordCount,
-        isLoading: props.isLoading || false,
-      }}
-    >
-      {children}
-    </DataGridContext.Provider>
+  const _tableState = table.getState();
+
+  // Memoize context value so consumers don't re-render during column resize.
+  // Column sizing state is intentionally excluded from deps -- CSS variables
+  // on the <table> element handle width updates without React re-renders.
+  const value = useMemo(
+    () => ({
+      props,
+      table,
+      recordCount: props.recordCount,
+      isLoading: props.isLoading || false,
+    }),
+    [
+      table,
+      props.recordCount,
+      props.isLoading,
+      props.loadingMode,
+      props.loadingMessage,
+      props.fetchingMoreMessage,
+      props.allRowsLoadedMessage,
+      props.emptyMessage,
+      props.onRowClick,
+      props.className,
+      // biome-ignore lint/correctness/useExhaustiveDependencies: <>
+      props,
+    ],
   );
+
+  return <DataGridContext.Provider value={value}>{children}</DataGridContext.Provider>;
 }
 
 function DataGrid<TData extends object>({ children, table, ...props }: DataGridProps<TData>) {
@@ -135,12 +170,13 @@ function DataGrid<TData extends object>({ children, table, ...props }: DataGridP
       columnsMovable: false,
       columnsDraggable: false,
       rowsDraggable: false,
+      rowsPinnable: false,
     },
     tableClassNames: {
       base: "",
       header: "",
       headerRow: "",
-      headerSticky: "sticky top-0 z-10 bg-background/90 backdrop-blur-xs",
+      headerSticky: "sticky top-0 z-15 bg-background/90 backdrop-blur-xs",
       body: "",
       bodyRow: "",
       footer: "",

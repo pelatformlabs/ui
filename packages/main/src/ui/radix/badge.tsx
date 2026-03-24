@@ -7,7 +7,7 @@ import { Slot } from "radix-ui";
 import { cn } from "@pelatform/utils";
 
 const badgeVariants = cva(
-  "relative inline-flex w-fit shrink-0 items-center justify-center whitespace-nowrap style-lyra:rounded-none style-maia:rounded-4xl style-mira:rounded-sm style-nova:rounded-sm style-vega:rounded-sm border border-transparent font-medium outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*=size-])]:size-3 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "relative inline-flex w-fit shrink-0 items-center justify-center whitespace-nowrap border border-transparent font-medium outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*=size-])]:size-3 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -44,10 +44,17 @@ const badgeVariants = cva(
         lg: "h-5.5 min-w-5.5 gap-1 px-1.5 py-0.5 text-xs",
         xl: "h-6 min-w-6 gap-1.5 px-2 py-0.75 text-sm",
       },
+      /** `default`: per-theme radius. `full`: max radius per theme (Lyra stays `rounded-none`). */
+      radius: {
+        default:
+          "style-lyra:rounded-none style-maia:rounded-4xl style-mira:rounded-sm style-nova:rounded-sm style-vega:rounded-sm",
+        full: "style-lyra:rounded-none style-maia:rounded-full style-mira:rounded-full style-nova:rounded-full style-vega:rounded-full",
+      },
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      radius: "default",
     },
   },
 );
@@ -56,13 +63,13 @@ interface BadgeProps extends React.ComponentProps<"span">, VariantProps<typeof b
   asChild?: boolean;
 }
 
-function Badge({ className, variant, size, asChild = false, ...props }: BadgeProps) {
+function Badge({ className, variant, size, radius, asChild = false, ...props }: BadgeProps) {
   const Comp = asChild ? Slot.Root : "span";
 
   return (
     <Comp
       data-slot="badge"
-      className={cn(badgeVariants({ variant, size, className }))}
+      className={cn(badgeVariants({ variant, size, radius, className }))}
       {...props}
     />
   );

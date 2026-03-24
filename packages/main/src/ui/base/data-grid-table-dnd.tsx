@@ -1,6 +1,6 @@
 "use client";
 
-import { type CSSProperties, Fragment, useId, useRef } from "react";
+import { type CSSProperties, Fragment, type ReactNode, useId, useRef } from "react";
 import {
   closestCenter,
   DndContext,
@@ -34,11 +34,13 @@ import {
   DataGridTableBodyRowSkeleton,
   DataGridTableBodyRowSkeletonCell,
   DataGridTableEmpty,
+  DataGridTableFoot,
   DataGridTableHead,
   DataGridTableHeadRow,
   DataGridTableHeadRowCell,
   DataGridTableHeadRowCellResize,
   DataGridTableRowSpacer,
+  DataGridTableViewport,
 } from "./data-grid-table";
 
 function DataGridTableDndHeader<TData>({ header }: { header: Header<TData, unknown> }) {
@@ -59,7 +61,9 @@ function DataGridTableDndHeader<TData>({ header }: { header: Header<TData, unkno
     transform: CSS.Translate.toString(transform),
     transition,
     whiteSpace: "nowrap",
-    width: header.column.getSize(),
+    width: props.tableLayout?.columnsResizable
+      ? `calc(var(--header-${header.id}-size) * 1px)`
+      : header.column.getSize(),
     zIndex: isDragging ? 1 : 0,
   };
 
@@ -92,6 +96,7 @@ function DataGridTableDndHeader<TData>({ header }: { header: Header<TData, unkno
 }
 
 function DataGridTableDndCell<TData>({ cell }: { cell: Cell<TData, unknown> }) {
+  const { props } = useDataGrid();
   const { isDragging, setNodeRef, transform, transition } = useSortable({
     id: cell.column.id,
   });
@@ -101,7 +106,9 @@ function DataGridTableDndCell<TData>({ cell }: { cell: Cell<TData, unknown> }) {
     position: "relative",
     transform: CSS.Translate.toString(transform),
     transition,
-    width: cell.column.getSize(),
+    width: props.tableLayout?.columnsResizable
+      ? `calc(var(--col-${cell.column.id}-size) * 1px)`
+      : cell.column.getSize(),
     zIndex: isDragging ? 1 : 0,
   };
 
@@ -114,8 +121,10 @@ function DataGridTableDndCell<TData>({ cell }: { cell: Cell<TData, unknown> }) {
 
 function DataGridTableDnd<TData>({
   handleDragEnd,
+  footerContent,
 }: {
   handleDragEnd: (event: DragEndEvent) => void;
+  footerContent?: ReactNode;
 }) {
   const { table, isLoading, props } = useDataGrid();
   const pagination = table.getState().pagination;
@@ -154,7 +163,7 @@ function DataGridTableDnd<TData>({
       onDragEnd={handleDragEnd}
       sensors={sensors}
     >
-      <div ref={containerRef}>
+      <DataGridTableViewport viewportRef={containerRef} className="relative">
         <DataGridTableBase>
           <DataGridTableHead>
             {table.getHeaderGroups().map((headerGroup: HeaderGroup<TData>, index) => {
@@ -215,8 +224,10 @@ function DataGridTableDnd<TData>({
               <DataGridTableEmpty />
             )}
           </DataGridTableBody>
+
+          {footerContent && <DataGridTableFoot>{footerContent}</DataGridTableFoot>}
         </DataGridTableBase>
-      </div>
+      </DataGridTableViewport>
     </DndContext>
   );
 }

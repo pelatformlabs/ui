@@ -1,6 +1,14 @@
 "use client";
 
-import { type CSSProperties, createContext, useContext, useId, useMemo, useRef } from "react";
+import {
+  type CSSProperties,
+  createContext,
+  type ReactNode,
+  useContext,
+  useId,
+  useMemo,
+  useRef,
+} from "react";
 import {
   closestCenter,
   DndContext,
@@ -30,11 +38,13 @@ import {
   DataGridTableBodyRowSkeleton,
   DataGridTableBodyRowSkeletonCell,
   DataGridTableEmpty,
+  DataGridTableFoot,
   DataGridTableHead,
   DataGridTableHeadRow,
   DataGridTableHeadRowCell,
   DataGridTableHeadRowCellResize,
   DataGridTableRowSpacer,
+  DataGridTableViewport,
 } from "./data-grid-table";
 
 // Context to share sortable listeners from row to handle
@@ -111,9 +121,11 @@ function DataGridTableDndRow<TData>({ row }: { row: Row<TData> }) {
 function DataGridTableDndRows<TData>({
   handleDragEnd,
   dataIds,
+  footerContent,
 }: {
   handleDragEnd: (event: DragEndEvent) => void;
   dataIds: UniqueIdentifier[];
+  footerContent?: ReactNode;
 }) {
   const { table, isLoading, props } = useDataGrid();
   const pagination = table.getState().pagination;
@@ -157,7 +169,7 @@ function DataGridTableDndRows<TData>({
       onDragEnd={handleDragEnd}
       sensors={sensors}
     >
-      <div ref={tableContainerRef} className="relative">
+      <DataGridTableViewport viewportRef={tableContainerRef} className="relative">
         <DataGridTableBase>
           <DataGridTableHead>
             {table.getHeaderGroups().map((headerGroup: HeaderGroup<TData>, index) => {
@@ -168,9 +180,14 @@ function DataGridTableDndRows<TData>({
 
                     return (
                       <DataGridTableHeadRowCell header={header} key={index}>
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(header.column.columnDef.header, header.getContext())}
+                        {header.isPlaceholder ? null : props.tableLayout?.columnsResizable &&
+                          column.getCanResize() ? (
+                          <div className="truncate">
+                            {flexRender(header.column.columnDef.header, header.getContext())}
+                          </div>
+                        ) : (
+                          flexRender(header.column.columnDef.header, header.getContext())
+                        )}
                         {props.tableLayout?.columnsResizable && column.getCanResize() && (
                           <DataGridTableHeadRowCellResize header={header} />
                         )}
@@ -209,8 +226,10 @@ function DataGridTableDndRows<TData>({
               <DataGridTableEmpty />
             )}
           </DataGridTableBody>
+
+          {footerContent && <DataGridTableFoot>{footerContent}</DataGridTableFoot>}
         </DataGridTableBase>
-      </div>
+      </DataGridTableViewport>
     </DndContext>
   );
 }

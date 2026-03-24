@@ -17,7 +17,7 @@ import {
 
 import { cn } from "@pelatform/utils";
 import { Button } from "./button";
-import { useDataGrid } from "./data-grid";
+import { getColumnHeaderLabel, useDataGrid } from "./data-grid";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -34,6 +34,7 @@ import {
 
 interface DataGridColumnHeaderProps<TData, TValue> extends HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
+  /** When omitted, uses `column.columnDef.meta.headerTitle`, then a string `columnDef.header`, then `column.id`. */
   title?: string;
   icon?: ReactNode;
   pinnable?: boolean;
@@ -43,13 +44,14 @@ interface DataGridColumnHeaderProps<TData, TValue> extends HTMLAttributes<HTMLDi
 
 function DataGridColumnHeaderInner<TData, TValue>({
   column,
-  title = "",
+  title,
   icon,
   className,
   filter,
   visibility = false,
 }: DataGridColumnHeaderProps<TData, TValue>) {
   const { isLoading, table, props, recordCount } = useDataGrid();
+  const resolvedTitle = title ?? getColumnHeaderLabel(column);
 
   const columnOrder = table.getState().columnOrder;
   const _columnVisibilityKey = JSON.stringify(table.getState().columnVisibility);
@@ -233,7 +235,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
           <DropdownMenuSubContent side="right">
             {table
               .getAllColumns()
-              .filter((col) => typeof col.accessorFn !== "undefined" && col.getCanHide())
+              .filter((col) => col.getCanHide())
               .map((col) => (
                 <DropdownMenuCheckboxItem
                   key={col.id}
@@ -242,7 +244,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
                   onCheckedChange={(value) => col.toggleVisibility(!!value)}
                   className="capitalize"
                 >
-                  {col.columnDef.meta?.headerTitle || col.id}
+                  {getColumnHeaderLabel(col)}
                 </DropdownMenuCheckboxItem>
               ))}
           </DropdownMenuSubContent>
@@ -251,7 +253,6 @@ function DataGridColumnHeaderInner<TData, TValue>({
     }
 
     return items;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     filter,
     canSort,
@@ -282,7 +283,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
                 disabled={isLoading || recordCount === 0}
               >
                 {icon && icon}
-                {title}
+                {resolvedTitle}
                 {sortIcon}
               </Button>
             }
@@ -297,8 +298,8 @@ function DataGridColumnHeaderInner<TData, TValue>({
             variant="ghost"
             className="-me-1 size-7 rounded-md"
             onClick={() => column.pin(false)}
-            aria-label={`Unpin ${title} column`}
-            title={`Unpin ${title} column`}
+            aria-label={`Unpin ${resolvedTitle} column`}
+            title={`Unpin ${resolvedTitle} column`}
           >
             <PinOffIcon className="size-3.5! opacity-50!" aria-hidden="true" />
           </Button>
@@ -317,7 +318,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
           onClick={handleSort}
         >
           {icon && icon}
-          {title}
+          {resolvedTitle}
           {sortIcon}
         </Button>
       </div>
@@ -327,7 +328,7 @@ function DataGridColumnHeaderInner<TData, TValue>({
   return (
     <div className={headerLabelClassName}>
       {icon && icon}
-      {title}
+      {resolvedTitle}
     </div>
   );
 }

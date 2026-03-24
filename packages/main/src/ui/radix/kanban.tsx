@@ -25,7 +25,8 @@ import {
   KeyboardSensor,
   MeasuringStrategy,
   type Modifiers,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   type UniqueIdentifier,
   useSensor,
   useSensors,
@@ -142,9 +143,15 @@ function Kanban<T>({
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
       activationConstraint: {
         distance: 10,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
       },
     }),
     useSensor(KeyboardSensor, {
@@ -392,7 +399,7 @@ function KanbanColumn({
     isDragging: isSortableDragging,
   } = useSortable({
     id: value,
-    disabled,
+    disabled: disabled || isOverlay,
     animateLayoutChanges,
   });
 
@@ -514,7 +521,7 @@ function KanbanItem({
     isDragging: isSortableDragging,
   } = useSortable({
     id: value,
-    disabled,
+    disabled: disabled || isOverlay,
     animateLayoutChanges,
   });
 

@@ -29,7 +29,8 @@ import {
   KeyboardSensor,
   MeasuringStrategy,
   type Modifiers,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   type UniqueIdentifier,
   useSensor,
   useSensors,
@@ -119,9 +120,15 @@ function Sortable<T>({
   useLayoutEffect(() => setMounted(true), []);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
       activationConstraint: {
         distance: 10,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 250,
+        tolerance: 5,
       },
     }),
     useSensor(KeyboardSensor, {
@@ -188,7 +195,7 @@ function Sortable<T>({
       if (isValidElement(child) && (child.props as any).value === activeId) {
         result = cloneElement(child as ReactElement<any>, {
           ...(child.props as any),
-          className: cn((child.props as any).className, "z-50 shadow-lg"),
+          className: cn((child.props as any).className, "z-50"),
         });
       }
     });
@@ -253,6 +260,19 @@ function SortableItem({
 }: SortableItemProps) {
   const isOverlay = useContext(IsOverlayContext);
 
+  const {
+    setNodeRef,
+    transform,
+    transition,
+    attributes,
+    listeners,
+    isDragging: isSortableDragging,
+  } = useSortable({
+    id: value,
+    disabled: disabled || isOverlay,
+    animateLayoutChanges,
+  });
+
   if (isOverlay) {
     const Comp = asChild ? Slot.Root : "div";
 
@@ -272,19 +292,6 @@ function SortableItem({
       </SortableItemContext.Provider>
     );
   }
-
-  const {
-    setNodeRef,
-    transform,
-    transition,
-    attributes,
-    listeners,
-    isDragging: isSortableDragging,
-  } = useSortable({
-    id: value,
-    disabled,
-    animateLayoutChanges,
-  });
 
   const style = {
     transition,

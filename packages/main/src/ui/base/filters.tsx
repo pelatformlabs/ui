@@ -323,7 +323,18 @@ function FilterInput<T = unknown>({
   };
 
   return (
-    <InputGroup className={cn("w-36", className)}>
+    <InputGroup
+      className={cn(
+        "w-36",
+        context.size === "sm" &&
+          "style-lyra:h-7! style-maia:h-8! style-mira:h-6! style-nova:h-7! style-vega:h-8!",
+        context.size === "default" &&
+          "style-lyra:h-8! style-maia:h-9! style-mira:h-7! style-nova:h-8! style-vega:h-9!",
+        context.size === "lg" &&
+          "style-lyra:h-9! style-maia:h-10! style-mira:h-8! style-nova:h-9! style-vega:h-10!",
+        className,
+      )}
+    >
       {field?.prefix && (
         <InputGroupAddon>
           <InputGroupText>{field.prefix}</InputGroupText>
@@ -337,6 +348,14 @@ function FilterInput<T = unknown>({
         }
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
+        className={cn(
+          context.size === "sm" &&
+            "style-lyra:h-7! style-maia:h-8! style-mira:h-6! style-nova:h-7! style-vega:h-8! text-xs",
+          context.size === "default" &&
+            "style-lyra:h-8! style-maia:h-9! style-mira:h-7! style-nova:h-8! style-vega:h-9!",
+          context.size === "lg" &&
+            "style-lyra:h-9! style-maia:h-10! style-mira:h-8! style-nova:h-9! style-vega:h-10!",
+        )}
         {...props}
       />
       {!isValid && validationMessage && (
