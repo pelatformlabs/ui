@@ -16,6 +16,7 @@ This is **Pelatform UI**, a monorepo containing React UI library packages. The p
 bun dev                    # Run all packages in watch mode
 bun build                  # Build all packages
 bun types:check            # Type-check all packages
+bun start                  # Start all packages (requires build first)
 ```
 
 ### Code Quality
@@ -71,7 +72,7 @@ ui/
   - `./hooks` - React hooks (18 hooks)
   - `./radix` - Radix styled components (77 components)
 - CSS exports: `./css`, `./color/*`, `./styles/*` (pointed to main package)
-- Version 2.0.0 - Published as scoped package
+- Version 2.2.0 - Published as scoped package
 
 **pelatform-ui** (`packages/main/`)
 
@@ -90,7 +91,7 @@ ui/
   - `src/components/` - Custom components
   - `src/hooks/` - React hooks
 - CSS files located at `css/theme.css` with components in `css/color/` and `css/styles/`
-- Version 1.2.9 - Published as main package
+- Version 1.4.0 - Published as main package
 
 **@pelatform/mcp.ui** (`packages/mcp/`)
 
@@ -98,7 +99,9 @@ ui/
 - Private package (not published to npm)
 - Binary: `pelatform-mcp-ui`
 - Built with TypeScript, no bundler (direct tsc compilation)
+- Test command: `bun test` to verify MCP server functionality
 - Dependencies: @modelcontextprotocol/sdk, glob, zod
+- Ignored from Changesets versioning (see `.changeset/config.json`)
 
 ### Component Categories
 
@@ -216,6 +219,9 @@ cd packages/core  # or packages/main
 bun dev              # Watch mode with tsup
 bun build            # Build package
 bun types:check      # Type-check only
+
+# MCP package only (packages/mcp)
+bun test             # Test MCP server
 ```
 
 ### Choosing Between Base and Radix Components
@@ -302,6 +308,29 @@ Configuration: `.changeset/config.json` - Uses main branch, public access, patch
 
 - Run `bun run version` to update package versions based on changesets
 - This runs `changeset version` and updates workspace dependencies with `bun update`
+
+**Changeset Configuration**:
+
+- Ignores `@pelatform/mcp.ui` and `@apps/*` packages from versioning
+- Uses `patch` strategy for internal dependency updates
+- Only versions packages with `workspace:*` protocol
+- Changelog format: GitHub-flavored markdown
+
+## Security
+
+**Reporting Vulnerabilities**:
+
+If you discover a security vulnerability in Pelatform UI, please send an email to **pelatformdev@gmail.com**.
+
+- Do NOT report security issues through public GitHub issues
+- All security vulnerabilities will be promptly addressed
+- Provide details about the vulnerability, reproduction steps, and potential impact
+
+**Security Best Practices**:
+
+- Keep dependencies updated by running `bun update` regularly
+- Review security advisories for peer dependencies
+- Follow secure coding practices when contributing components
 
 ## Important Notes
 
