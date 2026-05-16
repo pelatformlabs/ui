@@ -11,25 +11,25 @@
     "types:check": "tsc --noEmit"
   },
   "dependencies": {
-    "@pelatform/icons": "^1.4.2",
+    "@pelatform/icons": "^1.4.3",
     "@pelatform/ui": "workspace:*",
     "@pelatform/utils": "^1.0.18",
     "@react-stately/color": "^3.10.0",
-    "next": "16.2.4",
+    "next": "16.2.6",
     "nuqs": "^2.8.9",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "use-debounce": "^10.1.1"
   },
   "devDependencies": {
     "@pelatform/tsconfig": "^0.1.4",
-    "@tailwindcss/postcss": "^4.2.4",
+    "@tailwindcss/postcss": "^4.3.0",
     "@types/mdx": "^2.0.13",
-    "@types/node": "^25.6.0",
+    "@types/node": "^25.8.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "postcss": "^8.5.12",
-    "tailwindcss": "^4.2.4",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^4.3.0",
     "typescript": "catalog:"
   }
 }
