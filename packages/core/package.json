@@ -67,7 +67,7 @@
     "animation"
   ],
   "devDependencies": {
-    "@pelatform/tsconfig": "^0.1.4",
+    "@pelatform/tsconfig": "^0.1.5",
     "@types/react": "^19.2.15",
     "glob": "^13.0.6",
     "pelatform-ui": "workspace:*",

@@ -24,6 +24,6 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@pelatform/tsconfig": "^0.1.4"
+    "@pelatform/tsconfig": "^0.1.5"
   }
 }

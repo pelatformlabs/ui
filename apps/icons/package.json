@@ -13,7 +13,7 @@
   "dependencies": {
     "@pelatform/icons": "^1.4.3",
     "@pelatform/ui": "workspace:*",
-    "@pelatform/utils": "^1.0.18",
+    "@pelatform/utils": "^1.0.19",
     "@react-stately/color": "^3.10.0",
     "next": "16.2.6",
     "nuqs": "^2.8.9",
@@ -22,7 +22,7 @@
     "use-debounce": "^10.1.1"
   },
   "devDependencies": {
-    "@pelatform/tsconfig": "^0.1.4",
+    "@pelatform/tsconfig": "^0.1.5",
     "@tailwindcss/postcss": "^4.3.0",
     "@types/mdx": "^2.0.13",
     "@types/node": "^25.9.1",
