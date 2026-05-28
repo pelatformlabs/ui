@@ -1,5 +1,14 @@
 # @pelatform/ui
 
+## 2.2.3
+
+### Patch Changes
+
+- [`dc69b2d`](https://github.com/pelatformlabs/ui/commit/dc69b2d925292e12d964f822a65670502d7e1912) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Update dependencies to latest versions
+
+- Updated dependencies [[`dc69b2d`](https://github.com/pelatformlabs/ui/commit/dc69b2d925292e12d964f822a65670502d7e1912)]:
+  - pelatform-ui@1.4.3
+
 ## 2.2.2
 
 ### Patch Changes
