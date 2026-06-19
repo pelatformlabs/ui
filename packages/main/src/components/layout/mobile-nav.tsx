@@ -137,7 +137,6 @@ export function MobileNavItemRenderer({
     : item.href === pathname || (item.href !== "/" && item.href && pathname?.startsWith(item.href));
 
   if (hasChildren && level <= 3) {
-    console.log(item);
     return (
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <CollapsibleTrigger
@@ -176,8 +175,9 @@ export function MobileNavItemRenderer({
     <a
       href={item.href || "#"}
       {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      onClick={() => {
+      onClick={(e) => {
         if (!item.external && item.href) {
+          e.preventDefault();
           window.location.href = item.href.toString();
         }
         onOpenChange?.(false);

@@ -75,7 +75,7 @@ You can use either the scoped package (`@pelatform/ui`) or the main package (`pe
 
 ```typescript
 // Using scoped package (recommended)
-import { useHydrated, useMobile } from "@pelatform/ui/hooks";
+import { useHydrated, useIsMobile } from "@pelatform/ui/hooks";
 import { ShimmeringText } from "@pelatform/ui/animation";
 import { Button } from "@pelatform/ui/base";
 import { Card } from "@pelatform/ui/radix";

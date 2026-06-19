@@ -27,7 +27,7 @@ import {
 function getFlagUrl(flag: string): string {
   const flagCode = flag.toLowerCase();
 
-  return `"https://assets.pelatform.com"/media/flags/${flagCode}.svg`;
+  return `https://assets.pelatform.com/media/flags/${flagCode}.svg`;
 }
 
 /**

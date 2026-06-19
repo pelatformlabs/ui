@@ -197,12 +197,13 @@ function GithubButton({
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    } catch {
+    } catch (_error) {
       // Fallback to window.open
       try {
         window.open(repoUrl, "_blank", "noopener,noreferrer");
-      } catch {
+      } catch (windowError) {
         // Final fallback
+        console.error("Failed to navigate to repo URL via all methods:", windowError);
         window.location.href = repoUrl;
       }
     }

@@ -29,7 +29,7 @@ bun add react react-dom
 
 ```typescript
 // React hooks
-import { useHydrated, useMobile, useMediaQuery } from "@pelatform/ui/hooks";
+import { useHydrated, useIsMobile, useMediaQuery } from "@pelatform/ui/hooks";
 
 // Animation components
 import {
@@ -317,7 +317,7 @@ This package requires these peer dependencies to be installed:
   "lucide-react": ">=0.577.0",
   "motion": ">=12.35.0",
   "next-themes": ">=0.4.5",
-  "pelatform-ui": ">=1.2.0",
+  "pelatform-ui": ">=1.3.0",
   "radix-ui": ">=1.4.0",
   "react": ">=18.0.0 || >=19.0.0-rc.0",
   "react-day-picker": ">=9.14.0",

@@ -17,12 +17,12 @@ This MCP server provides access to:
 
 Pelatform UI V3 uses a simplified 2-package architecture:
 
-- **@pelatform/ui** - Scope package (version 2.0.0)
+- **@pelatform/ui** - Scope package
   - Multi-entry package that re-exports from pelatform-ui
   - Entry points: ., ./animation, ./base, ./components, ./hooks, ./radix
   - Published as scoped package for better organization
 
-- **pelatform-ui** - Main package (version 1.2.9)
+- **pelatform-ui** - Main package
   - Contains all UI components, hooks, and styles
   - 170+ components: Animation (14), Base (77), Radix (77)
   - 18 React hooks

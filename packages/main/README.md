@@ -33,7 +33,7 @@ bun add react react-dom
 
 ```typescript
 // React hooks
-import { useHydrated, useMobile, useMediaQuery } from "pelatform-ui/hooks";
+import { useHydrated, useIsMobile, useMediaQuery } from "pelatform-ui/hooks";
 
 // Animation components
 import {

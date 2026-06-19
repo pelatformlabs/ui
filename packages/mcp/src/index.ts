@@ -409,7 +409,7 @@ import { Card, DataGrid, Calendar } from "@pelatform/ui/radix";
 import { Icons, Logo } from "@pelatform/ui/components";
 
 // Import hooks
-import { useHydrated, useMobile } from "@pelatform/ui/hooks";
+import { useHydrated, useIsMobile } from "@pelatform/ui/hooks";
 
 // Import styles
 import "@pelatform/ui/css";
@@ -447,7 +447,7 @@ export default Example;`;
 import { cn, cva } from "pelatform-ui";
 
 // React hooks
-import { useHydrated, useMobile } from "pelatform-ui/hooks";
+import { useHydrated, useIsMobile } from "pelatform-ui/hooks";
 
 // Animation components
 import { ShimmeringText, CountingNumber } from "pelatform-ui/animation";
@@ -527,7 +527,6 @@ function App() {
       "GradientBackground",
       "GridBackground",
       "HoverBackground",
-      "HexagonBadge",
     ];
 
     const lowerName = componentName.toLowerCase();
@@ -701,10 +700,10 @@ server.registerTool(
  * Main entry point for the Pelatform UI MCP Server
  *
  * V3 Architecture - Supports simplified 2-package structure:
- * - @pelatform/ui (scope package - version 2.0.0)
+ * - @pelatform/ui (scope package)
  *   Multi-entry package that re-exports from pelatform-ui
  *   Entry points: ., ./animation, ./base, ./components, ./hooks, ./radix
- * - pelatform-ui (main package - version 1.2.9)
+ * - pelatform-ui (main package)
  *   All UI components (170+), hooks (18), and styles
  *   Animation (18), Base (77), Radix (77), Custom (2+)
  * - @pelatform/mcp.ui (MCP server - private)

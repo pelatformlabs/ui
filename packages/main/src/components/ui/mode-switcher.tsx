@@ -32,7 +32,7 @@ export interface ModeSwitcherProps {
   /** Custom cycle order for themes (defaults to system -> light -> dark) */
   cycleOrder?: ThemeMode[];
   /** Button type: 'toggle' for a single button or 'dropdown' and 'sub-dropdown' for a menu with options */
-  type?: "toogle" | "dropdown" | "sub-dropdown";
+  type?: "toggle" | "dropdown" | "sub-dropdown";
   /** Labels for each theme mode (optional) */
   label?: {
     system?: string;
@@ -82,7 +82,7 @@ export function ModeSwitcher({
   variant = "ghost",
   size = "default",
   cycleOrder = [THEME_MODES.SYSTEM, THEME_MODES.LIGHT, THEME_MODES.DARK],
-  type = "toogle",
+  type = "toggle",
   label = {
     system: "System",
     dark: "Dark",
@@ -125,7 +125,7 @@ export function ModeSwitcher({
 
   const isActive = (val: "light" | "dark" | "system") => theme === val;
 
-  if (type === "toogle") {
+  if (type === "toggle") {
     return (
       <Button
         size={size}

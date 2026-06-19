@@ -20,7 +20,7 @@ Pelatform UI is a community-driven project aiming to provide a comprehensive, ac
 
 ### Prerequisites
 
-- [Bun](https://bun.sh) 1.3.3 or higher
+- [Bun](https://bun.sh) 1.3.14 or higher
 - Node.js 22 or higher
 - Git
 
@@ -64,9 +64,9 @@ bun run format
 
 ```bash
 # Navigate to the package directory
-cd packages/core/general  # or packages/core/hook
-cd packages/components/animation  # or aria, base, default
-cd packages/main  # aggregate entry package
+cd packages/core   # @pelatform/ui scope package
+cd packages/main   # pelatform-ui main package
+cd packages/mcp    # @pelatform/mcp.ui MCP server
 
 # Run package-specific commands
 bun dev            # Development with watch mode
@@ -154,7 +154,7 @@ bun types:check
 bun build
 
 # Lint and format
-bun lint:format
+bun run lint:fix
 ```
 
 Make sure:
