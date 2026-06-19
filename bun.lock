@@ -27,7 +27,7 @@
       "dependencies": {
         "@pelatform/icons": "^1.4.3",
         "@pelatform/ui": "workspace:*",
-        "@pelatform/utils": "^1.0.19",
+        "@pelatform/utils": "^1.1.0",
         "@react-stately/color": "^3.10.1",
         "next": "16.2.9",
         "nuqs": "^2.8.9",
@@ -52,7 +52,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@pelatform/ui": "workspace:*",
-        "@pelatform/utils": "^1.0.19",
+        "@pelatform/utils": "^1.1.0",
         "fumadocs-core": "^16.10.4",
         "fumadocs-mdx": "^15.0.12",
         "fumadocs-ui": "^16.10.4",
@@ -134,7 +134,7 @@
         "@dnd-kit/utilities": "^3.2.2",
         "@headless-tree/core": "^1.7.0",
         "@pelatform/tsconfig": "^0.1.5",
-        "@pelatform/utils": "^1.0.19",
+        "@pelatform/utils": "^1.1.0",
         "@tanstack/react-query": "^5.101.0",
         "@tanstack/react-table": "^8.21.3",
         "@tanstack/react-virtual": "^3.14.3",
@@ -491,7 +491,7 @@
 
     "@pelatform/ui": ["@pelatform/ui@workspace:packages/core"],
 
-    "@pelatform/utils": ["@pelatform/utils@1.0.19", "", { "dependencies": { "@paralleldrive/cuid2": "^3.3.0", "@sindresorhus/slugify": "^3.0.0", "bcryptjs": "^3.0.3", "chrono-node": "2.9.1", "clsx": "^2.1.1", "consola": "^3.4.2", "jsonwebtoken": "^9.0.3", "ms": "^2.1.3", "nanoid": "^5.1.11", "tailwind-merge": "^3.6.0" } }, "sha512-aBljeoXLXfSxZfutTRO2dBw/Ty0PUPdeV5m3CN50flzpnTLYgaR9iXhCckknIqCUZFqAfcnLe3mDicaDoFKpFQ=="],
+    "@pelatform/utils": ["@pelatform/utils@1.1.0", "", { "dependencies": { "@paralleldrive/cuid2": "^3.3.0", "@sindresorhus/slugify": "^3.0.0", "bcryptjs": "^3.0.3", "chrono-node": "2.9.1", "clsx": "^2.1.1", "consola": "^3.4.2", "jsonwebtoken": "^9.0.3", "ms": "^2.1.3", "nanoid": "^5.1.14", "tailwind-merge": "^3.6.0" } }, "sha512-9lbp1qGM+Uyt2y1OqYvGQ4FW74L9UcHvkuG2NQgGjdB4xMUp/rXaHZHFC3Qn9nt9De4mSD3SrgaBTY5PZSNzNw=="],
 
     "@radix-ui/number": ["@radix-ui/number@1.1.2", "", {}, "sha512-ceTwaxc4I5IOi97DgCotl3pqiyRGvffcc0oOsE2dQYaJOFIDsDt4VWG6xEbg1QePv9QWausCEIppud/tJ1wNig=="],
 
