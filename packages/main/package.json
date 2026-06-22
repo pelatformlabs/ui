@@ -79,7 +79,7 @@
     "@dnd-kit/utilities": "^3.2.2",
     "@headless-tree/core": "^1.7.0",
     "@pelatform/tsconfig": "^0.1.5",
-    "@pelatform/utils": "^1.1.0",
+    "@pelatform/utils": "^1.1.1",
     "@tanstack/react-query": "^5.101.0",
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/react-virtual": "^3.14.3",

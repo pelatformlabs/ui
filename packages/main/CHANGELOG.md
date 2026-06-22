@@ -5,7 +5,6 @@
 ### Minor Changes
 
 - [`c8b1537`](https://github.com/pelatformlabs/ui/commit/c8b1537bfa3e6b73c183428557ce1dc72f9d3886) Thanks [@lukmanaviccena](https://github.com/lukmanaviccena)! - Fix multiple issues:
-
   - Remove leftover `console.log(item)` in `MobileNavItemRenderer`
   - Fix race condition in mobile nav — add `e.preventDefault()` before `window.location.href`
   - Fix broken flag URL template in `LanguageSwitcher`

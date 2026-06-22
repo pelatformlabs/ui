@@ -13,7 +13,7 @@
   "dependencies": {
     "@pelatform/icons": "^1.4.3",
     "@pelatform/ui": "workspace:*",
-    "@pelatform/utils": "^1.1.0",
+    "@pelatform/utils": "^1.1.1",
     "@react-stately/color": "^3.10.1",
     "next": "16.2.9",
     "nuqs": "^2.8.9",
